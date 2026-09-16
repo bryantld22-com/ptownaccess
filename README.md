@@ -1,9 +1,12 @@
 # PTown Access
 
-Build 5 of PTown Dinner Club’s app for Paducah, Kentucky. React Native,
+Build 6 of PTown Dinner Club’s app for Paducah, Kentucky. React Native,
 Expo SDK 57, TypeScript, and Expo Router. Black, warm cream, and gold.
 
 ## Included
+
+- An interactive Plan Your Visit guide with persistent weekday URLs, proposed dinner
+  policies, ticket/VIP/membership links, saved-draft weekday selection, and expandable FAQs.
 
 - Home with eight working section links and spotlight programming.
 - Bottom tabs: Home, Events, Tickets, PTown, and Profile.
@@ -43,7 +46,7 @@ temporary and should be replaced with approved PTown artwork before release.
 [Open PTown Access](https://ptown-access.bryantld22.chatgpt.site)
 
 This is an owner-private browser preview. Use the ChatGPT account that owns
-the project to open it. It is a preview of Build 5, not an App Store release.
+the project to open it. It is a preview of Build 6, not an App Store release.
 
 ## Run
 
@@ -117,7 +120,10 @@ assets/              Temporary PT monogram launcher assets
 5. Define accounts, reservations, tickets, and membership requirements before
    introducing any backend or payment integration.
 
-## Build 5 completion
+Visit-guide tests cover all seven days, reloads and invalid weekday links, FAQs,
+saved-draft links in a western time zone, expired draft notices, and narrow layouts.
+
+## Build 6 completion
 
 The app foundation, event and creative discovery, plan review, navigation, and device planning flows are implemented. TypeScript checks,
 Expo dependency checks, web/iOS/Android exports, and Chromium navigation

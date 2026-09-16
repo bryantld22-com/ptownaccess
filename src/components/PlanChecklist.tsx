@@ -23,5 +23,6 @@ export function PlanChecklist() {
     </Pressable></Link>)}
     {weekday && <><Body>Your preferred date falls on {weekday}. Explore the proposed {weekday} program; your date’s event and availability are not confirmed.</Body><Button label={`Explore ${weekday} programs`} href={{ pathname: '/events', params: { day: weekday } }} secondary /></>}
     <Button label="Review and share your plan" href="/plans" secondary />
+    <Button label="Plan your visit" href={weekday ? { pathname: '/visit', params: { day: weekday } } : '/visit'} secondary />
   </View>;
 }
