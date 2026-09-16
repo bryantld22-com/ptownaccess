@@ -1,6 +1,6 @@
 import { events, weekDays } from '../data/events';
 import type { MembershipInterest, ReservationDraft } from '../state/PreviewStore';
-import { programDay } from './programDay';
+import { isPastDate, programDay } from './programDay';
 
 export function planSummary({ savedEventIds, reservationDraft, membershipInterest }: {
   savedEventIds: readonly string[]; reservationDraft: ReservationDraft | null; membershipInterest: MembershipInterest | null;
@@ -25,6 +25,7 @@ export function planSummary({ savedEventIds, reservationDraft, membershipInteres
       `Preferred date: ${reservationDraft.date}${weekday ? ` (${weekday})` : ''}`,
       `Guests: ${reservationDraft.partySize}`,
       ...(reservationDraft.occasion ? [`Occasion: ${reservationDraft.occasion}`] : []),
+      ...(isPastDate(reservationDraft.date) ? ['This preferred date has passed. Update your dinner draft.'] : []),
       'No reservation has been placed.',
     ] : ['No dinner draft saved.']),
     '',

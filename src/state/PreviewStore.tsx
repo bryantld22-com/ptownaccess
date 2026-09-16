@@ -1,6 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { createContext, useCallback, useContext, useEffect, useRef, useState, type PropsWithChildren } from 'react';
 import { events } from '../data/events';
+import { programDay } from '../utils/programDay';
 
 export const PREVIEW_STORAGE_KEY = '@ptown/preview/v1';
 export type MembershipInterest = 'community' | 'vip';
@@ -19,7 +20,7 @@ function parseStoredState(raw: string | null): PreviewState {
   if (!value || value.version !== 1 || !Array.isArray(value.savedEventIds) || value.savedEventIds.some((id: unknown) => typeof id !== 'string')) throw new Error('Invalid preview data');
   if (value.membershipInterest !== null && value.membershipInterest !== 'community' && value.membershipInterest !== 'vip') throw new Error('Invalid interest');
   const draft = value.reservationDraft;
-  if (draft !== null && (!draft || typeof draft.date !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(draft.date) || !Number.isInteger(draft.partySize) || draft.partySize < 1 || draft.partySize > 999 || typeof draft.occasion !== 'string' || draft.occasion.length > 80 || typeof draft.savedAt !== 'string')) throw new Error('Invalid draft');
+  if (draft !== null && (!draft || typeof draft.date !== 'string' || programDay(draft.date) === null || !Number.isInteger(draft.partySize) || draft.partySize < 1 || draft.partySize > 999 || typeof draft.occasion !== 'string' || draft.occasion.length > 80 || typeof draft.savedAt !== 'string')) throw new Error('Invalid draft');
   return {
     version: 1,
     savedEventIds: [...new Set<string>(value.savedEventIds)].filter(id => events.some(event => event.id === id)),

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { View } from 'react-native';
-import { Body, Button, Card, EventCard, Footer, PageHeader, PreviewNotice, Screen, SectionHeader, styles } from '../../src/components/ui';
+import { Body, Button, Card, DraftDateNotice, EventCard, Footer, PageHeader, PreviewNotice, Screen, SectionHeader, styles } from '../../src/components/ui';
 import { ActionButton, Feedback, formStyles } from '../../src/components/forms';
 import { events } from '../../src/data/events';
 import { usePreviewStore } from '../../src/state/PreviewStore';
@@ -29,6 +29,7 @@ export default function Profile() {
       {savedEvents.length ? savedEvents.map(event => <EventCard key={event.id} event={event} />) : <Card title="Your next evening starts here" description="Save a proposed program from its detail page and return to it here." />}
       <SectionHeader title="Reservation draft" />
       {reservationDraft ? <Card title={`Preferred date: ${reservationDraft.date}`} description={`${reservationDraft.partySize} ${reservationDraft.partySize === 1 ? 'guest' : 'guests'}${reservationDraft.occasion ? ` · ${reservationDraft.occasion}` : ''}. This is a saved draft; no reservation has been placed.`} /> : <Card title="No reservation draft yet" description="Plan a preferred date, guest count, and occasion. Availability and bookings are not open." />}
+      {reservationDraft && <DraftDateNotice date={reservationDraft.date} />}
       <Button label={reservationDraft ? 'Edit reservation draft' : 'Plan a reservation draft'} href="/reservations" secondary />
       <SectionHeader title="Membership interest" />
       {membershipInterest ? <Card title={membershipInterest === 'vip' ? 'Interested in VIP Society' : 'Interested in the PTown community'} description="Your preference is saved on this device. You have not enrolled in a membership." /> : <Card title="Find your connection" description="Explore the PTown community and VIP Society, then save what interests you." />}

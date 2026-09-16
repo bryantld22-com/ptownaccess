@@ -3,6 +3,7 @@ import { Link, type Href } from 'expo-router';
 import { Pressable, ScrollView, StyleSheet, Text, View, useWindowDimensions } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { theme } from '../theme';
+import { isPastDate } from '../utils/programDay';
 import type { ProgramEvent } from '../types';
 import { usePreviewStore } from '../state/PreviewStore';
 
@@ -25,6 +26,9 @@ export function Button({ label, href, secondary = false }: { label: string; href
 }
 export function Card({ title, description }: { title: string; description: string }) {
   return <View style={styles.card}><Text style={styles.cardTitle}>{title}</Text><Body>{description}</Body></View>;
+}
+export function DraftDateNotice({ date }: { date: string }) {
+  return isPastDate(date) ? <View style={styles.notice}><Body>This preferred date has passed. Update your dinner draft.</Body><Button label="Update dinner draft" href="/reservations" secondary /></View> : null;
 }
 export function PreviewNotice({ calendar = false }: { calendar?: boolean }) {
   return <View style={styles.notice}><Text style={styles.noticeText}>{calendar ? 'SAMPLE PROGRAM · Proposed weekly schedule. Dates, artists, and ticket prices are not confirmed.' : 'APP PREVIEW · Explore PTown’s planned experience. Bookings, purchases, and enrollment are not open.'}</Text></View>;

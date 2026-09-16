@@ -10,3 +10,10 @@ export function programDay(date: string) {
   if (value.getFullYear() !== year || value.getMonth() !== month - 1 || value.getDate() !== day) return null;
   return weekDays[(value.getDay() + 6) % 7];
 }
+
+
+export function isPastDate(date: string, today = new Date()) {
+  if (!programDay(date)) return false;
+  const localToday = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+  return date < localToday;
+}

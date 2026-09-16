@@ -97,3 +97,24 @@ test('Membership interest persists, clearing requires confirmation, and corrupt 
   await expect(page.getByText('Your next evening starts here', { exact: true })).toBeVisible();
   expect(await page.evaluate(key => localStorage.getItem(key), storageKey)).toBeNull();
 });
+
+test('Impossible stored dates require recovery and past drafts remain editable', async ({ page }) => {
+  await page.goto('/profile');
+  const state = { version: 1, savedEventIds: ['comedy'], reservationDraft: { date: '2030-02-30', partySize: 2, occasion: '', savedAt: '2026-09-16T00:00:00Z' }, membershipInterest: null };
+  await page.evaluate(({ key, state }) => localStorage.setItem(key, JSON.stringify(state)), { key: storageKey, state });
+  await page.reload();
+  await expect(page.getByRole('alert')).toContainText('could not be read');
+  expect(await page.evaluate(key => JSON.parse(localStorage.getItem(key)!).savedEventIds, storageKey)).toEqual(['comedy']);
+  state.reservationDraft.date = '2000-01-01';
+  await page.evaluate(({ key, state }) => localStorage.setItem(key, JSON.stringify(state)), { key: storageKey, state });
+  await page.reload();
+  await expect(page.getByText('This preferred date has passed. Update your dinner draft.', { exact: true })).toBeVisible();
+  await expect(page.locator('a[href="/events/comedy"]:visible')).toBeVisible();
+  await page.goto('/plans');
+  await expect(page.getByRole('textbox', { name: 'Preview plan summary', exact: true })).toHaveValue(/This preferred date has passed/);
+  await page.getByRole('link', { name: 'Update dinner draft', exact: true }).click();
+  await page.getByRole('textbox', { name: 'Preferred date', exact: true }).fill(futureDate());
+  await page.getByRole('button', { name: 'Save reservation draft', exact: true }).click();
+  await page.goto('/profile');
+  await expect(page.getByText('This preferred date has passed. Update your dinner draft.', { exact: true })).toHaveCount(0);
+});

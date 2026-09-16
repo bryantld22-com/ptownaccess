@@ -117,3 +117,21 @@ launcher monogram with approved artwork remain release tasks.
 The preview uses static Expo web output hosted privately. The hosting identity
 is retained in `.openai/hosting.json`; runtime accounts, booking services, and
 payments have not been introduced.
+
+## Final preview hardening
+
+Stored dinner drafts now reject impossible calendar dates during recovery. Valid
+older drafts remain available for editing, with a date-passed notice on Profile,
+plan review, and the copied/shared summary. Saved programs are retained when a
+valid dinner draft becomes old. Invalid stored data is left untouched until the
+owner chooses the existing reset action.
+
+Release still requires approved logo assets, confirmed programming and policies,
+and physical iPhone/Android testing. No payment or booking service is enabled.
+
+Validation for this hardening update: TypeScript and web/iOS/Android exports
+passed, along with eight direct date/summary assertions. Expo's bundled offline
+dependency check reported dependencies up to date; the online check timed out.
+A browser regression test was added, but the suite could not run locally because
+Chromium download was blocked by network timeouts. GitHub Actions retains the
+full browser suite for an environment with browser download access.
