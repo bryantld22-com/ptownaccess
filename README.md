@@ -1,9 +1,14 @@
 # PTown Access
 
-Build 10 of PTown Dinner Club’s app for Paducah, Kentucky. React Native,
+Build 11 of PTown Dinner Club’s app for Paducah, Kentucky. React Native,
 Expo SDK 57, TypeScript, and Expo Router. Black, warm cream, and gold.
 
 ## Included
+
+- Weekday program links render without hydration errors and keep their selection
+  after reload. Section and detail headers identify the current destination.
+- Missing pages provide search, saved-plan, and home recovery links; unavailable
+  program and pathway details also link to their respective libraries.
 
 - Optional dinner planning notes (up to 280 characters), with a visible count and
   clear distinction between a saved idea and a request submitted to PTown.
@@ -66,7 +71,7 @@ temporary and should be replaced with approved PTown artwork before release.
 [Open PTown Access](https://ptown-access.bryantld22.chatgpt.site)
 
 This is an owner-private browser preview. Use the ChatGPT account that owns
-the project to open it. It is a preview of Build 10, not an App Store release.
+the project to open it. It is a preview of Build 11, not an App Store release.
 
 ## Run
 
@@ -159,7 +164,7 @@ Dinner-note tests verify persistence, editing/removal, summary and backup conten
 independent-device transfers, older drafts, maximum length, invalid-note rejection,
 failed writes, and phone layouts.
 
-## Build 10 completion
+## Build 11 completion
 
 The app foundation, event and creative discovery, plan review, navigation, and device planning flows are implemented. TypeScript checks,
 Expo dependency checks, web/iOS/Android exports, and Chromium navigation
@@ -171,7 +176,7 @@ The preview uses static Expo web output hosted privately. The hosting identity
 is retained in `.openai/hosting.json`; runtime accounts, booking services, and
 payments have not been introduced.
 
-## Final preview hardening
+## Earlier preview hardening
 
 Stored dinner drafts now reject impossible calendar dates during recovery. Valid
 older drafts remain available for editing, with a date-passed notice on Profile,
@@ -188,3 +193,14 @@ dependency check reported dependencies up to date; the online check timed out.
 A browser regression test was added, but the suite could not run locally because
 Chromium download was blocked by network timeouts. GitHub Actions retains the
 full browser suite for an environment with browser download access.
+
+## Build 11 navigation verification
+
+Browser regressions cover all seven direct weekday URLs and reloads, invalid weekday
+parameters, contextual headers, and missing-link recovery without changing saved plans.
+The local static preview serves matching dynamic recovery pages, or the generic
+not-found page, with HTTP 404 for unknown paths.
+
+Validation: TypeScript, web/iOS/Android exports, and all 31 Chromium browser tests
+passed. Expo’s bundled offline dependency check reported dependencies up to date.
+Navigation headers and recovery pages were visually reviewed at 320-pixel phone width.

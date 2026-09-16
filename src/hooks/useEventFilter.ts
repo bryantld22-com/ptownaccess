@@ -8,7 +8,8 @@ export function useEventFilter(routeDay?: string | string[]) {
   const { savedEventIds } = usePreviewStore();
   const [filter, setFilter] = useState<EventFilter>('All');
   const [query, setQuery] = useState('');
-  const [day, setDay] = useState<DayFilter>(normalizedDay);
+  // Static HTML has no query parameters. Match it before applying the URL selection.
+  const [day, setDay] = useState<DayFilter>('Any day');
   useEffect(() => { setDay(normalizedDay); }, [normalizedDay]);
   const words = query.trim().toLowerCase().split(/\s+/).filter(Boolean);
   const matches = events.filter(event => {

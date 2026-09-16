@@ -13,8 +13,8 @@ export default function RootLayout() {
     <Stack.Screen name="search" options={{ title: 'Explore PTown' }} />
     <Stack.Screen name="creative" options={{ title: 'Creative PTown' }} />
     <Stack.Screen name="programs/[id]" options={{ title: 'Creative pathway' }} />
-    <Stack.Screen name="[section]" options={{ title: 'Explore PTown' }} />
+    <Stack.Screen name="[section]" options={{ title: 'PTown Access' }} />
     <Stack.Screen name="events/[id]" options={{ title: 'Program details' }} />
-    <Stack.Screen name="+not-found" options={{ title: 'Page not found' }} />
+    <Stack.Screen name="+not-found" options={{ title: 'PTown Access' }} />
   </Stack></PreviewStoreProvider></SafeAreaProvider>;
 }

@@ -16,7 +16,14 @@ http.createServer((request, response) => {
   if (!path.extname(file) || (fs.existsSync(file) && fs.statSync(file).isDirectory())) file += '.html';
 
   let status = 200;
-  if (!fs.existsSync(file)) { file = path.join(root, '+not-found.html'); status = 404; }
+  if (!fs.existsSync(file)) {
+    // Match the exported dynamic route shell so server and client recovery agree.
+    const fallback = /^\/events\/[^/]+\/?$/.test(pathname) ? 'events/[id].html'
+      : /^\/programs\/[^/]+\/?$/.test(pathname) ? 'programs/[id].html'
+      : /^\/[^/.]+\/?$/.test(pathname) ? '[section].html' : '+not-found.html';
+    file = path.join(root, fallback);
+    status = 404;
+  }
   try {
     response.writeHead(status, { 'Content-Type': mime[path.extname(file)] || 'application/octet-stream' });
     response.end(fs.readFileSync(file));
