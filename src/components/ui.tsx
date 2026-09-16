@@ -19,7 +19,7 @@ export function SectionHeader({ title, href, action = 'Explore' }: { title: stri
   return <View style={styles.sectionHeader}><Text accessibilityRole="header" style={styles.sectionTitle}>{title}</Text>{href && <Link href={href} style={styles.textLink}>{action} →</Link>}</View>;
 }
 export function Button({ label, href, secondary = false }: { label: string; href: Href; secondary?: boolean }) {
-  return <Link href={href} asChild><Pressable accessibilityRole="link" style={({ pressed }) => [styles.button, secondary && styles.secondaryButton, pressed && styles.pressed]}><Text style={[styles.buttonText, secondary && { color: c.cream }]}>{label} →</Text></Pressable></Link>;
+  return <Link href={href} asChild><Pressable accessibilityRole="link" android_ripple={{ color: c.border }} style={StyleSheet.flatten([styles.button, secondary && styles.secondaryButton])}><Text style={[styles.buttonText, secondary && { color: c.cream }]}>{label} →</Text></Pressable></Link>;
 }
 export function Card({ title, description }: { title: string; description: string }) {
   return <View style={styles.card}><Text style={styles.cardTitle}>{title}</Text><Body>{description}</Body></View>;
@@ -29,13 +29,13 @@ export function PreviewNotice({ calendar = false }: { calendar?: boolean }) {
 }
 export function SectionCard({ title, subtitle, href, icon }: { title: string; subtitle: string; href: Href; icon: string }) {
   const { width } = useWindowDimensions();
-  return <Link href={href} asChild><Pressable accessibilityRole="link" style={({ pressed }) => [styles.sectionCard, { width: width < 360 ? '100%' : width >= 900 ? '23.5%' : '48%' }, pressed && styles.pressed]}>
+  return <Link href={href} asChild><Pressable accessibilityRole="link" android_ripple={{ color: c.border }} style={StyleSheet.flatten([styles.sectionCard, { width: width < 360 ? '100%' : width >= 900 ? '23.5%' : '48%' }])}>
     <View style={styles.sectionCardTop}><Text style={styles.cardNumber}>{icon}</Text><Text style={styles.arrow}>↗</Text></View>
     <Text style={styles.cardTitle}>{title}</Text><Text style={styles.smallBody}>{subtitle}</Text>
   </Pressable></Link>;
 }
 export function EventCard({ event }: { event: ProgramEvent }) {
-  return <Link href={{ pathname: '/events/[id]', params: { id: event.id } }} asChild><Pressable accessibilityRole="link" style={({ pressed }) => [styles.eventCard, pressed && styles.pressed]}>
+  return <Link href={{ pathname: '/events/[id]', params: { id: event.id } }} asChild><Pressable accessibilityRole="link" android_ripple={{ color: c.border }} style={styles.eventCard}>
     <View style={styles.dayBlock}><Text style={styles.dayText}>{event.day.slice(0, 3).toUpperCase()}</Text><Text style={styles.daySubtext}>Weekly</Text></View>
     <View style={{ flex: 1, gap: 5 }}><Text style={styles.cardTitle}>{event.title}</Text><Text style={styles.smallBody}>{event.category} · {event.admission}</Text></View><Text style={styles.arrow}>→</Text>
   </Pressable></Link>;
@@ -50,7 +50,7 @@ export const styles = StyleSheet.create({
   pageHeader: { gap: 12, paddingVertical: 12 }, sectionHeader: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12, marginTop: 10 },
   sectionTitle: { color: c.cream, fontSize: 23, fontWeight: '600' }, textLink: { color: c.gold, fontSize: 14, paddingVertical: 12 },
   button: { backgroundColor: c.gold, minHeight: 48, paddingVertical: 15, paddingHorizontal: 20, borderRadius: theme.radius.button, alignItems: 'center', alignSelf: 'flex-start', borderWidth: 1, borderColor: c.gold },
-  buttonText: { color: c.background, fontSize: 15, fontWeight: '700' }, secondaryButton: { backgroundColor: 'transparent', borderColor: c.border }, pressed: { opacity: 0.7 },
+  buttonText: { color: c.background, fontSize: 15, fontWeight: '700' }, secondaryButton: { backgroundColor: 'transparent', borderColor: c.border },
   card: { backgroundColor: c.surface, padding: 24, borderRadius: 20, borderWidth: 1, borderColor: c.border, gap: 10 }, cardTitle: { color: c.cream, fontSize: 18, fontWeight: '600', lineHeight: 25 },
   notice: { backgroundColor: c.elevated, padding: 16, borderRadius: 12, borderLeftWidth: 3, borderLeftColor: c.gold }, noticeText: { color: c.muted, fontSize: 12, lineHeight: 20 },
   grid: { flexDirection: 'row', flexWrap: 'wrap', gap: 12 }, sectionCard: { backgroundColor: c.surface, padding: 20, borderRadius: 20, borderWidth: 1, borderColor: c.border, gap: 8 },

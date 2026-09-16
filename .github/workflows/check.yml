@@ -13,3 +13,5 @@ jobs:
       - run: npm run typecheck
       - run: npm run check:dependencies
       - run: npm run build:all
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:web

@@ -21,6 +21,7 @@
     "react-native-worklets": "0.10.1"
   },
   "devDependencies": {
+    "@playwright/test": "^1.63.0",
     "@types/react": "~19.2.2",
     "typescript": "~6.0.3"
   },
@@ -32,7 +33,9 @@
     "typecheck": "tsc --noEmit",
     "check:dependencies": "expo install --check",
     "build:web": "expo export --platform web",
-    "build:all": "expo export --platform all"
+    "build:all": "expo export --platform all",
+    "build": "expo export --platform web",
+    "test:web": "playwright test"
   },
   "private": true
 }
