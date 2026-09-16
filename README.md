@@ -1,6 +1,6 @@
 # PTown Access
 
-Build 4 of PTown Dinner Club’s app for Paducah, Kentucky. React Native,
+Build 5 of PTown Dinner Club’s app for Paducah, Kentucky. React Native,
 Expo SDK 57, TypeScript, and Expo Router. Black, warm cream, and gold.
 
 ## Included
@@ -25,6 +25,12 @@ Expo SDK 57, TypeScript, and Expo Router. Black, warm cream, and gold.
 - Copyable preview text, native sharing, supported browser sharing, cancellation
   handling, and selectable text when automatic copying is unavailable.
 - Saved ticketed programs on Tickets, clearly distinguished from purchased passes.
+- Seven planned creative pathways across Save the Arts, Artist Development, and Media,
+  including the Heritage Tour, Saturday Arts Sessions, and Culinary Artist Development.
+- A searchable creative library, division and saved-interest filters, and pathway
+  detail pages with focus areas and proposed projects.
+- Creative interests saved on the device, shown in Profile and included in copied or
+  shared summaries. Saving does not submit an application, enroll, or notify PTown.
 
 This is a planning and navigation preview. Plans are stored on the current device
 with AsyncStorage (browser local storage on web) and do not sync. No backend services,
@@ -37,7 +43,7 @@ temporary and should be replaced with approved PTown artwork before release.
 [Open PTown Access](https://ptown-access.bryantld22.chatgpt.site)
 
 This is an owner-private browser preview. Use the ChatGPT account that owns
-the project to open it. It is a preview of Build 4, not an App Store release.
+the project to open it. It is a preview of Build 5, not an App Store release.
 
 ## Run
 
@@ -76,6 +82,11 @@ and filters, weekly layouts, saved-event removal, checklist progress, and local 
 links in a time zone west of UTC. Review tests verify earlier saved data remains
 readable, actual browser clipboard text, sharing payloads, cancellation, copy/share
 failures, unreadable-data handling, and the distinction between favorites and tickets.
+Creative tests cover all pathway detail links, combined search and division filters,
+saved-interest reloads/removal, compatibility with earlier storage, failed writes,
+confirmation before clearing, and rejection of invalid interest data. Earlier plans
+without a `savedPathwayIds` field load with an empty creative-interest list; writes
+preserve existing events, dinner drafts, and membership interests.
 Browser sharing is available only when the browser exposes its share API; copying
 and selectable summary text remain available. Exported files
 are generated in `dist/` and are not committed. Hosting is a separate step.
@@ -86,7 +97,7 @@ are generated in `dist/` and are not committed. Hosting is a separate step.
 app/                 Expo Router tabs and detail pages
 src/components/      Reusable screen, cards, headers, and buttons
 src/theme/           Shared colors, spacing, and radii
-src/data/            Local sample programs and section content
+src/data/            Local sample programs, creative pathways, and section content
 src/hooks/           Event filter state
 src/state/           Versioned device preview storage and actions
 src/utils/           Local-date weekday calculation and preview summary formatting
@@ -106,9 +117,9 @@ assets/              Temporary PT monogram launcher assets
 5. Define accounts, reservations, tickets, and membership requirements before
    introducing any backend or payment integration.
 
-## Build 4 completion
+## Build 5 completion
 
-The app foundation, discovery, plan review, navigation, and device planning flows are implemented. TypeScript checks,
+The app foundation, event and creative discovery, plan review, navigation, and device planning flows are implemented. TypeScript checks,
 Expo dependency checks, web/iOS/Android exports, and Chromium navigation
 and saved-plan checks passed during development. Screens were visually reviewed at phone
 and desktop widths. Physical-device testing and replacement of the temporary

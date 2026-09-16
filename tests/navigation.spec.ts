@@ -45,7 +45,7 @@ test('Pages fit phone, tablet, and desktop widths', async ({ page }) => {
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
   }
   await page.setViewportSize({ width: 320, height: 900 });
-  for (const route of ['events', 'tickets', 'ptown', 'profile', 'plans', 'vip', 'media', 'reservations', 'memberships', 'save-the-arts', 'artist-development']) {
+  for (const route of ['events', 'tickets', 'ptown', 'profile', 'plans', 'creative', 'vip', 'media', 'reservations', 'memberships', 'save-the-arts', 'artist-development']) {
     await page.goto(`/${route}`);
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
   }

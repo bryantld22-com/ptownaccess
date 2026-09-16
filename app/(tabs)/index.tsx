@@ -5,15 +5,16 @@ import { sections } from '../../src/data/sections';
 import { theme } from '../../src/theme';
 import { usePreviewStore } from '../../src/state/PreviewStore';
 export default function Home() {
-  const { ready, savedEventIds, reservationDraft, membershipInterest } = usePreviewStore();
+  const { ready, savedEventIds, savedPathwayIds, reservationDraft, membershipInterest } = usePreviewStore();
   return <Screen>
     <View style={home.brandRow}><View><Text style={home.brand}>PTOWN<Text style={{ color: theme.colors.gold }}> ACCESS</Text></Text><Text style={home.brandSub}>YOUR ALL ACCESS PASS TO PTOWN</Text></View><View style={home.location}><Text style={home.locationText}>PADUCAH, KY</Text></View></View>
     <View style={home.hero}><Eyebrow>DINNER. A SHOW. A CONNECTION.</Eyebrow><Heading>Come for the evening.{'\n'}Stay for the feeling.</Heading><Body>Live music, memorable food, and a community that moves together. Welcome to PTown Dinner Club.</Body><Button label="Explore the program" href="/events" /><View style={home.heroBottom}><Text style={home.heroTag}>CULTURE · CREATIVITY · COMMUNITY</Text></View></View>
     <PreviewNotice />
-    <View style={styles.card}><SectionHeader title="Your saved plans" /><Body>{ready ? `${savedEventIds.length} saved ${savedEventIds.length === 1 ? 'program' : 'programs'}${reservationDraft ? ' · Dinner draft saved' : ''}${membershipInterest ? ' · Membership interest saved' : ''}` : 'Your device’s saved plans will appear here.'}</Body><Button label="Review your plan" href="/plans" secondary /><Button label="Manage saved plans" href="/profile" secondary /></View>
+    <View style={styles.card}><SectionHeader title="Your saved plans" /><Body>{ready ? `${savedEventIds.length} saved ${savedEventIds.length === 1 ? 'program' : 'programs'}${reservationDraft ? ' · Dinner draft saved' : ''}${membershipInterest ? ' · Membership interest saved' : ''}${savedPathwayIds.length ? ` · ${savedPathwayIds.length} creative ${savedPathwayIds.length === 1 ? 'interest' : 'interests'}` : ''}` : 'Your device’s saved plans will appear here.'}</Body><Button label="Review your plan" href="/plans" secondary /><Button label="Manage saved plans" href="/profile" secondary /></View>
     <SectionHeader title="In the spotlight" href="/events" action="Weekly program" />
     <View style={home.featured}><Eyebrow>THURSDAY · COMEDY</Eyebrow><Text style={home.featureTitle}>A little soul.{'\n'}A lot of laughter.</Text><Body>{featuredEvent.opening} Dinner and comedy follow.</Body><Button label="Discover Comedy Night" href={{ pathname: '/events/[id]', params: { id: featuredEvent.id } }} secondary /></View>
     <SectionHeader title="Your PTown experience" /><View style={styles.grid}>{sections.map(section => <SectionCard key={section.href} {...section} />)}</View>
+    <View style={styles.card}><Eyebrow>BUILD YOUR CRAFT</Eyebrow><Text style={styles.cardTitle}>Your next creative connection.</Text><Body>Explore planned pathways in performance, production, culinary arts, media, and cultural discovery.</Body><Button label="Explore creative pathways" href="/creative" secondary /></View>
     <SectionHeader title="Find your rhythm" href="/events" action="See all" />{events.slice(4).map(event => <EventCard key={event.id} event={event} />)}
     <View style={home.mission}><Eyebrow>MORE THAN ENTERTAINMENT</Eyebrow><Text style={home.missionTitle}>Save the Arts.{'\n'}Build a legacy.</Text><Body>Our flagship mission connects creative discovery with opportunity for the next generation.</Body><Button label="Meet the mission" href="/save-the-arts" secondary /></View><Footer />
   </Screen>;

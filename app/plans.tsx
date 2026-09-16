@@ -5,6 +5,7 @@ import { Body, Button, Card, DraftDateNotice, EventCard, Footer, PageHeader, Pre
 import { ActionButton, Feedback, Field, formStyles } from '../src/components/forms';
 import { usePreviewStore } from '../src/state/PreviewStore';
 import { planSummary } from '../src/utils/planSummary';
+import { PathwayCard } from '../src/components/PathwayCard';
 
 export default function Plans() {
   const store = usePreviewStore();
@@ -66,6 +67,8 @@ export default function Plans() {
       <SectionHeader title="Your membership interest" />
       <Card title={store.membershipInterest ? store.membershipInterest === 'vip' ? 'VIP Society' : 'PTown community' : 'No membership interest saved'} description="Saving an interest is optional and does not enroll you in a membership." />
       <Button label="Review membership interests" href="/memberships" secondary />
+      <SectionHeader title="Your creative interests" href="/creative" action="Explore" />
+      {summary.creativeInterests.length ? summary.creativeInterests.map(pathway => <PathwayCard key={pathway.id} pathway={pathway} />) : <Card title="No creative interests saved" description="Explore PTown’s planned creative pathways whenever you want to discover another connection." />}
       <View style={styles.card}>
         <SectionHeader title="Take your plan with you" />
         <Body>Copy this preview for yourself or share it with someone you choose. Review the date, guest count, and occasion before sharing. The summary does not sync plans into another device’s app.</Body>

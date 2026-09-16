@@ -112,7 +112,7 @@ test('Impossible stored dates require recovery and past drafts remain editable',
   await expect(page.locator('a[href="/events/comedy"]:visible')).toBeVisible();
   await page.goto('/plans');
   await expect(page.getByRole('textbox', { name: 'Preview plan summary', exact: true })).toHaveValue(/This preferred date has passed/);
-  await page.getByRole('link', { name: 'Update dinner draft', exact: true }).click();
+  await page.getByRole('link', { name: 'Update dinner draft' }).click();
   await page.getByRole('textbox', { name: 'Preferred date', exact: true }).fill(futureDate());
   await page.getByRole('button', { name: 'Save reservation draft', exact: true }).click();
   await page.goto('/profile');
