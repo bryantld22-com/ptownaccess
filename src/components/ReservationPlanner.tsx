@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { View } from 'react-native';
-import { usePreviewStore } from '../state/PreviewStore';
+import { maxDinnerNoteLength, usePreviewStore } from '../state/PreviewStore';
 import { ActionButton, Feedback, Field, formStyles } from './forms';
 import { Body, SectionHeader, styles } from './ui';
 
@@ -9,7 +9,8 @@ export function ReservationPlanner() {
   const [date, setDate] = useState('');
   const [party, setParty] = useState('2');
   const [occasion, setOccasion] = useState('');
-  const [errors, setErrors] = useState<{ date?: string; party?: string }>({});
+  const [notes, setNotes] = useState('');
+  const [errors, setErrors] = useState<{ date?: string; party?: string; notes?: string }>({});
   const [message, setMessage] = useState<string | null>(null);
 
   useEffect(() => {
@@ -17,6 +18,7 @@ export function ReservationPlanner() {
     setDate(reservationDraft?.date ?? '');
     setParty(String(reservationDraft?.partySize ?? 2));
     setOccasion(reservationDraft?.occasion ?? '');
+    setNotes(reservationDraft?.notes ?? '');
   }, [ready, reservationDraft]);
 
   async function save() {
@@ -31,15 +33,16 @@ export function ReservationPlanner() {
       else if (preferred < today) nextErrors.date = 'Choose today or a future date.';
     }
     if (!/^\d{1,3}$/.test(party.trim()) || Number(party) < 1) nextErrors.party = 'Enter a whole number of guests from 1 to 999.';
+    if (notes.trim().length > maxDinnerNoteLength) nextErrors.notes = `Keep your dinner note within ${maxDinnerNoteLength} characters.`;
     setErrors(nextErrors); setMessage(null);
     if (Object.keys(nextErrors).length) return;
-    const saved = await saveDraft({ date: date.trim(), partySize: Number(party), occasion: occasion.trim(), savedAt: new Date().toISOString() });
+    const saved = await saveDraft({ date: date.trim(), partySize: Number(party), occasion: occasion.trim(), savedAt: new Date().toISOString(), ...(notes.trim() ? { notes: notes.trim() } : {}) });
     if (saved) setMessage('Draft saved on this device. No reservation has been placed.');
   }
 
   async function remove() {
     if (await saveDraft(null)) {
-      setDate(''); setParty('2'); setOccasion(''); setErrors({});
+      setDate(''); setParty('2'); setOccasion(''); setNotes(''); setErrors({});
       setMessage('Reservation draft deleted from this device.');
     }
   }
@@ -51,6 +54,7 @@ export function ReservationPlanner() {
       <Field label="Preferred date" placeholder="YYYY-MM-DD" hint="For example: 2027-08-08" value={date} maxLength={10} autoCapitalize="none" editable={ready && !busy} error={errors.date} onChangeText={value => { setDate(value); setMessage(null); }} />
       <Field label="Number of guests" value={party} keyboardType="number-pad" maxLength={3} editable={ready && !busy} error={errors.party} onChangeText={value => { setParty(value); setMessage(null); }} />
       <Field label="Occasion (optional)" placeholder="Birthday, dinner with friends…" value={occasion} maxLength={80} editable={ready && !busy} onChangeText={value => { setOccasion(value); setMessage(null); }} />
+      <Field label="Dinner note (optional)" placeholder="Vegetarian menu interest, celebration ideas, seating preferences…" hint={`${notes.length}/${maxDinnerNoteLength} characters. Planning only: PTown has not received this note or confirmed a request.`} value={notes} maxLength={maxDinnerNoteLength} multiline editable={ready && !busy} error={errors.notes} style={{ minHeight: 120, textAlignVertical: 'top' }} onChangeText={value => { setNotes(value); setMessage(null); setErrors(current => ({ ...current, notes: undefined })); }} />
       <View style={formStyles.row}>
         <ActionButton label={busy ? 'Saving…' : 'Save reservation draft'} disabled={!ready || busy} onPress={() => { void save(); }} />
         {reservationDraft && <ActionButton label="Delete reservation draft" disabled={busy} secondary onPress={() => { void remove(); }} />}

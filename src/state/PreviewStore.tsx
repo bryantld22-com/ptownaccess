@@ -5,8 +5,9 @@ import { programDay } from '../utils/programDay';
 import { pathways } from '../data/pathways';
 
 export const PREVIEW_STORAGE_KEY = '@ptown/preview/v1';
+export const maxDinnerNoteLength = 280;
 export type MembershipInterest = 'community' | 'vip';
-export type ReservationDraft = { date: string; partySize: number; occasion: string; savedAt: string };
+export type ReservationDraft = { date: string; partySize: number; occasion: string; savedAt: string; notes?: string };
 export type PreviewState = {
   version: 1;
   savedEventIds: string[];
@@ -25,11 +26,12 @@ export function parseStoredState(raw: string | null): PreviewState {
   if (!Array.isArray(savedPathways) || savedPathways.some((id: unknown) => typeof id !== 'string')) throw new Error('Invalid creative interests');
   const draft = value.reservationDraft;
   if (draft !== null && (!draft || typeof draft.date !== 'string' || programDay(draft.date) === null || !Number.isInteger(draft.partySize) || draft.partySize < 1 || draft.partySize > 999 || typeof draft.occasion !== 'string' || draft.occasion.length > 80 || typeof draft.savedAt !== 'string')) throw new Error('Invalid draft');
+  if (draft !== null && draft.notes !== undefined && (typeof draft.notes !== 'string' || draft.notes.length > maxDinnerNoteLength)) throw new Error('Invalid dinner note');
   return {
     version: 1,
     savedEventIds: [...new Set<string>(value.savedEventIds)].filter(id => events.some(event => event.id === id)),
     savedPathwayIds: [...new Set<string>(savedPathways)].filter(id => pathways.some(pathway => pathway.id === id)),
-    reservationDraft: draft === null ? null : { date: draft.date, partySize: draft.partySize, occasion: draft.occasion, savedAt: draft.savedAt },
+    reservationDraft: draft === null ? null : { date: draft.date, partySize: draft.partySize, occasion: draft.occasion, savedAt: draft.savedAt, ...(draft.notes !== undefined ? { notes: draft.notes } : {}) },
     membershipInterest: value.membershipInterest,
   };
 }

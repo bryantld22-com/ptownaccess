@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 
 test.use({ timezoneId: 'America/Los_Angeles' });
 const key = '@ptown/preview/v1';
-const sourcePlans = { version: 1, savedEventIds: ['comedy', 'communion-sunday'], savedPathwayIds: ['heritage-tour'], reservationDraft: { date: '2030-08-11', partySize: 4, occasion: 'Birthday dinner', savedAt: '2026-09-16T00:00:00.000Z' }, membershipInterest: 'vip' };
+const sourcePlans = { version: 1, savedEventIds: ['comedy', 'communion-sunday'], savedPathwayIds: ['heritage-tour'], reservationDraft: { date: '2030-08-11', partySize: 4, occasion: 'Birthday dinner', savedAt: '2026-09-16T00:00:00.000Z', notes: 'Vegetarian menu interest; celebration seating ideas.' }, membershipInterest: 'vip' };
 const oldPlans = { version: 1, savedEventIds: ['monday-jazz'], savedPathwayIds: [], reservationDraft: null, membershipInterest: 'community' };
 const transfer = (plans: unknown) => JSON.stringify({ app: 'PTown Access', format: 1, plans });
 

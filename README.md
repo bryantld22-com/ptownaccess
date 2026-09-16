@@ -1,9 +1,14 @@
 # PTown Access
 
-Build 9 of PTown Dinner Club’s app for Paducah, Kentucky. React Native,
+Build 10 of PTown Dinner Club’s app for Paducah, Kentucky. React Native,
 Expo SDK 57, TypeScript, and Expo Router. Black, warm cream, and gold.
 
 ## Included
+
+- Optional dinner planning notes (up to 280 characters), with a visible count and
+  clear distinction between a saved idea and a request submitted to PTown.
+- Notes persist through edits, Profile, review/copy/share, and manual transfers.
+  Earlier drafts without notes remain readable; invalid notes require recovery.
 
 - Unified PTown search across seven proposed programs, seven creative pathways,
   eight main sections, and five planning tools. Word and category filters combine.
@@ -61,7 +66,7 @@ temporary and should be replaced with approved PTown artwork before release.
 [Open PTown Access](https://ptown-access.bryantld22.chatgpt.site)
 
 This is an owner-private browser preview. Use the ChatGPT account that owns
-the project to open it. It is a preview of Build 9, not an App Store release.
+the project to open it. It is a preview of Build 10, not an App Store release.
 
 ## Run
 
@@ -150,7 +155,11 @@ Search tests verify combined words and category filters, suggestions, direct lin
 reloads, browser history, destination routes, saved-interest removal, unreadable-data
 handling, unchanged stored plans, and responsive layouts.
 
-## Build 9 completion
+Dinner-note tests verify persistence, editing/removal, summary and backup contents,
+independent-device transfers, older drafts, maximum length, invalid-note rejection,
+failed writes, and phone layouts.
+
+## Build 10 completion
 
 The app foundation, event and creative discovery, plan review, navigation, and device planning flows are implemented. TypeScript checks,
 Expo dependency checks, web/iOS/Android exports, and Chromium navigation

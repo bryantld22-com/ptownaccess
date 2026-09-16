@@ -55,7 +55,7 @@ export default function Backup() {
   return <Screen>
     <PageHeader eyebrow="KEEP YOUR PTOWN IDEAS" title="Back up your plans." description="Copy a transfer code to keep a backup or move your saved ideas to another device. You choose when to restore it." />
     <PreviewNotice />
-    <Card title="A manual transfer, on your terms" description="This code contains your saved programs, creative interests, dinner date, guest count, occasion, and membership interest. Keep it somewhere you can find again. It does not create an account or automatically sync devices." />
+    <Card title="A manual transfer, on your terms" description="This code contains your saved programs, creative interests, dinner date, guest count, occasion, dinner note, and membership interest. Keep it somewhere you can find again. It does not create an account or automatically sync devices." />
     <SectionHeader title="Copy from this device" />
     {!store.ready ? <Body>{store.storageError ? 'Your current saved data is unreadable. You can review and restore a valid transfer code below, or reset data in Profile.' : 'Loading your saved plans…'}</Body> : !hasPlans ? <Card title="No plans to back up yet" description="Save a program or another planning idea first. You can still restore a transfer code below." /> : <View style={styles.card}>
       <ActionButton label={copying ? 'Copying…' : 'Copy transfer code'} disabled={copying || store.busy} onPress={() => { void copy(); }} />

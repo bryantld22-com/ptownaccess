@@ -27,6 +27,7 @@ export function planSummary({ savedEventIds, savedPathwayIds = [], reservationDr
       `Preferred date: ${reservationDraft.date}${weekday ? ` (${weekday})` : ''}`,
       `Guests: ${reservationDraft.partySize}`,
       ...(reservationDraft.occasion ? [`Occasion: ${reservationDraft.occasion}`] : []),
+      ...(reservationDraft.notes?.trim() ? [`Dinner note: ${reservationDraft.notes} (planning only; not submitted)`] : []),
       ...(isPastDate(reservationDraft.date) ? ['This preferred date has passed. Update your dinner draft.'] : []),
       'No reservation has been placed.',
     ] : ['No dinner draft saved.']),
