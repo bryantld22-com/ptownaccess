@@ -4,10 +4,12 @@ import { Pressable, ScrollView, StyleSheet, Text, View, useWindowDimensions } fr
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { theme } from '../theme';
 import type { ProgramEvent } from '../types';
+import { usePreviewStore } from '../state/PreviewStore';
 
 const c = theme.colors;
 export function Screen({ children }: PropsWithChildren) {
-  return <SafeAreaView style={styles.safe} edges={['top', 'left', 'right']}><ScrollView contentContainerStyle={styles.scroll}><View style={styles.container}>{children}</View></ScrollView></SafeAreaView>;
+  const { storageError } = usePreviewStore();
+  return <SafeAreaView style={styles.safe} edges={['top', 'left', 'right']}><ScrollView contentContainerStyle={styles.scroll}><View style={styles.container}>{storageError && <View style={styles.notice}><Text accessibilityRole="alert" style={styles.noticeText}>{storageError}</Text><Link href="/profile" style={styles.textLink}>Open Profile →</Link></View>}{children}</View></ScrollView></SafeAreaView>;
 }
 export function Eyebrow({ children }: PropsWithChildren) { return <Text style={styles.eyebrow}>{children}</Text>; }
 export function Heading({ children }: PropsWithChildren) { return <Text accessibilityRole="header" style={styles.heading}>{children}</Text>; }
