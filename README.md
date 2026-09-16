@@ -1,6 +1,6 @@
 # PTown Access
 
-Build 3 of PTown Dinner Club’s app for Paducah, Kentucky. React Native,
+Build 4 of PTown Dinner Club’s app for Paducah, Kentucky. React Native,
 Expo SDK 57, TypeScript, and Expo Router. Black, warm cream, and gold.
 
 ## Included
@@ -20,6 +20,11 @@ Expo SDK 57, TypeScript, and Expo Router. Black, warm cream, and gold.
 - List and responsive weekly views, with Monday–Sunday ordering and saved markers.
 - An optional planning checklist that updates from saved plans and links a dinner
   draft’s local weekday to that day’s proposed program. Weekday links survive reloads.
+- A plan review page with programs, dinner draft, membership interest, and weekday
+  alignment; links from Home, Profile, and Tickets.
+- Copyable preview text, native sharing, supported browser sharing, cancellation
+  handling, and selectable text when automatic copying is unavailable.
+- Saved ticketed programs on Tickets, clearly distinguished from purchased passes.
 
 This is a planning and navigation preview. Plans are stored on the current device
 with AsyncStorage (browser local storage on web) and do not sync. No backend services,
@@ -32,7 +37,7 @@ temporary and should be replaced with approved PTown artwork before release.
 [Open PTown Access](https://ptown-access.bryantld22.chatgpt.site)
 
 This is an owner-private browser preview. Use the ChatGPT account that owns
-the project to open it. It is a preview of Build 3, not an App Store release.
+the project to open it. It is a preview of Build 4, not an App Store release.
 
 ## Run
 
@@ -68,7 +73,11 @@ reloads, the Heritage Tour, and screen widths from 320 to 1280 pixels. They also
 saved-plan persistence, reservation validation and editing, failed writes, clear-data
 confirmation, and recovery from corrupt data. Discovery tests cover combined searches
 and filters, weekly layouts, saved-event removal, checklist progress, and local weekday
-links in a time zone west of UTC. Exported files
+links in a time zone west of UTC. Review tests verify earlier saved data remains
+readable, actual browser clipboard text, sharing payloads, cancellation, copy/share
+failures, unreadable-data handling, and the distinction between favorites and tickets.
+Browser sharing is available only when the browser exposes its share API; copying
+and selectable summary text remain available. Exported files
 are generated in `dist/` and are not committed. Hosting is a separate step.
 
 ## Structure
@@ -80,7 +89,7 @@ src/theme/           Shared colors, spacing, and radii
 src/data/            Local sample programs and section content
 src/hooks/           Event filter state
 src/state/           Versioned device preview storage and actions
-src/utils/           Local-date weekday calculation
+src/utils/           Local-date weekday calculation and preview summary formatting
 src/types/           Shared content types
 src/services/        Reserved for later approved integrations
 assets/              Temporary PT monogram launcher assets
@@ -91,14 +100,15 @@ assets/              Temporary PT monogram launcher assets
 1. Replace temporary launcher assets with the approved PTown logo and icons.
 2. Confirm real event dates, artists, pricing, food inclusions, and policies.
 3. Test on physical iPhone, Android, and tablet devices; review large text and
-   assistive technology behavior.
+   assistive technology behavior, native clipboard, and native share-sheet completion
+   and cancellation.
 4. Review the private browser preview on laptop, phone, and tablet.
 5. Define accounts, reservations, tickets, and membership requirements before
    introducing any backend or payment integration.
 
-## Build 3 completion
+## Build 4 completion
 
-The app foundation, discovery views, navigation, and device planning flows are implemented. TypeScript checks,
+The app foundation, discovery, plan review, navigation, and device planning flows are implemented. TypeScript checks,
 Expo dependency checks, web/iOS/Android exports, and Chromium navigation
 and saved-plan checks passed during development. Screens were visually reviewed at phone
 and desktop widths. Physical-device testing and replacement of the temporary

@@ -22,5 +22,6 @@ export function PlanChecklist() {
       <View style={{ flexDirection: 'row', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'space-between', gap: 8 }}><Text style={styles.cardTitle}>{step.title}</Text><Text style={{ color: step.saved ? theme.colors.green : theme.colors.gold, fontSize: 12 }}>{step.saved ? 'Saved ✓' : 'Explore →'}</Text></View><Text style={styles.smallBody}>{step.detail}</Text>
     </Pressable></Link>)}
     {weekday && <><Body>Your preferred date falls on {weekday}. Explore the proposed {weekday} program; your date’s event and availability are not confirmed.</Body><Button label={`Explore ${weekday} programs`} href={{ pathname: '/events', params: { day: weekday } }} secondary /></>}
+    <Button label="Review and share your plan" href="/plans" secondary />
   </View>;
 }
