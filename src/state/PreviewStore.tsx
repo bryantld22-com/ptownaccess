@@ -7,7 +7,7 @@ import { pathways } from '../data/pathways';
 export const PREVIEW_STORAGE_KEY = '@ptown/preview/v1';
 export type MembershipInterest = 'community' | 'vip';
 export type ReservationDraft = { date: string; partySize: number; occasion: string; savedAt: string };
-type PreviewState = {
+export type PreviewState = {
   version: 1;
   savedEventIds: string[];
   savedPathwayIds: string[];
@@ -16,7 +16,7 @@ type PreviewState = {
 };
 const emptyState = (): PreviewState => ({ version: 1, savedEventIds: [], savedPathwayIds: [], reservationDraft: null, membershipInterest: null });
 
-function parseStoredState(raw: string | null): PreviewState {
+export function parseStoredState(raw: string | null): PreviewState {
   if (raw === null) return emptyState();
   const value = JSON.parse(raw);
   if (!value || value.version !== 1 || !Array.isArray(value.savedEventIds) || value.savedEventIds.some((id: unknown) => typeof id !== 'string')) throw new Error('Invalid preview data');
@@ -43,6 +43,7 @@ type Store = PreviewState & {
   saveDraft: (draft: ReservationDraft | null) => Promise<boolean>;
   saveInterest: (interest: MembershipInterest | null) => Promise<boolean>;
   clearPlans: () => Promise<boolean>;
+  restorePlans: (plans: PreviewState) => Promise<boolean>;
 };
 const Context = createContext<Store | null>(null);
 
@@ -71,8 +72,8 @@ export function PreviewStoreProvider({ children }: PropsWithChildren) {
   }, []);
 
   // Serialize changes and show success only after storage acknowledges the write.
-  const update = useCallback((change: (current: PreviewState) => PreviewState, reset = false): Promise<boolean> => {
-    if (!readyRef.current && !reset) return Promise.resolve(false);
+  const update = useCallback((change: (current: PreviewState) => PreviewState, reset = false, allowRecovery = false): Promise<boolean> => {
+    if (!readyRef.current && !reset && !allowRecovery) return Promise.resolve(false);
     setPending(count => count + 1);
     const operation = queue.current.then(async () => {
       try {
@@ -105,8 +106,12 @@ export function PreviewStoreProvider({ children }: PropsWithChildren) {
   }, [update]);
   const saveInterest = useCallback((interest: MembershipInterest | null) => update(current => ({ ...current, membershipInterest: interest })), [update]);
   const clearPlans = useCallback(() => update(emptyState, true), [update]);
+  const restorePlans = useCallback(async (plans: PreviewState) => {
+    const validated = parseStoredState(JSON.stringify(plans));
+    return update(() => validated, false, true);
+  }, [update]);
 
-  return <Context.Provider value={{ ...state, ready, busy: pending > 0, storageError, toggleEvent, togglePathway, saveDraft, saveInterest, clearPlans }}>{children}</Context.Provider>;
+  return <Context.Provider value={{ ...state, ready, busy: pending > 0, storageError, toggleEvent, togglePathway, saveDraft, saveInterest, clearPlans, restorePlans }}>{children}</Context.Provider>;
 }
 
 export function usePreviewStore() {

@@ -25,6 +25,7 @@ export default function Profile() {
     <PageHeader eyebrow="YOUR PTOWN PLANS" title="Keep the good ideas." description="Saved events, a dinner draft, and your membership and creative interests—all in one place." />
     <PreviewNotice />
     <Card title="Saved on this device" description="No account is needed. These preview plans stay in this browser or app on this device. They do not sync across devices, and clearing app or browser data removes them." />
+    <Button label="Back up or restore plans" href="/backup" secondary />
     {!ready && !storageError && <Body>Loading your saved plans…</Body>}
     {ready && <>
       <PlanChecklist />

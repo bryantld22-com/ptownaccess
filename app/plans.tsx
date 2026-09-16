@@ -77,6 +77,6 @@ export default function Plans() {
         <Field label="Preview plan summary" hint="You can select and copy this text manually." multiline editable={false} value={summary.text} style={{ minHeight: 300, lineHeight: 23, fontSize: 14, textAlignVertical: 'top' }} />
       </View>
     </>}
-    <Button label="Return home" href="/" secondary /><Footer />
+    <Button label="Back up or restore plans" href="/backup" secondary /><Button label="Return home" href="/" secondary /><Footer />
   </Screen>;
 }

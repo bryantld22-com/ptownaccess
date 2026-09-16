@@ -9,6 +9,7 @@ export default function RootLayout() {
     <Stack.Screen name="plans" options={{ title: 'Your evening plan' }} />
     <Stack.Screen name="visit" options={{ title: 'Plan your visit' }} />
     <Stack.Screen name="compare" options={{ title: 'Compare programs' }} />
+    <Stack.Screen name="backup" options={{ title: 'Back up and restore' }} />
     <Stack.Screen name="creative" options={{ title: 'Creative PTown' }} />
     <Stack.Screen name="programs/[id]" options={{ title: 'Creative pathway' }} />
     <Stack.Screen name="[section]" options={{ title: 'Explore PTown' }} />
