@@ -29,6 +29,7 @@ export default function Profile() {
     {ready && <>
       <PlanChecklist />
       <SectionHeader title="Saved events" href="/events" action="Browse" />
+      <Button label="Compare your programs" href="/compare" secondary />
       {savedEvents.length ? savedEvents.map(event => <EventCard key={event.id} event={event} />) : <Card title="Your next evening starts here" description="Save a proposed program from its detail page and return to it here." />}
       <SectionHeader title="Reservation draft" />
       {reservationDraft ? <Card title={`Preferred date: ${reservationDraft.date}`} description={`${reservationDraft.partySize} ${reservationDraft.partySize === 1 ? 'guest' : 'guests'}${reservationDraft.occasion ? ` · ${reservationDraft.occasion}` : ''}. This is a saved draft; no reservation has been placed.`} /> : <Card title="No reservation draft yet" description="Plan a preferred date, guest count, and occasion. Availability and bookings are not open." />}

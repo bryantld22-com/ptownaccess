@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { Pressable, Text, View } from 'react-native';
-import { Body, Card, EventCard, Footer, PageHeader, PreviewNotice, Screen } from '../../src/components/ui';
+import { Body, Button, Card, EventCard, Footer, PageHeader, PreviewNotice, Screen } from '../../src/components/ui';
 import { ActionButton, Field } from '../../src/components/forms';
 import { WeeklyProgram } from '../../src/components/WeeklyProgram';
 import { weekDays } from '../../src/data/events';
@@ -17,6 +17,7 @@ export default function Events() {
   function changeDay(next: DayFilter) { setDay(next); router.setParams({ day: next === 'Any day' ? undefined : next }); }
   function reset() { setFilter('All'); setQuery(''); changeDay('Any day'); }
   return <Screen><PageHeader eyebrow="THE WEEK AT PTOWN" title="Find your rhythm." description="Jazz, comedy, soul, and Sunday fellowship. Explore our proposed weekly program." /><PreviewNotice calendar />
+    <Button label="Compare programs" href="/compare" secondary />
     <Field label="Search programs" placeholder="Try jazz, comedy, or a weekday" hint="Search titles, genres, weekdays, and program details." value={query} onChangeText={setQuery} autoCapitalize="none" autoCorrect={false} maxLength={120} />
     <Choices label="Admission or saved programs" options={['All', 'Free', 'Ticketed', 'Saved']} selected={filter} onSelect={setFilter} disabledOption={!ready ? 'Saved' : undefined} />
     <View style={{ gap: 10 }}><Body>Choose a weekday</Body><View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>{(['Any day', ...weekDays] as DayFilter[]).map(item => <Pressable key={item} accessibilityRole="button" accessibilityLabel={item} aria-pressed={day === item} onPress={() => changeDay(item)} style={{ paddingHorizontal: 14, paddingVertical: 12, minHeight: 44, borderRadius: 12, borderWidth: 1, borderColor: day === item ? theme.colors.gold : theme.colors.border, backgroundColor: day === item ? theme.colors.elevated : theme.colors.background }}><Text style={{ color: day === item ? theme.colors.gold : theme.colors.muted }}>{item}</Text></Pressable>)}</View></View>
