@@ -4,6 +4,7 @@ import { Body, Button, Card, EventCard, Footer, PageHeader, PreviewNotice, Scree
 import { ActionButton, Feedback, formStyles } from '../../src/components/forms';
 import { events } from '../../src/data/events';
 import { usePreviewStore } from '../../src/state/PreviewStore';
+import { PlanChecklist } from '../../src/components/PlanChecklist';
 export default function Profile() {
   const { ready, busy, storageError, savedEventIds, reservationDraft, membershipInterest, clearPlans } = usePreviewStore();
   const [confirmClear, setConfirmClear] = useState(false);
@@ -23,6 +24,7 @@ export default function Profile() {
     <Card title="Saved on this device" description="No account is needed. These preview plans stay in this browser or app on this device. They do not sync across devices, and clearing app or browser data removes them." />
     {!ready && !storageError && <Body>Loading your saved plans…</Body>}
     {ready && <>
+      <PlanChecklist />
       <SectionHeader title="Saved events" href="/events" action="Browse" />
       {savedEvents.length ? savedEvents.map(event => <EventCard key={event.id} event={event} />) : <Card title="Your next evening starts here" description="Save a proposed program from its detail page and return to it here." />}
       <SectionHeader title="Reservation draft" />

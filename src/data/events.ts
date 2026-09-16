@@ -1,4 +1,5 @@
 import type { ProgramEvent } from '../types';
+export const weekDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'] as const;
 
 // Proposed recurring program, not a confirmed event calendar.
 export const events: ProgramEvent[] = [

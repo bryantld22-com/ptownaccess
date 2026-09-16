@@ -1,0 +1,102 @@
+import { test, expect } from '@playwright/test';
+
+test.use({ timezoneId: 'America/Los_Angeles' });
+
+test('Search, admission, and weekday filters combine and reset after empty results', async ({ page }) => {
+  await page.goto('/events');
+  const search = page.getByRole('textbox', { name: 'Search programs', exact: true });
+  const cards = page.getByRole('link').and(page.locator('a[href^="/events/"]'));
+  await search.fill('  MONDAY jazz  ');
+  await expect(cards).toHaveCount(1);
+  await expect(cards).toHaveAttribute('href', '/events/monday-jazz');
+  await page.getByRole('tab', { name: 'Ticketed', exact: true }).click();
+  await expect(page.getByRole('tab', { name: 'Ticketed', exact: true })).toHaveAttribute('aria-selected', 'true');
+  await expect(cards).toHaveCount(0);
+  await expect(page.getByText('No programs match', { exact: true })).toBeVisible();
+  await page.getByRole('button', { name: 'Reset filters', exact: true }).click();
+  await expect(cards).toHaveCount(7); await expect(search).toHaveValue('');
+  await page.getByRole('button', { name: 'Friday', exact: true }).click();
+  await expect(page).toHaveURL('/events?day=Friday');
+  await expect(cards).toHaveCount(1);
+  await expect(cards).toHaveAttribute('href', '/events/rnb-blues');
+  await page.getByRole('tab', { name: 'Free', exact: true }).click();
+  await expect(cards).toHaveCount(0);
+  await page.getByRole('tab', { name: 'All', exact: true }).click();
+  await page.reload();
+  await expect(page.getByRole('button', { name: 'Friday', exact: true })).toHaveAttribute('aria-pressed', 'true');
+  await expect(cards).toHaveCount(1);
+  await page.getByRole('button', { name: 'Reset filters', exact: true }).click();
+  await expect(cards).toHaveCount(7);
+  await page.reload(); await expect(cards).toHaveCount(7);
+  await page.goto('/events?day=invalid');
+  await expect(page.getByRole('button', { name: 'Any day', exact: true })).toHaveAttribute('aria-pressed', 'true');
+  await expect(cards).toHaveCount(7);
+});
+
+test('Weekly cards fit all screen widths and saved filters track removal', async ({ page }) => {
+  const errors: string[] = []; page.on('pageerror', error => errors.push(error.message));
+  await page.goto('/events');
+  await page.getByRole('tab', { name: 'Saved', exact: true }).click();
+  await expect(page.getByText('No saved programs yet', { exact: true })).toBeVisible();
+  await page.getByRole('button', { name: 'Reset filters', exact: true }).click();
+  await page.locator('a[href="/events/comedy"]:visible').click();
+  await page.getByRole('button', { name: 'Save this event', exact: true }).click();
+  await expect(page.getByRole('button', { name: 'Remove saved event' })).toBeEnabled();
+  await page.getByRole('link', { name: 'Back to events' }).click();
+  await page.getByRole('tab', { name: 'Saved', exact: true }).click();
+  await expect(page.getByRole('link').and(page.locator('a[href^="/events/"]'))).toHaveCount(1);
+  await page.getByRole('tab', { name: 'Week', exact: true }).click();
+  await expect(page.getByRole('link', { name: 'Thursday: Comedy Night', exact: true })).toBeVisible();
+  await page.getByRole('button', { name: 'Reset filters', exact: true }).click();
+  const cards = page.getByRole('link').and(page.locator('a[href^="/events/"]'));
+  await expect(cards).toHaveCount(7);
+  expect(await cards.evaluateAll(elements => elements.map(element => element.getAttribute('aria-label')?.split(':')[0]))).toEqual(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']);
+  for (const width of [320, 390, 768, 1280]) {
+    await page.setViewportSize({ width, height: 900 });
+    await expect(page.getByRole('link', { name: 'Thursday: Comedy Night', exact: true })).toHaveCSS('background-color', 'rgb(25, 23, 19)');
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+  }
+  await page.getByRole('link', { name: 'Thursday: Comedy Night', exact: true }).click();
+  await page.getByRole('button', { name: 'Remove saved event' }).click();
+  await expect(page.getByRole('button', { name: 'Save this event', exact: true })).toBeEnabled();
+  await page.getByRole('link', { name: 'Back to events' }).click();
+  await page.getByRole('tab', { name: 'Saved', exact: true }).click();
+  await expect(page.getByText('No saved programs yet', { exact: true })).toBeVisible();
+  expect(errors).toEqual([]);
+});
+
+test('Planning checklist updates live, links by local weekday, and resets after clearing', async ({ page }) => {
+  await page.goto('/profile');
+  await expect(page.getByText('0 of 3 planning steps saved', { exact: true }).filter({ visible: true })).toBeVisible();
+  await page.getByRole('link', { name: 'Choose a program: Not saved', exact: true }).click();
+  await page.getByRole('link').and(page.locator('a[href="/events/communion-sunday"]')).click();
+  await page.getByRole('button', { name: 'Save this event', exact: true }).click();
+  await expect(page.getByRole('button', { name: 'Remove saved event' })).toBeEnabled();
+  await page.getByRole('link', { name: 'View your saved plans' }).click();
+  await expect(page.getByText('1 of 3 planning steps saved', { exact: true }).filter({ visible: true })).toBeVisible();
+  await page.getByRole('link', { name: 'Plan your dinner: Not saved', exact: true }).click();
+  await page.getByRole('textbox', { name: 'Preferred date', exact: true }).fill('2030-08-11');
+  await page.getByRole('button', { name: 'Save reservation draft' }).click();
+  await expect(page.getByText('Draft saved on this device. No reservation has been placed.', { exact: true })).toBeVisible();
+  await page.goto('/profile');
+  await expect(page.getByText('2 of 3 planning steps saved', { exact: true }).filter({ visible: true })).toBeVisible();
+  await page.getByRole('link', { name: 'Explore Sunday programs' }).click();
+  await expect(page).toHaveURL('/events?day=Sunday');
+  await expect(page.getByRole('link').and(page.locator('a[href^="/events/"]'))).toHaveCount(1);
+  await expect(page.getByRole('link').and(page.locator('a[href="/events/communion-sunday"]'))).toBeVisible();
+  await page.goto('/profile');
+  await page.getByRole('link', { name: 'Find your connection: Not saved', exact: true }).click();
+  await page.getByRole('radio', { name: 'PTown community', exact: true }).click();
+  await page.getByRole('button', { name: 'Save my interest' }).click();
+  await expect(page.getByText('Interest saved on this device. You have not enrolled in a membership.', { exact: true })).toBeVisible();
+  await page.goto('/profile');
+  await expect(page.getByText('3 of 3 planning steps saved', { exact: true }).filter({ visible: true })).toBeVisible();
+  await page.reload();
+  await expect(page.getByText('3 of 3 planning steps saved', { exact: true }).filter({ visible: true })).toBeVisible();
+  await page.getByRole('button', { name: 'Clear saved preview data' }).click();
+  await page.getByRole('button', { name: 'Clear my saved plans' }).click();
+  await expect(page.getByText('0 of 3 planning steps saved', { exact: true }).filter({ visible: true })).toBeVisible();
+  await expect(page.getByRole('link', { name: 'Explore Sunday programs' })).toHaveCount(0);
+  await expect(page.getByRole('link').and(page.locator('a[href^="/events/"]'))).toHaveCount(0);
+  expect(await page.evaluate(() => localStorage.getItem('@ptown/preview/v1'))).toBeNull();
+});

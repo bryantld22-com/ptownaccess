@@ -37,9 +37,10 @@ export function SectionCard({ title, subtitle, href, icon }: { title: string; su
   </Pressable></Link>;
 }
 export function EventCard({ event }: { event: ProgramEvent }) {
+  const { savedEventIds } = usePreviewStore();
   return <Link href={{ pathname: '/events/[id]', params: { id: event.id } }} asChild><Pressable accessibilityRole="link" android_ripple={{ color: c.border }} style={styles.eventCard}>
     <View style={styles.dayBlock}><Text style={styles.dayText}>{event.day.slice(0, 3).toUpperCase()}</Text><Text style={styles.daySubtext}>Weekly</Text></View>
-    <View style={{ flex: 1, gap: 5 }}><Text style={styles.cardTitle}>{event.title}</Text><Text style={styles.smallBody}>{event.category} · {event.admission}</Text></View><Text style={styles.arrow}>→</Text>
+    <View style={{ flex: 1, gap: 5 }}><Text style={styles.cardTitle}>{event.title}</Text><Text style={styles.smallBody}>{event.category} · {event.admission}</Text>{savedEventIds.includes(event.id) && <Text style={{ color: c.gold, fontSize: 12 }}>Saved on this device</Text>}</View><Text style={styles.arrow}>→</Text>
   </Pressable></Link>;
 }
 export function Footer() { return <View style={styles.footer}><Text style={styles.footerBrand}>PTOWN DINNER CLUB</Text><Text style={styles.smallBody}>Paducah, Kentucky · Excellence Earns Trust.</Text></View>; }
