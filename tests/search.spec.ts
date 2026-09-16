@@ -1,0 +1,68 @@
+import { test, expect } from '@playwright/test';
+
+test('App search combines words and categories, reloads cleanly, and opens the right pages', async ({ page }) => {
+  const errors: string[] = []; page.on('pageerror', error => errors.push(error.message));
+  await page.goto('/');
+  await page.getByRole('link', { name: 'Search all PTown' }).click();
+  await expect(page.getByText('27 results', { exact: true })).toBeVisible();
+  const input = page.getByRole('textbox', { name: 'Search all PTown', exact: true });
+  await input.fill('  MONDAY jazz  ');
+  await expect(page.getByText('1 result', { exact: true })).toBeVisible();
+  const programLinks = page.getByRole('link').and(page.locator('a[href^="/events/"]'));
+  await expect(programLinks).toHaveAttribute('href', '/events/monday-jazz');
+  await page.getByRole('tab', { name: 'Creative', exact: true }).click();
+  await expect(page.getByText('No results match', { exact: true })).toBeVisible();
+  await page.getByRole('button', { name: 'Reset search', exact: true }).click();
+  await expect(page).toHaveURL('/search');
+  await expect(page.getByText('27 results', { exact: true })).toBeVisible();
+  await page.getByRole('button', { name: 'Heritage', exact: true }).click();
+  await expect(page.getByRole('link', { name: 'The Heritage Tour · Save the Arts', exact: true })).toBeVisible();
+  await page.getByRole('tab', { name: 'Creative', exact: true }).click();
+  await expect(page.getByText('1 result', { exact: true })).toBeVisible();
+  await page.reload();
+  await expect(input).toHaveValue('Heritage');
+  await expect(page.getByRole('tab', { name: 'Creative', exact: true })).toHaveAttribute('aria-selected', 'true');
+  await page.getByRole('link', { name: 'The Heritage Tour · Save the Arts', exact: true }).click();
+  await expect(page).toHaveURL('/programs/heritage-tour');
+  await page.goBack();
+  await expect(input).toHaveValue('Heritage');
+  await input.fill('backup');
+  await page.getByRole('tab', { name: 'Sections', exact: true }).click();
+  await page.getByRole('link', { name: 'Open Backup & Restore', exact: true }).click();
+  await expect(page).toHaveURL('/backup');
+  await page.goto('/search?q=baking&filter=Creative');
+  await expect(page.getByRole('link', { name: 'Culinary Artist Development · Artist Development', exact: true })).toBeVisible();
+  for (const width of [320, 390, 768, 1280]) {
+    await page.setViewportSize({ width, height: 900 });
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+  }
+  await page.goto('/search?q=VIP&filter=invalid');
+  await expect(page.getByRole('tab', { name: 'All', exact: true })).toHaveAttribute('aria-selected', 'true');
+  await expect(page.getByRole('link', { name: 'Open VIP', exact: true })).toBeVisible();
+  expect(errors).toEqual([]);
+});
+
+test('Saved search reflects loaded plans and removals without changing device data', async ({ page }) => {
+  await page.goto('/search');
+  await page.getByRole('tab', { name: 'Saved', exact: true }).click();
+  await expect(page.getByText('No saved results yet', { exact: true })).toBeVisible();
+  const saved = { version: 1, savedEventIds: ['comedy'], savedPathwayIds: ['heritage-tour'], reservationDraft: null, membershipInterest: 'vip' };
+  await page.evaluate(data => localStorage.setItem('@ptown/preview/v1', JSON.stringify(data)), saved);
+  await page.reload();
+  await expect(page.getByText('2 results · Saved programs and creative interests', { exact: true })).toBeVisible();
+  await page.getByRole('textbox', { name: 'Search all PTown', exact: true }).fill('heritage');
+  await expect(page.getByText('1 result · Saved programs and creative interests', { exact: true })).toBeVisible();
+  expect(await page.evaluate(() => JSON.parse(localStorage.getItem('@ptown/preview/v1')!))).toEqual(saved);
+  await page.getByRole('link', { name: 'The Heritage Tour · Save the Arts', exact: true }).click();
+  await page.getByRole('button', { name: 'Remove saved interest', exact: true }).click();
+  await expect(page.getByRole('button', { name: 'Save this creative interest', exact: true })).toBeEnabled();
+  await page.goBack();
+  await expect(page.getByText('No results match', { exact: true })).toBeVisible();
+  await page.getByRole('textbox', { name: 'Search all PTown', exact: true }).fill('');
+  await expect(page.getByText('1 result · Saved programs and creative interests', { exact: true })).toBeVisible();
+  await page.evaluate(() => localStorage.setItem('@ptown/preview/v1', 'unreadable'));
+  await page.reload();
+  await expect(page.getByText('Saved results cannot be read. Open Profile to recover your device’s plans.', { exact: true })).toBeVisible();
+  await expect(page.getByRole('tab', { name: 'Saved', exact: true })).toBeDisabled();
+  await expect(page.getByText('No saved results yet', { exact: true })).toHaveCount(0);
+});
