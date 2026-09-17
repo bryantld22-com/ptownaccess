@@ -5,6 +5,11 @@ Expo SDK 57, TypeScript, and Expo Router. Black, warm cream, and gold.
 
 ## Included
 
+- Reviewed invitation text can be handed to supported web/native sharing tools
+  only on explicit action. Unsupported browsers retain copy/manual fallbacks;
+  cancellation and failures preserve drafts, invalid group details block export,
+  and pending exports lock editing. No delivery, in-app invitation, or RSVP is
+  claimed; share payloads include only reviewed text and a title, not private URLs.
 - Friend 2 Friend invitation shortcuts for this device’s saved programs, with
   live favorite counts, keyboard-friendly selection, focused Profile management,
   and distinct loading, empty, and unreadable states. Only the program is selected;
@@ -20,7 +25,7 @@ Expo SDK 57, TypeScript, and Expo Router. Black, warm cream, and gold.
 - Friend 2 Friend preview with fictional profiles, connection-preview feedback,
   and an invitation builder. Program choices persist in URLs; optional notes are
   not saved or put in URLs. Copying is acknowledged and offers a manual fallback.
-  No real accounts, requests, messages, invitations, RSVPs, or backend are created.
+  No real accounts, requests, in-app messages or invitations, RSVPs, or backend are created.
 - Home resumes this device’s saved programs, dinner draft, membership preference,
   and creative interests through focused shortcuts. Expired dinner drafts link to
   editing; empty and unreadable devices show clear start or recovery information.

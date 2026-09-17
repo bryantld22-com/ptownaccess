@@ -25,7 +25,7 @@ export default function Friends() {
   return <Screen>
     <PageHeader eyebrow="FRIEND 2 FRIEND" title="Good company. Shared experiences." description="Explore the vision for making a PTown connection and planning an evening together." />
     <PreviewNotice />
-    <Card title="Social preview—not a live network" description="Profiles below are fictional examples. No account, friend request, message, invitation delivery, or RSVP is created. Existing saved plans remain unchanged." />
+    <Card title="Social preview—not a live network" description="Profiles below are fictional examples. No account, friend request, in-app message, invitation delivery tracking, or RSVP is created. You can choose to share reviewed invitation text outside the app. Existing saved plans remain unchanged." />
     <FriendInvitation />
     <SectionHeader title="Meet the sample profiles" />
     <Body>Browse fictional examples by interest. Filters do not match you with real people or change your saved plans.</Body>

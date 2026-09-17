@@ -5,7 +5,7 @@ import { theme } from '../theme';
 export function ActionButton({ label, onPress, disabled = false, secondary = false }: {
   label: string; onPress: () => void; disabled?: boolean; secondary?: boolean;
 }) {
-  return <Pressable accessibilityRole="button" accessibilityState={{ disabled }} disabled={disabled} onPress={onPress} android_ripple={{ color: theme.colors.border }} style={[styles.button, secondary && styles.secondaryButton, disabled && { opacity: 0.5 }]}>
+  return <Pressable accessibilityRole="button" accessibilityState={{ disabled }} disabled={disabled} onPress={onPress} android_ripple={{ color: theme.colors.border }} style={[styles.button, { maxWidth: '100%' }, secondary && styles.secondaryButton, disabled && { opacity: 0.5 }]}>
     <Text style={[styles.buttonText, secondary && { color: theme.colors.cream }]}>{label}</Text>
   </Pressable>;
 }
