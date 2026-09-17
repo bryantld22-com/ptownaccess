@@ -5,6 +5,10 @@ Expo SDK 57, TypeScript, and Expo Router. Black, warm cream, and gold.
 
 ## Included
 
+- Supplied PTown Dinner Club logo displayed on Home, with full artwork contained
+  at its original 2:1 aspect ratio across phone, tablet, and desktop widths.
+  The bundled PNG is copied unchanged from the owner’s upload.
+
 - Updated weekly program: Tuesday is Musician Jam Session; Saturday is Any Genre.
 
 - Creative-library searches and division/saved filters persist in direct query

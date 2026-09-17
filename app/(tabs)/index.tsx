@@ -4,9 +4,11 @@ import { events, featuredEvent } from '../../src/data/events';
 import { sections } from '../../src/data/sections';
 import { theme } from '../../src/theme';
 import { usePreviewStore } from '../../src/state/PreviewStore';
+import { BrandLogo } from '../../src/components/BrandLogo';
 export default function Home() {
   const { ready, savedEventIds, savedPathwayIds, reservationDraft, membershipInterest } = usePreviewStore();
   return <Screen>
+    <BrandLogo />
     <View style={home.brandRow}><View><Text style={home.brand}>PTOWN<Text style={{ color: theme.colors.gold }}> ACCESS</Text></Text><Text style={home.brandSub}>YOUR ALL ACCESS PASS TO PTOWN</Text></View><View style={home.location}><Text style={home.locationText}>PADUCAH, KY</Text></View></View>
     <View style={home.hero}><Eyebrow>DINNER. A SHOW. A CONNECTION.</Eyebrow><Heading>Come for the evening.{'\n'}Stay for the feeling.</Heading><Body>Live music, memorable food, and a community that moves together. Welcome to PTown Dinner Club.</Body><Button label="Explore the program" href="/events" /><View style={home.heroBottom}><Text style={home.heroTag}>CULTURE · CREATIVITY · COMMUNITY</Text></View></View>
     <PreviewNotice />
