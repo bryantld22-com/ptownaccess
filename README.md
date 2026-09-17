@@ -5,6 +5,9 @@ Expo SDK 57, TypeScript, and Expo Router. Black, warm cream, and gold.
 
 ## Included
 
+- Friend 2 Friend interest filters and three browsable fictional profile pages,
+  with shared-activity ideas, proposed program links, and invitation handoffs.
+  Unknown profile links recover safely; no real-person matching or attendance is implied.
 - Friend 2 Friend preview with fictional profiles, connection-preview feedback,
   and an invitation builder. Program choices persist in URLs; optional notes are
   not saved or put in URLs. Copying is acknowledged and offers a manual fallback.

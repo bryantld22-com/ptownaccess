@@ -4,6 +4,7 @@ import { events } from '../data/events';
 import { pathways, type CreativeDivision } from '../data/pathways';
 import { sections } from '../data/sections';
 import { mediaFeatures } from '../data/media';
+import { sampleFriends } from '../data/friends';
 import { theme } from '../theme';
 
 type Parent = { label: string; href: Href };
@@ -30,6 +31,8 @@ const divisions: Record<CreativeDivision, Parent> = {
 
 function locate(pathname: string): Location | undefined {
   if (pathname === '/') return undefined;
+  const friend = sampleFriends.find(item => pathname === `/friends/${item.id}`);
+  if (friend) return { label: `${friend.name} · Sample profile`, parents: [{ label: 'Friend 2 Friend', href: '/friends' }] };
   const media = mediaFeatures.find(item => pathname === `/media/${item.id}`);
   if (media) return { label: media.title, parents: [{ label: 'Media', href: '/media' }, { label: media.category, href: { pathname: '/media', params: { category: media.category } } }] };
   const event = events.find(item => pathname === `/events/${item.id}`);

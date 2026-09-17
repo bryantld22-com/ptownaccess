@@ -21,6 +21,7 @@ http.createServer((request, response) => {
     const fallback = /^\/events\/[^/]+\/?$/.test(pathname) ? 'events/[id].html'
       : /^\/programs\/[^/]+\/?$/.test(pathname) ? 'programs/[id].html'
       : /^\/media\/[^/]+\/?$/.test(pathname) ? 'media/[id].html'
+      : /^\/friends\/[^/]+\/?$/.test(pathname) ? 'friends/[id].html'
       : /^\/[^/.]+\/?$/.test(pathname) ? '[section].html' : '+not-found.html';
     file = path.join(root, fallback);
     status = 404;
