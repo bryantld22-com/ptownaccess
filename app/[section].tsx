@@ -3,7 +3,7 @@ import { Button, Card, Footer, PageHeader, PreviewNotice, Screen } from '../src/
 import { sectionContent, sections } from '../src/data/sections';
 import { MissingPage } from '../src/components/MissingPage';
 import type { SectionSlug } from '../src/types';
-import { ReservationPlanner } from '../src/components/ReservationPlanner';
+import { ReservationsHub } from '../src/components/ReservationsHub';
 import { MembershipsHub } from '../src/components/MembershipsHub';
 import { PathwayCard } from '../src/components/PathwayCard';
 import { pathways, type CreativeDivision } from '../src/data/pathways';
@@ -21,9 +21,8 @@ export default function Section() {
   return <Screen>
     <Stack.Screen options={{ title: sections.find(item => item.href === `/${section}`)?.title ?? 'Explore PTown' }} />
     <PageHeader eyebrow={content.eyebrow} title={content.title} description={content.description} /><PreviewNotice />
-    {section === 'reservations' && <ReservationPlanner />}
     {section === 'media' && <MediaLibrary />}
-    {section === 'memberships' ? <MembershipsHub /> : section === 'vip' ? <VIPSocietyHub /> : section === 'artist-development' ? <ArtistDevelopmentHub /> : section === 'save-the-arts' ? <SaveTheArtsHub /> : division ? <>
+    {section === 'reservations' ? <ReservationsHub /> : section === 'memberships' ? <MembershipsHub /> : section === 'vip' ? <VIPSocietyHub /> : section === 'artist-development' ? <ArtistDevelopmentHub /> : section === 'save-the-arts' ? <SaveTheArtsHub /> : division ? <>
       <SectionHeader title="Explore planned pathways" />
       {pathways.filter(pathway => pathway.division === division).map(pathway => <PathwayCard key={pathway.id} pathway={pathway} />)}
       <Button label="Browse all creative pathways" href="/creative" secondary />

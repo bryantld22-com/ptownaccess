@@ -22,6 +22,7 @@ export function ReservationPlanner() {
   }, [ready, reservationDraft]);
 
   async function save() {
+    if (!ready || busy) return;
     const nextErrors: typeof errors = {};
     const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(date.trim());
     if (!match) nextErrors.date = 'Enter a preferred date as YYYY-MM-DD.';
@@ -41,6 +42,8 @@ export function ReservationPlanner() {
   }
 
   async function remove() {
+    if (!ready || busy) return;
+    setMessage(null);
     if (await saveDraft(null)) {
       setDate(''); setParty('2'); setOccasion(''); setNotes(''); setErrors({});
       setMessage('Reservation draft deleted from this device.');
@@ -57,7 +60,7 @@ export function ReservationPlanner() {
       <Field label="Dinner note (optional)" placeholder="Vegetarian menu interest, celebration ideas, seating preferences…" hint={`${notes.length}/${maxDinnerNoteLength} characters. Planning only: PTown has not received this note or confirmed a request.`} value={notes} maxLength={maxDinnerNoteLength} multiline editable={ready && !busy} error={errors.notes} style={{ minHeight: 120, textAlignVertical: 'top' }} onChangeText={value => { setNotes(value); setMessage(null); setErrors(current => ({ ...current, notes: undefined })); }} />
       <View style={formStyles.row}>
         <ActionButton label={busy ? 'Saving…' : 'Save reservation draft'} disabled={!ready || busy} onPress={() => { void save(); }} />
-        {reservationDraft && <ActionButton label="Delete reservation draft" disabled={busy} secondary onPress={() => { void remove(); }} />}
+        {reservationDraft && <ActionButton label="Delete reservation draft" disabled={!ready || busy} secondary onPress={() => { void remove(); }} />}
       </View>
       <Feedback message={message} />
     </View>

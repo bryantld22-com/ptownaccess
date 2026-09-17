@@ -5,6 +5,9 @@ Expo SDK 57, TypeScript, and Expo Router. Black, warm cream, and gold.
 
 ## Included
 
+- Reservations hub with planned dinner and gathering experiences, a saved-draft
+  summary distinct from unsaved edits, weekday visit links, and expandable questions.
+  No draft is submitted and no table, ticket, or dietary request is confirmed.
 - Memberships comparison for PTown community and VIP Society, shareable unsaved
   selections, saved-preference status, individual preference removal, and questions.
   No prices, benefits, or enrollment terms are represented as confirmed.
