@@ -5,6 +5,9 @@ Expo SDK 57, TypeScript, and Expo Router. Black, warm cream, and gold.
 
 ## Included
 
+- Matching gold outline icons for all eight experience sections and six planning
+  tools, using the same bundled icon family as the bottom tabs. Section titles
+  remain the accessible link names; decorative icons are hidden from screen readers.
 - Supplied PTown Dinner Club logo displayed on Home, with full artwork contained
   at its original 2:1 aspect ratio across phone, tablet, and desktop widths.
   The bundled PNG is copied unchanged from the owner’s upload.

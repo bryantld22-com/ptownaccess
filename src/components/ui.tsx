@@ -1,6 +1,6 @@
-import type { PropsWithChildren } from 'react';
+import { useEffect, useState, type PropsWithChildren } from 'react';
 import { Link, type Href } from 'expo-router';
-import { Pressable, ScrollView, StyleSheet, Text, View, useWindowDimensions } from 'react-native';
+import { Platform, Pressable, ScrollView, StyleSheet, Text, View, useWindowDimensions } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { theme } from '../theme';
 import { isPastDate } from '../utils/programDay';
@@ -8,6 +8,7 @@ import type { ProgramEvent } from '../types';
 import { usePreviewStore } from '../state/PreviewStore';
 import { QuickNavigation } from './QuickNavigation';
 import { PageLocation } from './PageLocation';
+import { SectionIcon, type SectionIconName } from './SectionIcon';
 
 const c = theme.colors;
 export function Screen({ children }: PropsWithChildren) {
@@ -35,10 +36,12 @@ export function DraftDateNotice({ date }: { date: string }) {
 export function PreviewNotice({ calendar = false }: { calendar?: boolean }) {
   return <View style={styles.notice}><Text style={styles.noticeText}>{calendar ? 'SAMPLE PROGRAM · Proposed weekly schedule. Dates, artists, and ticket prices are not confirmed.' : 'APP PREVIEW · Explore PTown’s planned experience. Bookings, purchases, and enrollment are not open.'}</Text></View>;
 }
-export function SectionCard({ title, subtitle, href, icon }: { title: string; subtitle: string; href: Href; icon: string }) {
+export function SectionCard({ title, subtitle, href, icon }: { title: string; subtitle: string; href: Href; icon: SectionIconName }) {
   const { width } = useWindowDimensions();
-  return <Link href={href} asChild><Pressable accessibilityRole="link" android_ripple={{ color: c.border }} style={StyleSheet.flatten([styles.sectionCard, { width: width < 360 ? '100%' : width >= 900 ? '23.5%' : '48%' }])}>
-    <View style={styles.sectionCardTop}><Text style={styles.cardNumber}>{icon}</Text><Text style={styles.arrow}>↗</Text></View>
+  const [layoutReady, setLayoutReady] = useState(Platform.OS !== 'web');
+  useEffect(() => { setLayoutReady(true); }, []);
+  return <Link href={href} asChild><Pressable accessibilityRole="link" android_ripple={{ color: c.border }} style={StyleSheet.flatten([styles.sectionCard, { width: !layoutReady || width < 600 ? '100%' : width >= 900 ? '23.5%' : '48%' }])}>
+    <View style={styles.sectionCardTop}><SectionIcon name={icon} /><Text style={styles.arrow}>↗</Text></View>
     <Text style={styles.cardTitle}>{title}</Text><Text style={styles.smallBody}>{subtitle}</Text>
   </Pressable></Link>;
 }
@@ -63,7 +66,7 @@ export const styles = StyleSheet.create({
   card: { backgroundColor: c.surface, padding: 24, borderRadius: 20, borderWidth: 1, borderColor: c.border, gap: 10 }, cardTitle: { color: c.cream, fontSize: 18, fontWeight: '600', lineHeight: 25 },
   notice: { backgroundColor: c.elevated, padding: 16, borderRadius: 12, borderLeftWidth: 3, borderLeftColor: c.gold }, noticeText: { color: c.muted, fontSize: 12, lineHeight: 20 },
   grid: { flexDirection: 'row', flexWrap: 'wrap', gap: 12 }, sectionCard: { backgroundColor: c.surface, padding: 20, borderRadius: 20, borderWidth: 1, borderColor: c.border, gap: 8 },
-  sectionCardTop: { flexDirection: 'row', justifyContent: 'space-between', paddingBottom: 12 }, cardNumber: { color: c.gold, fontSize: 14, fontWeight: '500' }, arrow: { color: c.gold, fontSize: 20 },
+  sectionCardTop: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingBottom: 12 }, arrow: { color: c.gold, fontSize: 20 },
   eventCard: { backgroundColor: c.surface, borderWidth: 1, borderColor: c.border, borderRadius: 16, padding: 16, flexDirection: 'row', gap: 16, alignItems: 'center' },
   dayBlock: { backgroundColor: c.elevated, padding: 12, borderRadius: 12, alignItems: 'center', minWidth: 65, gap: 4 }, dayText: { color: c.gold, fontSize: 14, fontWeight: '700' }, daySubtext: { color: c.muted, fontSize: 10 },
   footer: { gap: 8, paddingTop: 26, marginTop: 12, borderTopWidth: 1, borderTopColor: c.border }, footerBrand: { color: c.gold, fontSize: 12, letterSpacing: 2, fontWeight: '700' },

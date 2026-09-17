@@ -1,14 +1,15 @@
 import type { SectionSlug } from '../types';
+import type { SectionIconName } from '../components/SectionIcon';
 
-export const sections: { title: string; subtitle: string; href: '/events' | '/tickets' | `/${SectionSlug}`; icon: string }[] = [
-  { title: 'Events', subtitle: 'Find your next night out', href: '/events', icon: '01' },
-  { title: 'Tickets', subtitle: 'Your pass to the experience', href: '/tickets', icon: '02' },
-  { title: 'VIP', subtitle: 'An elevated evening', href: '/vip', icon: '03' },
-  { title: 'Media', subtitle: 'The sound and story of PTown', href: '/media', icon: '04' },
-  { title: 'Reservations', subtitle: 'Make room for good company', href: '/reservations', icon: '05' },
-  { title: 'Memberships', subtitle: 'Find your place in PTown', href: '/memberships', icon: '06' },
-  { title: 'Save the Arts', subtitle: 'Our flagship. Our future.', href: '/save-the-arts', icon: '07' },
-  { title: 'Artist Development', subtitle: 'Where talent meets opportunity', href: '/artist-development', icon: '08' },
+export const sections: { title: string; subtitle: string; href: '/events' | '/tickets' | `/${SectionSlug}`; icon: SectionIconName }[] = [
+  { title: 'Events', subtitle: 'Find your next night out', href: '/events', icon: 'calendar-outline' },
+  { title: 'Tickets', subtitle: 'Your pass to the experience', href: '/tickets', icon: 'ticket-outline' },
+  { title: 'VIP', subtitle: 'An elevated evening', href: '/vip', icon: 'diamond-outline' },
+  { title: 'Media', subtitle: 'The sound and story of PTown', href: '/media', icon: 'videocam-outline' },
+  { title: 'Reservations', subtitle: 'Make room for good company', href: '/reservations', icon: 'restaurant-outline' },
+  { title: 'Memberships', subtitle: 'Find your place in PTown', href: '/memberships', icon: 'people-outline' },
+  { title: 'Save the Arts', subtitle: 'Our flagship. Our future.', href: '/save-the-arts', icon: 'color-palette-outline' },
+  { title: 'Artist Development', subtitle: 'Where talent meets opportunity', href: '/artist-development', icon: 'mic-outline' },
 ];
 
 export const sectionContent: Record<SectionSlug, { title: string; eyebrow: string; description: string; items: { title: string; description: string }[] }> = {
