@@ -5,6 +5,10 @@ Expo SDK 57, TypeScript, and Expo Router. Black, warm cream, and gold.
 
 ## Included
 
+- Media library with six clearly labeled editorial concepts across Stories,
+  Podcasts, and Performances; searchable category filters retained in the URL,
+  detail pages, contextual navigation, and links to related creative pathways.
+  No playable episodes, videos, or streams are included.
 - Matching gold outline icons for all eight experience sections and six planning
   tools, using the same bundled icon family as the bottom tabs. Section titles
   remain the accessible link names; decorative icons are hidden from screen readers.

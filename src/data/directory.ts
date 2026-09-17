@@ -1,12 +1,14 @@
 import type { Href } from 'expo-router';
 import { sections, sectionContent } from './sections';
+import { mediaFeatures } from './media';
 
 export type DirectoryPage = { title: string; description: string; keywords: string; href: Href };
 export const directoryPages: DirectoryPage[] = [
   ...sections.map(section => {
     const slug = section.href.slice(1);
     const content = slug in sectionContent ? sectionContent[slug as keyof typeof sectionContent] : undefined;
-    return { title: section.title, description: section.subtitle, href: section.href, keywords: content ? [content.eyebrow, content.description, ...content.items.flatMap(item => [item.title, item.description])].join(' ') : section.title };
+    const mediaKeywords = section.href === '/media' ? mediaFeatures.flatMap(feature => [feature.title, feature.category, feature.description, ...feature.topics]).join(' ') : '';
+    return { title: section.title, description: section.subtitle, href: section.href, keywords: content ? [content.eyebrow, content.description, ...content.items.flatMap(item => [item.title, item.description]), mediaKeywords].join(' ') : section.title };
   }),
   { title: 'Plan Your Visit', description: 'Explore each weekday’s proposed program, dinner approach, and arrival FAQs.', keywords: 'visit dinner arrival parking accessibility weekday guide', href: '/visit' },
   { title: 'Compare Programs', description: 'Compare up to three proposed evenings and save favorites.', keywords: 'compare admission dinner opening after-party', href: '/compare' },

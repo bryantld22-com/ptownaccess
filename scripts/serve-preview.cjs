@@ -20,6 +20,7 @@ http.createServer((request, response) => {
     // Match the exported dynamic route shell so server and client recovery agree.
     const fallback = /^\/events\/[^/]+\/?$/.test(pathname) ? 'events/[id].html'
       : /^\/programs\/[^/]+\/?$/.test(pathname) ? 'programs/[id].html'
+      : /^\/media\/[^/]+\/?$/.test(pathname) ? 'media/[id].html'
       : /^\/[^/.]+\/?$/.test(pathname) ? '[section].html' : '+not-found.html';
     file = path.join(root, fallback);
     status = 404;
