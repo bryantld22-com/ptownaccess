@@ -1,9 +1,14 @@
 # PTown Access
 
-Build 11 of PTown Dinner Club’s app for Paducah, Kentucky. React Native,
+Build 12 of PTown Dinner Club’s app for Paducah, Kentucky. React Native,
 Expo SDK 57, TypeScript, and Expo Router. Black, warm cream, and gold.
 
 ## Included
+
+- Persistent Home, Search, Visit guide, and Saved plans shortcuts on every page,
+  with current-page indicators, keyboard links, and touch-sized controls.
+- A Plan and explore directory on PTown brings search, visit planning, program
+  comparison, creative discovery, plan review, and manual backups together.
 
 - Weekday program links render without hydration errors and keep their selection
   after reload. Section and detail headers identify the current destination.
@@ -71,7 +76,7 @@ temporary and should be replaced with approved PTown artwork before release.
 [Open PTown Access](https://ptown-access.bryantld22.chatgpt.site)
 
 This is an owner-private browser preview. Use the ChatGPT account that owns
-the project to open it. It is a preview of Build 11, not an App Store release.
+the project to open it. It is a preview of Build 12, not an App Store release.
 
 ## Run
 
@@ -164,7 +169,7 @@ Dinner-note tests verify persistence, editing/removal, summary and backup conten
 independent-device transfers, older drafts, maximum length, invalid-note rejection,
 failed writes, and phone layouts.
 
-## Build 11 completion
+## Build 12 completion
 
 The app foundation, event and creative discovery, plan review, navigation, and device planning flows are implemented. TypeScript checks,
 Expo dependency checks, web/iOS/Android exports, and Chromium navigation
@@ -204,3 +209,15 @@ not-found page, with HTTP 404 for unknown paths.
 Validation: TypeScript, web/iOS/Android exports, and all 31 Chromium browser tests
 passed. Expo’s bundled offline dependency check reported dependencies up to date.
 Navigation headers and recovery pages were visually reviewed at 320-pixel phone width.
+
+## Build 12 navigation verification
+
+The shared shortcuts remain visible while page content scrolls, support keyboard
+activation, and mark their exact current destination. PTown’s directory opens all
+six planning tools without changing stored programs, dinner drafts, or interests.
+
+Validation: TypeScript and web/iOS/Android exports passed, along with all 33
+Chromium browser tests. Controls and layouts were checked at phone, tablet, and
+desktop widths; phone and desktop screens were visually reviewed. Expo’s bundled
+offline dependency check reported dependencies up to date. Physical-device
+accessibility and release testing remain outstanding.

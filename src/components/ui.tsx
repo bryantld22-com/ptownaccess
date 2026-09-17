@@ -6,11 +6,12 @@ import { theme } from '../theme';
 import { isPastDate } from '../utils/programDay';
 import type { ProgramEvent } from '../types';
 import { usePreviewStore } from '../state/PreviewStore';
+import { QuickNavigation } from './QuickNavigation';
 
 const c = theme.colors;
 export function Screen({ children }: PropsWithChildren) {
   const { storageError } = usePreviewStore();
-  return <SafeAreaView style={styles.safe} edges={['top', 'left', 'right']}><ScrollView contentContainerStyle={styles.scroll}><View style={styles.container}>{storageError && <View style={styles.notice}><Text accessibilityRole="alert" style={styles.noticeText}>{storageError}</Text><Link href="/profile" style={styles.textLink}>Open Profile →</Link></View>}{children}</View></ScrollView></SafeAreaView>;
+  return <SafeAreaView style={styles.safe} edges={['top', 'left', 'right']}><QuickNavigation /><ScrollView contentContainerStyle={styles.scroll}><View style={styles.container}>{storageError && <View style={styles.notice}><Text accessibilityRole="alert" style={styles.noticeText}>{storageError}</Text><Link href="/profile" style={styles.textLink}>Open Profile →</Link></View>}{children}</View></ScrollView></SafeAreaView>;
 }
 export function Eyebrow({ children }: PropsWithChildren) { return <Text style={styles.eyebrow}>{children}</Text>; }
 export function Heading({ children }: PropsWithChildren) { return <Text accessibilityRole="header" style={styles.heading}>{children}</Text>; }

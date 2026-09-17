@@ -1,10 +1,7 @@
 import { test, expect, type Page } from '@playwright/test';
 
 async function returnHome(page: Page) {
-  if (!await page.locator('a[href="/"]:visible').count()) {
-    await page.locator('a[href="/ptown"]:visible').first().click();
-  }
-  await page.locator('a[href="/"]:visible').first().click();
+  await page.getByRole('navigation', { name: 'PTown shortcuts' }).getByRole('link', { name: 'Home', exact: true }).click();
   await expect(page).toHaveURL('/');
 }
 
