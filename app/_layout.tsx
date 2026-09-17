@@ -12,6 +12,7 @@ export default function RootLayout() {
     <Stack.Screen name="backup" options={{ title: 'Back up and restore' }} />
     <Stack.Screen name="search" options={{ title: 'Explore PTown' }} />
     <Stack.Screen name="creative" options={{ title: 'Creative PTown' }} />
+    <Stack.Screen name="friends" options={{ title: 'Friend 2 Friend' }} />
     <Stack.Screen name="programs/[id]" options={{ title: 'Creative pathway' }} />
     <Stack.Screen name="media/[id]" options={{ title: 'PTown Media' }} />
     <Stack.Screen name="[section]" options={{ title: 'PTown Access' }} />

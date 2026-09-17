@@ -20,6 +20,7 @@ const pages: Record<string, Location> = {
   '/backup': { label: 'Plan backup', parents: [saved] },
   '/compare': { label: 'Program comparison', parents: [{ label: 'Events', href: '/events' }] },
   '/creative': { label: 'Creative library', parents: [ptown] },
+  '/friends': { label: 'Friend 2 Friend', parents: [ptown] },
 };
 const divisions: Record<CreativeDivision, Parent> = {
   'Save the Arts': { label: 'Save the Arts', href: '/save-the-arts' },

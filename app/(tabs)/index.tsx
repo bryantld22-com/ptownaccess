@@ -14,6 +14,7 @@ export default function Home() {
     <Button label="Search all PTown" href="/search" secondary />
     <View style={styles.card}><Eyebrow>MAKE AN EVENING OF IT</Eyebrow><Text style={styles.cardTitle}>Your day. Your dinner. Your PTown.</Text><Body>Explore the proposed weekly experience and find the next step for your plans.</Body><Button label="Plan your visit" href="/visit" secondary /></View>
     <ContinuePlanning />
+    <View style={styles.card}><Eyebrow>FRIEND 2 FRIEND</Eyebrow><Text style={styles.cardTitle}>Make it an evening together.</Text><Body>Explore sample profiles and preview a “Join me at PTown” invitation. This is a social preview; no friend request or message is sent.</Body><Button label="Explore Friend 2 Friend" href="/friends" secondary /></View>
     <SectionHeader title="In the spotlight" href="/events" action="Weekly program" />
     <View style={home.featured}><Eyebrow>THURSDAY · COMEDY</Eyebrow><Text style={home.featureTitle}>A little soul.{'\n'}A lot of laughter.</Text><Body>{featuredEvent.opening} Dinner and comedy follow.</Body><Button label="Discover Comedy Night" href={{ pathname: '/events/[id]', params: { id: featuredEvent.id } }} secondary /></View>
     <SectionHeader title="Your PTown experience" /><View style={styles.grid}>{sections.map(section => <SectionCard key={section.href} {...section} />)}</View>

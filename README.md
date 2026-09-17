@@ -5,6 +5,10 @@ Expo SDK 57, TypeScript, and Expo Router. Black, warm cream, and gold.
 
 ## Included
 
+- Friend 2 Friend preview with fictional profiles, connection-preview feedback,
+  and an invitation builder. Program choices persist in URLs; optional notes are
+  not saved or put in URLs. Copying is acknowledged and offers a manual fallback.
+  No real accounts, requests, messages, invitations, RSVPs, or backend are created.
 - Home resumes this device’s saved programs, dinner draft, membership preference,
   and creative interests through focused shortcuts. Expired dinner drafts link to
   editing; empty and unreadable devices show clear start or recovery information.

@@ -4,6 +4,7 @@ import { mediaFeatures } from './media';
 
 export type DirectoryPage = { title: string; description: string; keywords: string; href: Href };
 export const directoryPages: DirectoryPage[] = [
+  { title: 'Friend 2 Friend', description: 'Preview sample profiles and build a planning invitation for good company at PTown.', keywords: 'friends friend 2 friend social connection invitation join me community sample profile', href: '/friends' },
   ...sections.map(section => {
     const slug = section.href.slice(1);
     const content = slug in sectionContent ? sectionContent[slug as keyof typeof sectionContent] : undefined;
