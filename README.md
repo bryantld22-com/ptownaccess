@@ -5,6 +5,11 @@ Expo SDK 57, TypeScript, and Expo Router. Black, warm cream, and gold.
 
 ## Included
 
+- Optional invitation group planning: preferred date and estimated group size,
+  real-calendar/future-date/weekday checks, and weekday-program recovery.
+  Invalid details pause copying; clearing the group preserves the personal note.
+  These manually entered details never autofill from saved plans, persist, or
+  enter URLs. Matching weekdays do not confirm events, capacity, or RSVPs.
 - Friend 2 Friend interest filters and three browsable fictional profile pages,
   with shared-activity ideas, proposed program links, and invitation handoffs.
   Unknown profile links recover safely; no real-person matching or attendance is implied.
