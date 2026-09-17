@@ -1,9 +1,14 @@
 # PTown Access
 
-Build 13 of PTown Dinner Club’s app for Paducah, Kentucky. React Native,
+Build 14 of PTown Dinner Club’s app for Paducah, Kentucky. React Native,
 Expo SDK 57, TypeScript, and Expo Router. Black, warm cream, and gold.
 
 ## Included
+
+- Creative-library searches and division/saved filters persist in direct query
+  links and reloads. Defaults match static HTML before applying URL state.
+- Saved-interest links use the destination device’s plans, with distinct loading
+  and unreadable-storage states. Reset clears the search and filter together.
 
 - Section location labels and contextual library links on non-Home screens.
   Event details return to their weekday; creative details link to both the
@@ -81,7 +86,7 @@ temporary and should be replaced with approved PTown artwork before release.
 [Open PTown Access](https://ptown-access.bryantld22.chatgpt.site)
 
 This is an owner-private browser preview. Use the ChatGPT account that owns
-the project to open it. It is a preview of Build 13, not an App Store release.
+the project to open it. It is a preview of Build 14, not an App Store release.
 
 ## Run
 
@@ -174,7 +179,7 @@ Dinner-note tests verify persistence, editing/removal, summary and backup conten
 independent-device transfers, older drafts, maximum length, invalid-note rejection,
 failed writes, and phone layouts.
 
-## Build 13 completion
+## Build 14 completion
 
 The app foundation, event and creative discovery, plan review, navigation, and device planning flows are implemented. TypeScript checks,
 Expo dependency checks, web/iOS/Android exports, and Chromium navigation
@@ -239,3 +244,18 @@ Regressions cover every event weekday, all three creative divisions, direct
 links, reloads, history, unchanged saved plans, narrow layouts, and unknown-link
 recovery. Phone event and pathway pages were visually reviewed. Expo’s bundled
 offline dependency check reported dependencies up to date.
+
+## Build 14 creative-link verification
+
+Creative-library search text and filters now stay in `q` and `filter` parameters.
+Direct links and reloads apply them after static hydration. Reset removes both
+parameters; detail navigation and browser history retain the prior library URL.
+Invalid/repeated parameters use defaults, and direct query text is limited to
+120 characters. Saved-interest filters read only the current device, distinguish
+loading/unreadable data from empty results, and leave stored plans unchanged.
+
+TypeScript, web/iOS/Android exports, and all 38 Chromium browser tests passed.
+Coverage includes every division, combined words and filters, reloads, detail
+history, reset, independent-device contexts, invalid inputs, unreadable storage,
+and responsive layouts. Phone query and saved-filter pages were visually reviewed.
+Expo’s bundled offline dependency check reported dependencies up to date.
