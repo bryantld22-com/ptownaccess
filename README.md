@@ -5,6 +5,10 @@ Expo SDK 57, TypeScript, and Expo Router. Black, warm cream, and gold.
 
 ## Included
 
+- Friend 2 Friend invitation shortcuts for this device’s saved programs, with
+  live favorite counts, keyboard-friendly selection, focused Profile management,
+  and distinct loading, empty, and unreadable states. Only the program is selected;
+  private planning details are never automatically added to an invitation.
 - Optional invitation group planning: preferred date and estimated group size,
   real-calendar/future-date/weekday checks, and weekday-program recovery.
   Invalid details pause copying; clearing the group preserves the personal note.

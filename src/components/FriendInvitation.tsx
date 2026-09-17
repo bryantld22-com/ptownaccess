@@ -6,6 +6,7 @@ import { events, featuredEvent } from '../data/events';
 import { theme } from '../theme';
 import { isPastDate, programDay } from '../utils/programDay';
 import { ActionButton, Feedback, Field, formStyles } from './forms';
+import { FriendSavedPrograms } from './FriendSavedPrograms';
 import { Body, Button, SectionHeader, styles } from './ui';
 
 export function FriendInvitation() {
@@ -64,6 +65,7 @@ export function FriendInvitation() {
   return <>
     <SectionHeader title="Join me at PTown" />
     <Body>Choose a proposed program and preview an invitation. The page link keeps only your program choice, not your date, guest count, or personal note. No guest is contacted and no attendance is recorded.</Body>
+    <FriendSavedPrograms disabled={working} onChoose={id => { setSelected(id); router.setParams({ program: id }); }} />
     <View accessibilityRole="radiogroup" accessibilityLabel="Invitation program" style={styles.grid}>{events.map(item => <Pressable key={item.id} accessibilityRole="radio" accessibilityLabel={`${item.day}: ${item.title}`} accessibilityState={{ checked: selected === item.id, disabled: working }} aria-checked={selected === item.id} disabled={working} onPress={() => { setSelected(item.id); router.setParams({ program: item.id }); }} style={{ flexBasis: 240, flexGrow: 1, flexShrink: 1, minWidth: 0, minHeight: 64, padding: 16, gap: 6, borderRadius: 14, borderWidth: 1, borderColor: selected === item.id ? theme.colors.gold : theme.colors.border, backgroundColor: selected === item.id ? theme.colors.elevated : theme.colors.surface }}>
       <Text style={styles.eyebrow}>{item.day}</Text><Text style={styles.cardTitle}>{item.title}</Text><Text style={styles.smallBody}>{item.admission} · Proposed program</Text>
     </Pressable>)}</View>
