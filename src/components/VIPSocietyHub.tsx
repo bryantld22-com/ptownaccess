@@ -1,10 +1,11 @@
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { useEffect, useId, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Pressable, Text, View } from 'react-native';
 import { usePreviewStore } from '../state/PreviewStore';
 import { theme } from '../theme';
 import { ActionButton, Feedback } from './forms';
 import { SectionIcon } from './SectionIcon';
+import { QuestionDisclosure } from './QuestionDisclosure';
 import { Body, Button, Card, Eyebrow, SectionHeader, styles } from './ui';
 
 const categories = [{ id: 'hospitality', title: 'Hospitality' }, { id: 'access', title: 'Special access' }];
@@ -19,17 +20,6 @@ const questions = [
   { question: 'Are prices and benefits confirmed?', answer: 'Prices, membership terms, guest policies, and final benefits will be announced before enrollment opens.' },
   { question: 'Does VIP include event admission?', answer: 'Event admission and seating arrangements will be confirmed in the final membership terms. This preview does not include or confirm tickets.' },
 ];
-
-function VIPQuestion({ question, answer }: { question: string; answer: string }) {
-  const [expanded, setExpanded] = useState(false);
-  const answerId = useId();
-  return <View style={[styles.card, { padding: 0 }]}>
-    <Pressable accessibilityRole="button" accessibilityLabel={question} accessibilityState={{ expanded }} aria-expanded={expanded} aria-controls={answerId} onPress={() => setExpanded(value => !value)} style={{ padding: 20, minHeight: 48, flexDirection: 'row', alignItems: 'center', gap: 16 }}>
-      <Text style={[styles.cardTitle, { fontSize: 16, flex: 1 }]}>{question}</Text><Text aria-hidden style={styles.arrow}>{expanded ? '−' : '+'}</Text>
-    </Pressable>
-    {expanded && <View nativeID={answerId} style={{ paddingHorizontal: 20, paddingBottom: 20 }}><Body>{answer}</Body></View>}
-  </View>;
-}
 
 export function VIPSocietyHub() {
   const router = useRouter();
@@ -63,7 +53,7 @@ export function VIPSocietyHub() {
       {saved && <ActionButton label="Remove VIP interest" secondary disabled={!ready || busy} onPress={() => { void remove(); }} />}
       <Feedback message={message} />
     </View>
-    <SectionHeader title="VIP questions" />{questions.map(question => <VIPQuestion key={question.question} {...question} />)}
+    <SectionHeader title="VIP questions" />{questions.map(question => <QuestionDisclosure key={question.question} {...question} />)}
     <Button label="Review your VIP interest" href="/profile" secondary />
     <Button label="Compare membership interests" href="/memberships" secondary />
     <Button label="Explore the weekly program" href="/events" secondary />

@@ -5,6 +5,9 @@ Expo SDK 57, TypeScript, and Expo Router. Black, warm cream, and gold.
 
 ## Included
 
+- Memberships comparison for PTown community and VIP Society, shareable unsaved
+  selections, saved-preference status, individual preference removal, and questions.
+  No prices, benefits, or enrollment terms are represented as confirmed.
 - VIP Society hub with planned hospitality and special-access benefits, shareable
   category links, expandable questions, and local VIP interest saving/removal.
   VIP and Memberships share one preference; existing events, dinner drafts, and
