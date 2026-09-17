@@ -5,6 +5,10 @@ Expo SDK 57, TypeScript, and Expo Router. Black, warm cream, and gold.
 
 ## Included
 
+- Artist Development hub with Performance, Production, and Culinary track filters,
+  proposed Day One projects, department collaboration, portfolio starters, and links
+  to save creative interests through the existing pathway pages. Track links survive
+  refreshes; enrollment and career support remain planned.
 - Media library with six clearly labeled editorial concepts across Stories,
   Podcasts, and Performances; searchable category filters retained in the URL,
   detail pages, contextual navigation, and links to related creative pathways.
