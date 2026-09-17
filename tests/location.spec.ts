@@ -49,7 +49,7 @@ test('Location labels fit small screens, mark the current page, and recover from
     ['/events', 'Events'], ['/tickets', 'Tickets'], ['/vip', 'VIP'], ['/reservations', 'Reservations'],
     ['/plans', 'Plan review'], ['/backup', 'Plan backup'], ['/compare', 'Program comparison'],
     ['/programs/culinary-development', 'Culinary Artist Development'],
-    ['/events/tuesday-jazz', 'House Jazz · Tuesday'],
+    ['/events/tuesday-jazz', 'Musician Jam Session · Tuesday'],
   ]) {
     await page.setViewportSize({ width: 320, height: 844 });
     await page.goto(route);

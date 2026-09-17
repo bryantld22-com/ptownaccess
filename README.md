@@ -5,6 +5,8 @@ Expo SDK 57, TypeScript, and Expo Router. Black, warm cream, and gold.
 
 ## Included
 
+- Updated weekly program: Tuesday is Musician Jam Session; Saturday is Any Genre.
+
 - Creative-library searches and division/saved filters persist in direct query
   links and reloads. Defaults match static HTML before applying URL state.
 - Saved-interest links use the destination device’s plans, with distinct loading
@@ -236,7 +238,7 @@ accessibility and release testing remain outstanding.
 
 Non-Home screens identify their section and relevant parent destinations. Event
 details return to the corresponding weekday filter, distinguishing Monday and
-Tuesday House Jazz. Creative details link to the library and their division.
+Tuesday programs. Creative details link to the library and their division.
 Unknown URLs show a neutral recovery location rather than a claimed program.
 
 TypeScript, web/iOS/Android exports, and all 35 Chromium browser tests passed.
