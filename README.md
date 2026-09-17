@@ -5,6 +5,10 @@ Expo SDK 57, TypeScript, and Expo Router. Black, warm cream, and gold.
 
 ## Included
 
+- VIP Society hub with planned hospitality and special-access benefits, shareable
+  category links, expandable questions, and local VIP interest saving/removal.
+  VIP and Memberships share one preference; existing events, dinner drafts, and
+  creative interests are preserved. No enrollment or ticket purchase is created.
 - Save the Arts hub highlighting PTown’s flagship mission, the Heritage Tour,
   and two planned Saturday arts sessions. Program filters persist in shared URLs;
   existing pathway pages save interests, with links to Artist Development and
