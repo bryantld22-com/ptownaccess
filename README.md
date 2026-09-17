@@ -5,6 +5,9 @@ Expo SDK 57, TypeScript, and Expo Router. Black, warm cream, and gold.
 
 ## Included
 
+- Events search, admission/saved filters, weekday, and list/week view persist in
+  direct links and reloads. Saved-filter links read only the current device and
+  distinguish loading or unreadable data from an empty saved-program list.
 - Profile category navigation with live saved-plan counts, direct category links,
   and focused views for events, dinner, membership, and creative interests.
   Category browsing leaves plans untouched; existing review, backup, and reset remain.
