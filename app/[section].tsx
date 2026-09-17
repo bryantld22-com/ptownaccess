@@ -10,6 +10,7 @@ import { pathways, type CreativeDivision } from '../src/data/pathways';
 import { SectionHeader } from '../src/components/ui';
 import { MediaLibrary } from '../src/components/MediaLibrary';
 import { ArtistDevelopmentHub } from '../src/components/ArtistDevelopmentHub';
+import { SaveTheArtsHub } from '../src/components/SaveTheArtsHub';
 export function generateStaticParams() { return Object.keys(sectionContent).map(section => ({ section })); }
 export default function Section() {
   const { section } = useLocalSearchParams<{ section: string }>();
@@ -22,7 +23,7 @@ export default function Section() {
     {section === 'reservations' && <ReservationPlanner />}
     {section === 'memberships' && <MembershipPlanner />}
     {section === 'media' && <MediaLibrary />}
-    {section === 'artist-development' ? <ArtistDevelopmentHub /> : division ? <>
+    {section === 'artist-development' ? <ArtistDevelopmentHub /> : section === 'save-the-arts' ? <SaveTheArtsHub /> : division ? <>
       <SectionHeader title="Explore planned pathways" />
       {pathways.filter(pathway => pathway.division === division).map(pathway => <PathwayCard key={pathway.id} pathway={pathway} />)}
       <Button label="Browse all creative pathways" href="/creative" secondary />

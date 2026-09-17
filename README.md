@@ -5,6 +5,10 @@ Expo SDK 57, TypeScript, and Expo Router. Black, warm cream, and gold.
 
 ## Included
 
+- Save the Arts hub highlighting PTown’s flagship mission, the Heritage Tour,
+  and two planned Saturday arts sessions. Program filters persist in shared URLs;
+  existing pathway pages save interests, with links to Artist Development and
+  Media stories. Tour details and registration remain planned.
 - Artist Development hub with Performance, Production, and Culinary track filters,
   proposed Day One projects, department collaboration, portfolio starters, and links
   to save creative interests through the existing pathway pages. Track links survive
