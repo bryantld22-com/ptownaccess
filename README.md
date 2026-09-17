@@ -5,6 +5,9 @@ Expo SDK 57, TypeScript, and Expo Router. Black, warm cream, and gold.
 
 ## Included
 
+- Tickets guide with proposed free/ticketed admission, shareable information topics,
+  food and after-party distinctions, arrival-policy placeholders, and questions.
+  Saved ticketed favorites remain separate from future passes; no sales are open.
 - Reservations hub with planned dinner and gathering experiences, a saved-draft
   summary distinct from unsaved edits, weekday visit links, and expandable questions.
   No draft is submitted and no table, ticket, or dietary request is confirmed.
