@@ -1,9 +1,14 @@
 # PTown Access
 
-Build 12 of PTown Dinner Club’s app for Paducah, Kentucky. React Native,
+Build 13 of PTown Dinner Club’s app for Paducah, Kentucky. React Native,
 Expo SDK 57, TypeScript, and Expo Router. Black, warm cream, and gold.
 
 ## Included
+
+- Section location labels and contextual library links on non-Home screens.
+  Event details return to their weekday; creative details link to both the
+  creative library and the relevant PTown division. Unknown links use a
+  neutral recovery label without presenting URL text as a valid program.
 
 - Persistent Home, Search, Visit guide, and Saved plans shortcuts on every page,
   with current-page indicators, keyboard links, and touch-sized controls.
@@ -76,7 +81,7 @@ temporary and should be replaced with approved PTown artwork before release.
 [Open PTown Access](https://ptown-access.bryantld22.chatgpt.site)
 
 This is an owner-private browser preview. Use the ChatGPT account that owns
-the project to open it. It is a preview of Build 12, not an App Store release.
+the project to open it. It is a preview of Build 13, not an App Store release.
 
 ## Run
 
@@ -169,7 +174,7 @@ Dinner-note tests verify persistence, editing/removal, summary and backup conten
 independent-device transfers, older drafts, maximum length, invalid-note rejection,
 failed writes, and phone layouts.
 
-## Build 12 completion
+## Build 13 completion
 
 The app foundation, event and creative discovery, plan review, navigation, and device planning flows are implemented. TypeScript checks,
 Expo dependency checks, web/iOS/Android exports, and Chromium navigation
@@ -221,3 +226,16 @@ Chromium browser tests. Controls and layouts were checked at phone, tablet, and
 desktop widths; phone and desktop screens were visually reviewed. Expo’s bundled
 offline dependency check reported dependencies up to date. Physical-device
 accessibility and release testing remain outstanding.
+
+## Build 13 location verification
+
+Non-Home screens identify their section and relevant parent destinations. Event
+details return to the corresponding weekday filter, distinguishing Monday and
+Tuesday House Jazz. Creative details link to the library and their division.
+Unknown URLs show a neutral recovery location rather than a claimed program.
+
+TypeScript, web/iOS/Android exports, and all 35 Chromium browser tests passed.
+Regressions cover every event weekday, all three creative divisions, direct
+links, reloads, history, unchanged saved plans, narrow layouts, and unknown-link
+recovery. Phone event and pathway pages were visually reviewed. Expo’s bundled
+offline dependency check reported dependencies up to date.
