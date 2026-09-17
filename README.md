@@ -5,6 +5,9 @@ Expo SDK 57, TypeScript, and Expo Router. Black, warm cream, and gold.
 
 ## Included
 
+- Home resumes this device’s saved programs, dinner draft, membership preference,
+  and creative interests through focused shortcuts. Expired dinner drafts link to
+  editing; empty and unreadable devices show clear start or recovery information.
 - Events search, admission/saved filters, weekday, and list/week view persist in
   direct links and reloads. Saved-filter links read only the current device and
   distinguish loading or unreadable data from an empty saved-program list.

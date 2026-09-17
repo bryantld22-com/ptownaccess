@@ -3,10 +3,9 @@ import { Body, Button, EventCard, Eyebrow, Footer, Heading, PreviewNotice, Scree
 import { events, featuredEvent } from '../../src/data/events';
 import { sections } from '../../src/data/sections';
 import { theme } from '../../src/theme';
-import { usePreviewStore } from '../../src/state/PreviewStore';
 import { BrandLogo } from '../../src/components/BrandLogo';
+import { ContinuePlanning } from '../../src/components/ContinuePlanning';
 export default function Home() {
-  const { ready, savedEventIds, savedPathwayIds, reservationDraft, membershipInterest } = usePreviewStore();
   return <Screen>
     <BrandLogo />
     <View style={home.brandRow}><View><Text style={home.brand}>PTOWN<Text style={{ color: theme.colors.gold }}> ACCESS</Text></Text><Text style={home.brandSub}>YOUR ALL ACCESS PASS TO PTOWN</Text></View><View style={home.location}><Text style={home.locationText}>PADUCAH, KY</Text></View></View>
@@ -14,7 +13,7 @@ export default function Home() {
     <PreviewNotice />
     <Button label="Search all PTown" href="/search" secondary />
     <View style={styles.card}><Eyebrow>MAKE AN EVENING OF IT</Eyebrow><Text style={styles.cardTitle}>Your day. Your dinner. Your PTown.</Text><Body>Explore the proposed weekly experience and find the next step for your plans.</Body><Button label="Plan your visit" href="/visit" secondary /></View>
-    <View style={styles.card}><SectionHeader title="Your saved plans" /><Body>{ready ? `${savedEventIds.length} saved ${savedEventIds.length === 1 ? 'program' : 'programs'}${reservationDraft ? ' · Dinner draft saved' : ''}${membershipInterest ? ' · Membership interest saved' : ''}${savedPathwayIds.length ? ` · ${savedPathwayIds.length} creative ${savedPathwayIds.length === 1 ? 'interest' : 'interests'}` : ''}` : 'Your device’s saved plans will appear here.'}</Body><Button label="Review your plan" href="/plans" secondary /><Button label="Manage saved plans" href="/profile" secondary /></View>
+    <ContinuePlanning />
     <SectionHeader title="In the spotlight" href="/events" action="Weekly program" />
     <View style={home.featured}><Eyebrow>THURSDAY · COMEDY</Eyebrow><Text style={home.featureTitle}>A little soul.{'\n'}A lot of laughter.</Text><Body>{featuredEvent.opening} Dinner and comedy follow.</Body><Button label="Discover Comedy Night" href={{ pathname: '/events/[id]', params: { id: featuredEvent.id } }} secondary /></View>
     <SectionHeader title="Your PTown experience" /><View style={styles.grid}>{sections.map(section => <SectionCard key={section.href} {...section} />)}</View>
