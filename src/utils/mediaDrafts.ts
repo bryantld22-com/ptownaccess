@@ -2,7 +2,7 @@ import { mediaProjectStatuses, type MediaProjectStatus } from '../data/mediaProj
 import { mediaTemplates } from '../data/mediaTemplates';
 
 export const MEDIA_DRAFTS_KEY = '@ptown/media-drafts/v1';
-export type MediaWorkbookRecord = { documentName: string; location: string; reviewer: string; reviewedOn: string };
+export type MediaWorkbookRecord = { documentName: string; location: string; reviewer: string; reviewedOn: string; statusAtReview?: MediaProjectStatus };
 export type MediaWorkbookEntry = { checks: string[]; notes: string; record?: MediaWorkbookRecord };
 export type MediaDraft = { id: string; title: string; division: string; owner: string; status: MediaProjectStatus; deadline: string; notes: string; updatedAt: string; workbook?: Record<string, MediaWorkbookEntry> };
 export function readMediaDrafts(value: string | null): MediaDraft[] {
@@ -16,7 +16,7 @@ function validWorkbook(value: MediaDraft['workbook']) {
   if (!value || typeof value !== 'object' || Array.isArray(value)) return false;
   return Object.values(value).every(entry => entry && Array.isArray(entry.checks) && entry.checks.every(check => typeof check === 'string') && typeof entry.notes === 'string' && entry.notes.length <= 1000 && validRecord(entry.record));
 }
-function validRecord(record: MediaWorkbookEntry['record']) { return record === undefined || Boolean(record && typeof record.documentName === 'string' && record.documentName.length <= 160 && typeof record.location === 'string' && record.location.length <= 240 && typeof record.reviewer === 'string' && record.reviewer.length <= 120 && typeof record.reviewedOn === 'string' && record.reviewedOn.length <= 40); }
+function validRecord(record: MediaWorkbookEntry['record']) { return record === undefined || Boolean(record && typeof record.documentName === 'string' && record.documentName.length <= 160 && typeof record.location === 'string' && record.location.length <= 240 && typeof record.reviewer === 'string' && record.reviewer.length <= 120 && typeof record.reviewedOn === 'string' && record.reviewedOn.length <= 40 && (record.statusAtReview === undefined || mediaProjectStatuses.includes(record.statusAtReview))); }
 export function templateForMediaDraft(draft: MediaDraft) {
   if (draft.status === 'Production') return 'show-rundown';
   if (draft.status === 'Review' || draft.status === 'Approved') return 'approval-record';
@@ -57,10 +57,26 @@ export function mediaDraftGates(draft: MediaDraft) {
   return required.map(id => {
     const template = mediaTemplates.find(item => item.id === id)!;
     const marked = draft.workbook?.[id]?.checks.filter(check => template.checks.includes(check)).length ?? 0;
-    const record = draft.workbook?.[id]?.record; const recordComplete = Boolean(record?.documentName.trim() && record.location.trim() && record.reviewer.trim() && record.reviewedOn.trim());
-    return { id, title: template.title, marked, total: template.checks.length, complete: marked === template.checks.length, recordComplete };
+    const recordQuality = mediaRecordQuality(draft, id);
+    return { id, title: template.title, marked, total: template.checks.length, complete: marked === template.checks.length, recordComplete: recordQuality.state === 'current', recordQuality };
   });
 }
+export type MediaRecordQuality = { state: 'missing' | 'incomplete' | 'invalid' | 'stale' | 'current'; issues: string[] };
+export function mediaRecordQuality(draft: MediaDraft, stageId: string): MediaRecordQuality {
+  const record = draft.workbook?.[stageId]?.record;
+  if (!record || ![record.documentName, record.location, record.reviewer, record.reviewedOn].some(value => value.trim())) return { state: 'missing', issues: ['No supporting-record reference is entered.'] };
+  const missing = [['document name', record.documentName], ['location or reference', record.location], ['reviewer', record.reviewer], ['review date', record.reviewedOn]].filter(([, value]) => !value.trim()).map(([label]) => `Missing ${label}.`);
+  if (missing.length) return { state: 'incomplete', issues: missing };
+  if (!realIsoDay(record.reviewedOn)) return { state: 'invalid', issues: ['Review date must be a real date in YYYY-MM-DD format.'] };
+  const reviewed = new Date(`${record.reviewedOn}T00:00:00Z`); const today = new Date(); today.setUTCHours(23, 59, 59, 999);
+  if (reviewed > today) return { state: 'invalid', issues: ['Review date cannot be in the future.'] };
+  const issues: string[] = []; const updatedDay = draft.updatedAt.slice(0, 10);
+  if (updatedDay && record.reviewedOn < updatedDay) issues.push('The private draft changed after the entered review date. Re-review the supporting record.');
+  if (record.statusAtReview && record.statusAtReview !== draft.status) issues.push(`Draft status changed from ${record.statusAtReview} to ${draft.status} after this record reference was saved.`);
+  if (!record.statusAtReview) issues.push('No status-at-review record is available. Save this workbook stage again after review.');
+  return issues.length ? { state: 'stale', issues } : { state: 'current', issues: [] };
+}
+function realIsoDay(value: string) { const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(value); if (!match) return false; const date = new Date(Date.UTC(Number(match[1]), Number(match[2]) - 1, Number(match[3]))); return date.getUTCFullYear() === Number(match[1]) && date.getUTCMonth() === Number(match[2]) - 1 && date.getUTCDate() === Number(match[3]); }
 export function mediaDraftStageRecommendation(draft: MediaDraft) {
   const order = ['assignment-brief', 'rights-checklist', 'approval-record', 'archive-handoff'];
   for (const id of order) {
