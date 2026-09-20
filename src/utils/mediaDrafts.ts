@@ -1,4 +1,5 @@
 import { mediaProjectStatuses, type MediaProjectStatus } from '../data/mediaProjects';
+import { mediaTemplates } from '../data/mediaTemplates';
 
 export const MEDIA_DRAFTS_KEY = '@ptown/media-drafts/v1';
 export type MediaWorkbookEntry = { checks: string[]; notes: string };
@@ -40,4 +41,29 @@ export function readMediaDraftTransfer(value: string): MediaDraft[] {
     ids.add(draft.id);
   }
   return drafts;
+}
+const gateStages: Record<MediaProjectStatus, string[]> = {
+  Assigned: [],
+  'Pre-production': ['assignment-brief'],
+  Production: ['assignment-brief', 'rights-checklist'],
+  Review: ['assignment-brief', 'rights-checklist'],
+  Approved: ['assignment-brief', 'rights-checklist', 'approval-record'],
+  Archived: ['assignment-brief', 'rights-checklist', 'approval-record', 'archive-handoff'],
+};
+export function mediaDraftGates(draft: MediaDraft) {
+  const required = gateStages[draft.status];
+  return required.map(id => {
+    const template = mediaTemplates.find(item => item.id === id)!;
+    const marked = draft.workbook?.[id]?.checks.filter(check => template.checks.includes(check)).length ?? 0;
+    return { id, title: template.title, marked, total: template.checks.length, complete: marked === template.checks.length };
+  });
+}
+export function mediaDraftStageRecommendation(draft: MediaDraft) {
+  const order = ['assignment-brief', 'rights-checklist', 'approval-record', 'archive-handoff'];
+  for (const id of order) {
+    const template = mediaTemplates.find(item => item.id === id)!;
+    const marked = draft.workbook?.[id]?.checks.filter(check => template.checks.includes(check)).length ?? 0;
+    if (marked < template.checks.length) return { id, title: template.title, remaining: template.checks.length - marked };
+  }
+  return null;
 }
