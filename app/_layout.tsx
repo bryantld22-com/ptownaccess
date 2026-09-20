@@ -17,6 +17,8 @@ export default function RootLayout() {
     <Stack.Screen name="programs/[id]" options={{ title: 'Creative pathway' }} />
     <Stack.Screen name="media/[id]" options={{ title: 'PTown Media' }} />
     <Stack.Screen name="media-group" options={{ title: 'PTown Media Group' }} />
+    <Stack.Screen name="media-group/[id]" options={{ title: 'Media Group division' }} />
+    <Stack.Screen name="media-group/operations-guide" options={{ title: 'Media Director Guide' }} />
     <Stack.Screen name="[section]" options={{ title: 'PTown Access' }} />
     <Stack.Screen name="events/[id]" options={{ title: 'Program details' }} />
     <Stack.Screen name="+not-found" options={{ title: 'PTown Access' }} />

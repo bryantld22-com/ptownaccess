@@ -1,12 +1,14 @@
 import type { SectionIconName } from '../components/SectionIcon';
 
-export const mediaGroupDivisions: { title: string; description: string; icon: SectionIconName }[] = [
-  { title: 'News & Editorial', description: 'Community reporting, public affairs, interviews, PTown Journal, corrections, and right-of-reply practices.', icon: 'newspaper-outline' },
-  { title: 'Radio & Podcasts', description: 'PTown Radio, artist conversations, cultural programs, business leadership, tourism, food, bourbon, and wine features.', icon: 'mic-outline' },
-  { title: 'Live & Recorded Production', description: 'Concert livestreams, performance capture, documentaries, photography, video, editing, highlights, and approved archives.', icon: 'videocam-outline' },
-  { title: 'Digital Distribution', description: 'PTown Access and the PTown website serve as the home base; social channels promote approved stories and bring audiences back.', icon: 'phone-portrait-outline' },
-  { title: 'Partnerships & Revenue', description: 'Sponsorship activation, advertising, commercial production, studio services, subscriptions, pay-per-view, and content licensing.', icon: 'briefcase-outline' },
-  { title: 'Media Academy', description: 'Hands-on pathways in journalism, broadcasting, podcasting, cameras, editing, design, marketing, and production.', icon: 'school-outline' },
+export type MediaGroupDivision = { id: string; title: string; description: string; icon: SectionIconName; lead: string; programs: string[]; roles: string[]; passport: string[] };
+
+export const mediaGroupDivisions: MediaGroupDivision[] = [
+  { id: 'news-editorial', title: 'News & Editorial', description: 'Community reporting, public affairs, interviews, PTown Journal, corrections, and right-of-reply practices.', icon: 'newspaper-outline', lead: 'News & Editorial Director', programs: ['PTown Journal', 'Community news and public affairs', 'Regional Voices interviews', 'Culture, tourism, and civic features'], roles: ['Assign and edit coverage', 'Verify sources and supporting records', 'Request and document right of reply', 'Publish corrections and story updates'], passport: ['Source verification', 'Interview preparation', 'News writing and editing', 'Corrections and disclosure practice'] },
+  { id: 'radio-podcasts', title: 'Radio & Podcasts', description: 'PTown Radio, artist conversations, cultural programs, business leadership, tourism, food, bourbon, and wine features.', icon: 'mic-outline', lead: 'Program Director', programs: ['PTown Radio', 'PTown Podcast Network', 'Artist Conversations', 'Culinary, bourbon, wine, business, tourism, and culture features'], roles: ['Maintain the programming calendar', 'Prepare guests and show rundowns', 'Record clean host and guest audio', 'Complete editorial and sponsor review'], passport: ['Host and microphone technique', 'Interview and rundown writing', 'Audio recording and editing', 'Publishing and episode documentation'] },
+  { id: 'production', title: 'Live & Recorded Production', description: 'Concert livestreams, performance capture, documentaries, photography, video, editing, highlights, and approved archives.', icon: 'videocam-outline', lead: 'Production Director', programs: ['PTown LIVE', 'Multi-camera performance coverage', 'Documentaries and Behind the Build', 'Photography, promos, commercials, clips, and visualizers'], roles: ['Create production plans and call sheets', 'Coordinate cameras, audio, lighting, and stage', 'Run director safety and emergency controls', 'Complete quality control and archive delivery'], passport: ['Camera and composition', 'Audio and lighting fundamentals', 'Live switching and show communication', 'Editing, export, and archive handoff'] },
+  { id: 'distribution', title: 'Digital Distribution', description: 'PTown Access and the PTown website serve as the home base; social channels promote approved stories and bring audiences back.', icon: 'phone-portrait-outline', lead: 'Digital & Distribution Director', programs: ['PTown Access media library', 'PTown website publishing', 'Platform-safe promotional cuts', 'Audience, accessibility, and performance reporting'], roles: ['Prepare owned-platform releases', 'Create approved promotional versions', 'Check captions, credits, links, and labels', 'Track audience performance without changing editorial truth'], passport: ['Content management', 'Caption and metadata quality', 'Accessible publishing', 'Analytics and distribution reporting'] },
+  { id: 'partnerships-revenue', title: 'Partnerships & Revenue', description: 'Sponsorship activation, advertising, commercial production, studio services, subscriptions, pay-per-view, and content licensing.', icon: 'briefcase-outline', lead: 'Sales & Sponsorship Director', programs: ['Sponsor campaigns and fulfillment', 'Commercial media services', 'Studio and production services', 'Subscriptions, pay-per-view, archive access, and licensing'], roles: ['Define deliverables before approval', 'Separate paid content from reporting', 'Coordinate contracts, invoices, and fulfillment', 'Protect PTown ownership, credits, and usage limits'], passport: ['Proposal and scope preparation', 'Sponsor disclosure', 'Rights and usage tracking', 'Campaign recap and client service'] },
+  { id: 'media-academy', title: 'Media Academy', description: 'Hands-on pathways in journalism, broadcasting, podcasting, cameras, editing, design, marketing, and production.', icon: 'school-outline', lead: 'Media Academy Director', programs: ['PTOWN Career Launch', 'Department rotations', 'Skills Passport and portfolio reviews', 'Internships, apprenticeships, placement, and alumni mentoring'], roles: ['Assess interests and readiness', 'Assign supervised real productions', 'Document demonstrated skills and portfolio evidence', 'Connect participants to placement partners and alumni'], passport: ['Ethics, privacy, and permissions', 'Equipment care and file management', 'Production teamwork and deadlines', 'Portfolio, résumé, and career readiness'] },
 ];
 
 export const editorialStandards = [
@@ -18,15 +20,12 @@ export const editorialStandards = [
 ] as const;
 
 export const mediaCareerPath = ['Explore', 'Choose', 'Train', 'Produce', 'Document', 'Place', 'Return'];
-
-export const mediaLeadership = [
-  'Director of PTown Media Group',
-  'Program Director',
-  'News & Editorial Director',
-  'Producers and production coordinators',
-  'Technical, livestream, camera, audio, and editing teams',
-  'Digital distribution and audience team',
-  'Rights, standards, archives, and permissions',
-  'Sales, sponsorship, and partner activation',
-  'Interns, apprentices, mentors, and placement partners',
-];
+export const mediaLeadership = ['Director of PTown Media Group', 'Program Director', 'News & Editorial Director', 'Producers and production coordinators', 'Technical, livestream, camera, audio, and editing teams', 'Digital distribution and audience team', 'Rights, standards, archives, and permissions', 'Sales, sponsorship, and partner activation', 'Interns, apprentices, mentors, and placement partners'];
+export const operationsGuide = [
+  ['Plan', 'Set the editorial calendar, program schedule, event coverage priorities, production assignments, deadlines, budget limits, and approval owners.'],
+  ['Pre-produce', 'Confirm story purpose, sources, guests, releases, music and content rights, sponsor disclosures, equipment, call sheets, access, and safety.'],
+  ['Produce', 'Follow the approved rundown. Protect consent, privacy, safety, editorial independence, technical quality, and event operations.'],
+  ['Review', 'Verify facts, names, captions, credits, sponsor labels, releases, licenses, audio, picture, accessibility, and platform requirements.'],
+  ['Approve & publish', 'Use documented editorial, creative, rights, and sponsor approvals before releasing through PTown-owned channels.'],
+  ['Archive & learn', 'Store masters, project files, releases, licenses, metadata, approvals, and performance notes; document corrections and lessons learned.'],
+] as const;
