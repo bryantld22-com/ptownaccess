@@ -44,6 +44,12 @@ const attentionFilters = [
   "Needs details",
 ];
 const sortOptions = ["Urgency", "Readiness", "Name", "Recently updated"];
+const statusFilters = [
+  "All statuses",
+  "New lead",
+  "Needs materials",
+  "Ready for owner review",
+];
 
 export default function ArtistDevelopmentDashboard() {
   const router = useRouter();
@@ -51,6 +57,7 @@ export default function ArtistDevelopmentDashboard() {
     track?: string | string[];
     attention?: string | string[];
     sort?: string | string[];
+    status?: string | string[];
   }>();
   const routeTrack =
     trackFilters.find((item) => item === params.track) ?? "All tracks";
@@ -59,6 +66,8 @@ export default function ArtistDevelopmentDashboard() {
     "All attention";
   const routeSort =
     sortOptions.find((item) => item === params.sort) ?? "Urgency";
+  const routeStatus =
+    statusFilters.find((item) => item === params.status) ?? "All statuses";
   const [prospects, setProspects] = useState<ArtistProspect[]>([]);
   const [actions, setActions] = useState<ArtistProspectAction[]>([]);
   const [ready, setReady] = useState(false);
@@ -66,11 +75,13 @@ export default function ArtistDevelopmentDashboard() {
   const [track, setTrack] = useState("All tracks");
   const [attentionFilter, setAttentionFilter] = useState("All attention");
   const [sort, setSort] = useState("Urgency");
+  const [status, setStatus] = useState("All statuses");
   const [message, setMessage] = useState<string | null>(null);
   const [copyError, setCopyError] = useState<string | null>(null);
   useEffect(() => setTrack(routeTrack), [routeTrack]);
   useEffect(() => setAttentionFilter(routeAttention), [routeAttention]);
   useEffect(() => setSort(routeSort), [routeSort]);
+  useEffect(() => setStatus(routeStatus), [routeStatus]);
   useEffect(() => {
     void Promise.all([
       AsyncStorage.getItem(ARTIST_PROSPECTS_KEY),
@@ -132,6 +143,7 @@ export default function ArtistDevelopmentDashboard() {
     .filter(
       (item) =>
         (track === "All tracks" || item.prospect.track === track) &&
+        (status === "All statuses" || item.prospect.status === status) &&
         (attentionFilter === "All attention" ||
           (attentionFilter === "Overdue" && item.overdueCount > 0) ||
           (attentionFilter === "High priority" && item.highCount > 0) ||
@@ -152,7 +164,7 @@ export default function ArtistDevelopmentDashboard() {
   const report = [
     "PTOWN ARTIST DEVELOPMENT — PRIVATE PIPELINE REPORT",
     "",
-    `View: ${track} · ${attentionFilter} · ${sort}`,
+    `View: ${track} · ${status} · ${attentionFilter} · ${sort}`,
     `Prospects shown: ${visibleAttention.length} of ${prospects.length}`,
     `Ready for owner review: ${readyForReview.length}`,
     `Need planning details: ${needsDetails.length}`,
@@ -162,6 +174,9 @@ export default function ArtistDevelopmentDashboard() {
     `Open follow-ups without timing: ${withoutTiming.length}`,
     `Completed follow-ups: ${actions.length - open.length}`,
     `Unlinked history: ${unlinked.length}`,
+    `New leads: ${prospects.filter((item) => item.status === "New lead").length}`,
+    `Needs materials: ${prospects.filter((item) => item.status === "Needs materials").length}`,
+    `Ready for owner review status: ${prospects.filter((item) => item.status === "Ready for owner review").length}`,
     "",
     "VISIBLE OWNER ATTENTION QUEUE",
     ...(visibleAttention.length
@@ -229,6 +244,19 @@ export default function ArtistDevelopmentDashboard() {
               alert={high.length > 0}
             />
           </View>
+          <SectionHeader title="Decision stages" />
+          <View style={styles.grid}>
+            {statusFilters.slice(1).map((item) => (
+              <Metric
+                key={item}
+                title={item}
+                value={
+                  prospects.filter((prospect) => prospect.status === item)
+                    .length
+                }
+              />
+            ))}
+          </View>
           <SectionHeader title="Development tracks" />
           <View style={styles.grid}>
             {tracks.map((track) => {
@@ -283,6 +311,26 @@ export default function ArtistDevelopmentDashboard() {
               />
             ))}
           </View>
+          <Text style={styles.cardTitle}>Planning status</Text>
+          <View
+            accessibilityRole="tablist"
+            accessibilityLabel="Pipeline planning status"
+            style={styles.grid}
+          >
+            {statusFilters.map((item) => (
+              <Filter
+                key={item}
+                label={item}
+                selected={status === item}
+                onPress={() => {
+                  setStatus(item);
+                  router.setParams({
+                    status: item === "All statuses" ? undefined : item,
+                  });
+                }}
+              />
+            ))}
+          </View>
           <Text style={styles.cardTitle}>Attention type</Text>
           <View
             accessibilityRole="tablist"
@@ -324,6 +372,7 @@ export default function ArtistDevelopmentDashboard() {
             ))}
           </View>
           {(track !== "All tracks" ||
+            status !== "All statuses" ||
             attentionFilter !== "All attention" ||
             sort !== "Urgency") && (
             <ActionButton
@@ -331,10 +380,12 @@ export default function ArtistDevelopmentDashboard() {
               secondary
               onPress={() => {
                 setTrack("All tracks");
+                setStatus("All statuses");
                 setAttentionFilter("All attention");
                 setSort("Urgency");
                 router.setParams({
                   track: undefined,
+                  status: undefined,
                   attention: undefined,
                   sort: undefined,
                 });

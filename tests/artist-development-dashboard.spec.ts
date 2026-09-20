@@ -81,14 +81,27 @@ test("Artist Development dashboard summarizes readiness, tracks, priority, and t
   await expect(
     page.getByText("Production", { exact: true }).locator(".."),
   ).toContainText("1 private prospect");
+  await expect(
+    page.getByText("New lead", { exact: true }).locator(".."),
+  ).toContainText("1");
+  await expect(
+    page
+      .getByText("Ready for owner review", { exact: true })
+      .first()
+      .locator(".."),
+  ).toContainText("1");
   await expect(page.getByText("River Producer", { exact: true })).toBeVisible();
   await expect(
     page.getByText("Sunday Vocalist", { exact: true }),
   ).toBeVisible();
   await page.getByRole("tab", { name: "Production", exact: true }).click();
+  await page
+    .getByRole("tab", { name: "Ready for owner review", exact: true })
+    .click();
   await page.getByRole("tab", { name: "Overdue", exact: true }).click();
   await expect(page).toHaveURL(/track=Production/);
   await expect(page).toHaveURL(/attention=Overdue/);
+  await expect(page).toHaveURL(/status=Ready/);
   await expect(
     page.getByText("1 of 2 private prospects shown", { exact: true }),
   ).toBeVisible();
@@ -98,7 +111,9 @@ test("Artist Development dashboard summarizes readiness, tracks, priority, and t
       exact: true,
     })
     .inputValue();
-  expect(report).toContain("View: Production · Overdue · Urgency");
+  expect(report).toContain(
+    "View: Production · Ready for owner review · Overdue · Urgency",
+  );
   expect(report).toContain("River Producer · Production");
   expect(report).not.toContain("Sunday Vocalist · Performance");
   await page.reload();
@@ -107,6 +122,9 @@ test("Artist Development dashboard summarizes readiness, tracks, priority, and t
   ).toHaveAttribute("aria-selected", "true");
   await expect(
     page.getByRole("tab", { name: "Overdue", exact: true }),
+  ).toHaveAttribute("aria-selected", "true");
+  await expect(
+    page.getByRole("tab", { name: "Ready for owner review", exact: true }),
   ).toHaveAttribute("aria-selected", "true");
   await page
     .getByRole("link", { name: "Open River Producer follow-ups", exact: true })
