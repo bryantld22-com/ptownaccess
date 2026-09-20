@@ -77,6 +77,20 @@ export function mediaRecordQuality(draft: MediaDraft, stageId: string): MediaRec
   return issues.length ? { state: 'stale', issues } : { state: 'current', issues: [] };
 }
 function realIsoDay(value: string) { const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(value); if (!match) return false; const date = new Date(Date.UTC(Number(match[1]), Number(match[2]) - 1, Number(match[3]))); return date.getUTCFullYear() === Number(match[1]) && date.getUTCMonth() === Number(match[2]) - 1 && date.getUTCDate() === Number(match[3]); }
+export function mediaDraftReadiness(draft: MediaDraft) {
+  const gates = mediaDraftGates(draft); const recommendation = mediaDraftStageRecommendation(draft);
+  const blocked = gates.some(gate => !gate.complete || gate.recordQuality.state !== 'current');
+  const recordIssues = gates.reduce((total, gate) => total + gate.recordQuality.issues.length, 0);
+  return { blocked, gates, recommendation, recordIssues, timing: mediaDraftTiming(draft.deadline) };
+}
+export function mediaDraftTiming(value: string) {
+  const trimmed = value.trim(); if (!trimmed) return { state: 'missing' as const, label: 'No deadline or timing entered' };
+  if (!realIsoDay(trimmed)) return { state: 'descriptive' as const, label: trimmed };
+  const today = new Date(); const todayKey = `${today.getUTCFullYear()}-${String(today.getUTCMonth() + 1).padStart(2, '0')}-${String(today.getUTCDate()).padStart(2, '0')}`;
+  if (trimmed < todayKey) return { state: 'overdue' as const, label: `${trimmed} has passed` };
+  if (trimmed === todayKey) return { state: 'today' as const, label: `${trimmed} is today` };
+  return { state: 'upcoming' as const, label: `${trimmed} is upcoming` };
+}
 export function mediaDraftStageRecommendation(draft: MediaDraft) {
   const order = ['assignment-brief', 'rights-checklist', 'approval-record', 'archive-handoff'];
   for (const id of order) {
