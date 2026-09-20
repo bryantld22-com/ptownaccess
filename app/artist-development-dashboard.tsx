@@ -43,28 +43,34 @@ const attentionFilters = [
   "High priority",
   "Needs details",
 ];
+const sortOptions = ["Urgency", "Readiness", "Name", "Recently updated"];
 
 export default function ArtistDevelopmentDashboard() {
   const router = useRouter();
   const params = useLocalSearchParams<{
     track?: string | string[];
     attention?: string | string[];
+    sort?: string | string[];
   }>();
   const routeTrack =
     trackFilters.find((item) => item === params.track) ?? "All tracks";
   const routeAttention =
     attentionFilters.find((item) => item === params.attention) ??
     "All attention";
+  const routeSort =
+    sortOptions.find((item) => item === params.sort) ?? "Urgency";
   const [prospects, setProspects] = useState<ArtistProspect[]>([]);
   const [actions, setActions] = useState<ArtistProspectAction[]>([]);
   const [ready, setReady] = useState(false);
   const [error, setError] = useState(false);
   const [track, setTrack] = useState("All tracks");
   const [attentionFilter, setAttentionFilter] = useState("All attention");
+  const [sort, setSort] = useState("Urgency");
   const [message, setMessage] = useState<string | null>(null);
   const [copyError, setCopyError] = useState<string | null>(null);
   useEffect(() => setTrack(routeTrack), [routeTrack]);
   useEffect(() => setAttentionFilter(routeAttention), [routeAttention]);
+  useEffect(() => setSort(routeSort), [routeSort]);
   useEffect(() => {
     void Promise.all([
       AsyncStorage.getItem(ARTIST_PROSPECTS_KEY),
@@ -94,47 +100,59 @@ export default function ArtistDevelopmentDashboard() {
   const unlinked = actions.filter(
     (item) => !prospects.some((prospect) => prospect.id === item.prospectId),
   );
-  const attention = prospects
-    .map((prospect) => {
-      const prospectActions = open.filter(
-        (item) => item.prospectId === prospect.id,
-      );
-      const overdueCount = prospectActions.filter(
-        (item) => prospectActionTiming(item.dueDate).state === "overdue",
-      ).length;
-      const highCount = prospectActions.filter(
-        (item) => item.priority === "High",
-      ).length;
-      const readiness = artistProspectReadiness(prospect);
-      return {
-        prospect,
-        prospectActions,
-        overdueCount,
-        highCount,
-        readiness,
-        score:
-          overdueCount * 10 +
-          highCount * 4 +
-          readiness.missing.length * 2 +
-          (prospectActions.length ? 1 : 0),
-      };
-    })
-    .sort(
-      (a, b) =>
-        b.score - a.score || a.prospect.name.localeCompare(b.prospect.name),
+  const attention = prospects.map((prospect) => {
+    const prospectActions = open.filter(
+      (item) => item.prospectId === prospect.id,
     );
-  const visibleAttention = attention.filter(
-    (item) =>
-      (track === "All tracks" || item.prospect.track === track) &&
-      (attentionFilter === "All attention" ||
-        (attentionFilter === "Overdue" && item.overdueCount > 0) ||
-        (attentionFilter === "High priority" && item.highCount > 0) ||
-        (attentionFilter === "Needs details" && !item.readiness.ready)),
-  );
+    const overdueCount = prospectActions.filter(
+      (item) => prospectActionTiming(item.dueDate).state === "overdue",
+    ).length;
+    const highCount = prospectActions.filter(
+      (item) => item.priority === "High",
+    ).length;
+    const readiness = artistProspectReadiness(prospect);
+    return {
+      prospect,
+      prospectActions,
+      overdueCount,
+      highCount,
+      readiness,
+      latestUpdated:
+        [prospect.updatedAt, ...prospectActions.map((item) => item.updatedAt)]
+          .sort()
+          .at(-1) ?? prospect.updatedAt,
+      score:
+        overdueCount * 10 +
+        highCount * 4 +
+        readiness.missing.length * 2 +
+        (prospectActions.length ? 1 : 0),
+    };
+  });
+  const visibleAttention = attention
+    .filter(
+      (item) =>
+        (track === "All tracks" || item.prospect.track === track) &&
+        (attentionFilter === "All attention" ||
+          (attentionFilter === "Overdue" && item.overdueCount > 0) ||
+          (attentionFilter === "High priority" && item.highCount > 0) ||
+          (attentionFilter === "Needs details" && !item.readiness.ready)),
+    )
+    .sort((a, b) =>
+      sort === "Name"
+        ? a.prospect.name.localeCompare(b.prospect.name)
+        : sort === "Recently updated"
+          ? b.latestUpdated.localeCompare(a.latestUpdated) ||
+            a.prospect.name.localeCompare(b.prospect.name)
+          : sort === "Readiness"
+            ? b.readiness.missing.length - a.readiness.missing.length ||
+              a.prospect.name.localeCompare(b.prospect.name)
+            : b.score - a.score ||
+              a.prospect.name.localeCompare(b.prospect.name),
+    );
   const report = [
     "PTOWN ARTIST DEVELOPMENT — PRIVATE PIPELINE REPORT",
     "",
-    `View: ${track} · ${attentionFilter}`,
+    `View: ${track} · ${attentionFilter} · ${sort}`,
     `Prospects shown: ${visibleAttention.length} of ${prospects.length}`,
     `Ready for owner review: ${readyForReview.length}`,
     `Need planning details: ${needsDetails.length}`,
@@ -285,14 +303,41 @@ export default function ArtistDevelopmentDashboard() {
               />
             ))}
           </View>
-          {(track !== "All tracks" || attentionFilter !== "All attention") && (
+          <Text style={styles.cardTitle}>Sort owner queue</Text>
+          <View
+            accessibilityRole="tablist"
+            accessibilityLabel="Pipeline sort"
+            style={styles.grid}
+          >
+            {sortOptions.map((item) => (
+              <Filter
+                key={item}
+                label={item}
+                selected={sort === item}
+                onPress={() => {
+                  setSort(item);
+                  router.setParams({
+                    sort: item === "Urgency" ? undefined : item,
+                  });
+                }}
+              />
+            ))}
+          </View>
+          {(track !== "All tracks" ||
+            attentionFilter !== "All attention" ||
+            sort !== "Urgency") && (
             <ActionButton
               label="Reset pipeline view"
               secondary
               onPress={() => {
                 setTrack("All tracks");
                 setAttentionFilter("All attention");
-                router.setParams({ track: undefined, attention: undefined });
+                setSort("Urgency");
+                router.setParams({
+                  track: undefined,
+                  attention: undefined,
+                  sort: undefined,
+                });
               }}
             />
           )}

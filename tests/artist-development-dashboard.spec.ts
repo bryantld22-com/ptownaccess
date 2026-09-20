@@ -98,7 +98,7 @@ test("Artist Development dashboard summarizes readiness, tracks, priority, and t
       exact: true,
     })
     .inputValue();
-  expect(report).toContain("View: Production · Overdue");
+  expect(report).toContain("View: Production · Overdue · Urgency");
   expect(report).toContain("River Producer · Production");
   expect(report).not.toContain("Sunday Vocalist · Performance");
   await page.reload();
@@ -112,6 +112,71 @@ test("Artist Development dashboard summarizes readiness, tracks, priority, and t
     .getByRole("link", { name: "Open River Producer follow-ups", exact: true })
     .click();
   await expect(page).toHaveURL("/artist-prospect-actions?prospect=ready");
+});
+
+test("Artist Development pipeline sort is shareable and changes the owner report order", async ({
+  page,
+}) => {
+  const prospects = [
+    {
+      id: "older",
+      name: "Alpha Artist",
+      track: "Performance",
+      market: "Paducah",
+      portfolio: "Reel",
+      availability: "Fall",
+      notes: "",
+      status: "Ready for owner review",
+      updatedAt: "2026-09-18T12:00:00.000Z",
+    },
+    {
+      id: "newer",
+      name: "Zulu Artist",
+      track: "Production",
+      market: "Paducah",
+      portfolio: "Reel",
+      availability: "Fall",
+      notes: "",
+      status: "Ready for owner review",
+      updatedAt: "2026-09-20T12:00:00.000Z",
+    },
+  ];
+  await page.goto("/artist-development-dashboard");
+  await page.evaluate(
+    ({ prospectKey, actionKey, prospects }) => {
+      localStorage.setItem(prospectKey, JSON.stringify(prospects));
+      localStorage.setItem(actionKey, JSON.stringify([]));
+    },
+    { prospectKey, actionKey, prospects },
+  );
+  await page.reload();
+  await page
+    .getByRole("tab", { name: "Recently updated", exact: true })
+    .click();
+  await expect(page).toHaveURL(/sort=Recently%20updated/);
+  const recentReport = await page
+    .getByRole("textbox", {
+      name: "Private Artist Development pipeline report",
+      exact: true,
+    })
+    .inputValue();
+  expect(recentReport.indexOf("Zulu Artist")).toBeLessThan(
+    recentReport.indexOf("Alpha Artist"),
+  );
+  await page.getByRole("tab", { name: "Name", exact: true }).click();
+  const nameReport = await page
+    .getByRole("textbox", {
+      name: "Private Artist Development pipeline report",
+      exact: true,
+    })
+    .inputValue();
+  expect(nameReport.indexOf("Alpha Artist")).toBeLessThan(
+    nameReport.indexOf("Zulu Artist"),
+  );
+  await page.reload();
+  await expect(
+    page.getByRole("tab", { name: "Name", exact: true }),
+  ).toHaveAttribute("aria-selected", "true");
 });
 
 test("Artist Development pipeline report copies the filtered owner view", async ({
