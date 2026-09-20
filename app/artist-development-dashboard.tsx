@@ -1,6 +1,14 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import * as Clipboard from "expo-clipboard";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import { useEffect, useState } from "react";
-import { Text, View } from "react-native";
+import { Platform, Pressable, Text, View } from "react-native";
+import {
+  ActionButton,
+  Feedback,
+  Field,
+  formStyles,
+} from "../src/components/forms";
 import {
   Body,
   Button,
@@ -28,12 +36,35 @@ import {
 import { theme } from "../src/theme";
 
 const tracks: ArtistProspectTrack[] = ["Performance", "Production", "Culinary"];
+const trackFilters = ["All tracks", ...tracks];
+const attentionFilters = [
+  "All attention",
+  "Overdue",
+  "High priority",
+  "Needs details",
+];
 
 export default function ArtistDevelopmentDashboard() {
+  const router = useRouter();
+  const params = useLocalSearchParams<{
+    track?: string | string[];
+    attention?: string | string[];
+  }>();
+  const routeTrack =
+    trackFilters.find((item) => item === params.track) ?? "All tracks";
+  const routeAttention =
+    attentionFilters.find((item) => item === params.attention) ??
+    "All attention";
   const [prospects, setProspects] = useState<ArtistProspect[]>([]);
   const [actions, setActions] = useState<ArtistProspectAction[]>([]);
   const [ready, setReady] = useState(false);
   const [error, setError] = useState(false);
+  const [track, setTrack] = useState("All tracks");
+  const [attentionFilter, setAttentionFilter] = useState("All attention");
+  const [message, setMessage] = useState<string | null>(null);
+  const [copyError, setCopyError] = useState<string | null>(null);
+  useEffect(() => setTrack(routeTrack), [routeTrack]);
+  useEffect(() => setAttentionFilter(routeAttention), [routeAttention]);
   useEffect(() => {
     void Promise.all([
       AsyncStorage.getItem(ARTIST_PROSPECTS_KEY),
@@ -92,6 +123,56 @@ export default function ArtistDevelopmentDashboard() {
       (a, b) =>
         b.score - a.score || a.prospect.name.localeCompare(b.prospect.name),
     );
+  const visibleAttention = attention.filter(
+    (item) =>
+      (track === "All tracks" || item.prospect.track === track) &&
+      (attentionFilter === "All attention" ||
+        (attentionFilter === "Overdue" && item.overdueCount > 0) ||
+        (attentionFilter === "High priority" && item.highCount > 0) ||
+        (attentionFilter === "Needs details" && !item.readiness.ready)),
+  );
+  const report = [
+    "PTOWN ARTIST DEVELOPMENT — PRIVATE PIPELINE REPORT",
+    "",
+    `View: ${track} · ${attentionFilter}`,
+    `Prospects shown: ${visibleAttention.length} of ${prospects.length}`,
+    `Ready for owner review: ${readyForReview.length}`,
+    `Need planning details: ${needsDetails.length}`,
+    `Open follow-ups: ${open.length}`,
+    `Overdue follow-ups: ${overdue.length}`,
+    `High-priority open follow-ups: ${high.length}`,
+    `Open follow-ups without timing: ${withoutTiming.length}`,
+    `Completed follow-ups: ${actions.length - open.length}`,
+    `Unlinked history: ${unlinked.length}`,
+    "",
+    "VISIBLE OWNER ATTENTION QUEUE",
+    ...(visibleAttention.length
+      ? visibleAttention.flatMap((item) => [
+          `${item.prospect.name} · ${item.prospect.track}`,
+          `Status: ${item.prospect.status}`,
+          `Open: ${item.prospectActions.length} · Overdue: ${item.overdueCount} · High priority: ${item.highCount}`,
+          `Readiness: ${item.readiness.ready ? "Planning details complete" : `Missing ${item.readiness.missing.join(", ")}`}`,
+          "",
+        ])
+      : ["No prospects match this view.", ""]),
+    "PRIVATE DEVICE PLANNING — Not outreach, assignment, approval, booking, promise, or enrollment.",
+  ].join("\n");
+  async function copyReport() {
+    setMessage(null);
+    setCopyError(null);
+    try {
+      if (Platform.OS === "web") {
+        if (typeof navigator.clipboard?.writeText !== "function")
+          throw new Error();
+        await navigator.clipboard.writeText(report);
+      } else if (!(await Clipboard.setStringAsync(report))) throw new Error();
+      setMessage("Private Artist Development pipeline report copied.");
+    } catch {
+      setCopyError(
+        "Copy is unavailable. Select the report and copy it manually.",
+      );
+    }
+  }
   return (
     <Screen>
       <PageHeader
@@ -164,8 +245,63 @@ export default function ArtistDevelopmentDashboard() {
             })}
           </View>
           <SectionHeader title="Owner attention queue" />
-          {attention.length ? (
-            attention.map((item) => (
+          <Text style={styles.cardTitle}>Development track</Text>
+          <View
+            accessibilityRole="tablist"
+            accessibilityLabel="Pipeline track"
+            style={styles.grid}
+          >
+            {trackFilters.map((item) => (
+              <Filter
+                key={item}
+                label={item}
+                selected={track === item}
+                onPress={() => {
+                  setTrack(item);
+                  router.setParams({
+                    track: item === "All tracks" ? undefined : item,
+                  });
+                }}
+              />
+            ))}
+          </View>
+          <Text style={styles.cardTitle}>Attention type</Text>
+          <View
+            accessibilityRole="tablist"
+            accessibilityLabel="Pipeline attention type"
+            style={styles.grid}
+          >
+            {attentionFilters.map((item) => (
+              <Filter
+                key={item}
+                label={item}
+                selected={attentionFilter === item}
+                onPress={() => {
+                  setAttentionFilter(item);
+                  router.setParams({
+                    attention: item === "All attention" ? undefined : item,
+                  });
+                }}
+              />
+            ))}
+          </View>
+          {(track !== "All tracks" || attentionFilter !== "All attention") && (
+            <ActionButton
+              label="Reset pipeline view"
+              secondary
+              onPress={() => {
+                setTrack("All tracks");
+                setAttentionFilter("All attention");
+                router.setParams({ track: undefined, attention: undefined });
+              }}
+            />
+          )}
+          <Text accessibilityLiveRegion="polite" style={styles.smallBody}>
+            {visibleAttention.length} of {prospects.length} private prospects
+            shown
+          </Text>
+          {visibleAttention.length ? (
+            visibleAttention.map((item) => (
               <View key={item.prospect.id} style={styles.card}>
                 <Text
                   style={{
@@ -213,8 +349,16 @@ export default function ArtistDevelopmentDashboard() {
             ))
           ) : (
             <Card
-              title="No private prospects yet"
-              description="Create a prospect profile to begin the owner pipeline."
+              title={
+                prospects.length
+                  ? "No private prospects match"
+                  : "No private prospects yet"
+              }
+              description={
+                prospects.length
+                  ? "Choose another pipeline view or reset the filters."
+                  : "Create a prospect profile to begin the owner pipeline."
+              }
             />
           )}
           <SectionHeader title="Follow-up watch" />
@@ -237,6 +381,26 @@ export default function ArtistDevelopmentDashboard() {
               href="/artist-prospect-actions-unlinked"
             />
           )}
+          <SectionHeader title="Copy owner pipeline report" />
+          <Field
+            label="Private Artist Development pipeline report"
+            value={report}
+            multiline
+            editable={false}
+            style={{ minHeight: 340, textAlignVertical: "top", lineHeight: 22 }}
+          />
+          <ActionButton
+            label="Copy private Artist Development pipeline report"
+            onPress={() => {
+              void copyReport();
+            }}
+          />
+          <Feedback message={message} />
+          {copyError && (
+            <Text accessibilityRole="alert" style={formStyles.error}>
+              {copyError}
+            </Text>
+          )}
         </>
       )}
       <Button label="Manage private prospects" href="/artist-prospects" />
@@ -257,6 +421,43 @@ export default function ArtistDevelopmentDashboard() {
       />
       <Footer />
     </Screen>
+  );
+}
+
+function Filter({
+  label,
+  selected,
+  onPress,
+}: {
+  label: string;
+  selected: boolean;
+  onPress: () => void;
+}) {
+  return (
+    <Pressable
+      accessibilityRole="tab"
+      accessibilityState={{ selected }}
+      aria-selected={selected}
+      onPress={onPress}
+      style={{
+        minHeight: 48,
+        paddingHorizontal: 16,
+        paddingVertical: 13,
+        borderRadius: 24,
+        borderWidth: 1,
+        borderColor: theme.colors.border,
+        backgroundColor: selected ? theme.colors.gold : theme.colors.surface,
+      }}
+    >
+      <Text
+        style={{
+          color: selected ? theme.colors.background : theme.colors.cream,
+          fontWeight: "600",
+        }}
+      >
+        {label}
+      </Text>
+    </Pressable>
   );
 }
 

@@ -85,10 +85,79 @@ test("Artist Development dashboard summarizes readiness, tracks, priority, and t
   await expect(
     page.getByText("Sunday Vocalist", { exact: true }),
   ).toBeVisible();
+  await page.getByRole("tab", { name: "Production", exact: true }).click();
+  await page.getByRole("tab", { name: "Overdue", exact: true }).click();
+  await expect(page).toHaveURL(/track=Production/);
+  await expect(page).toHaveURL(/attention=Overdue/);
+  await expect(
+    page.getByText("1 of 2 private prospects shown", { exact: true }),
+  ).toBeVisible();
+  const report = await page
+    .getByRole("textbox", {
+      name: "Private Artist Development pipeline report",
+      exact: true,
+    })
+    .inputValue();
+  expect(report).toContain("View: Production · Overdue");
+  expect(report).toContain("River Producer · Production");
+  expect(report).not.toContain("Sunday Vocalist · Performance");
+  await page.reload();
+  await expect(
+    page.getByRole("tab", { name: "Production", exact: true }),
+  ).toHaveAttribute("aria-selected", "true");
+  await expect(
+    page.getByRole("tab", { name: "Overdue", exact: true }),
+  ).toHaveAttribute("aria-selected", "true");
   await page
     .getByRole("link", { name: "Open River Producer follow-ups", exact: true })
     .click();
   await expect(page).toHaveURL("/artist-prospect-actions?prospect=ready");
+});
+
+test("Artist Development pipeline report copies the filtered owner view", async ({
+  page,
+  context,
+}) => {
+  await context.grantPermissions(["clipboard-read", "clipboard-write"]);
+  await page.goto("/artist-development-dashboard");
+  await page.evaluate(
+    ({ prospectKey, actionKey }) => {
+      localStorage.setItem(
+        prospectKey,
+        JSON.stringify([
+          {
+            id: "one",
+            name: "Kitchen Artist",
+            track: "Culinary",
+            market: "Paducah",
+            portfolio: "Menu",
+            availability: "Fall",
+            notes: "",
+            status: "Ready for owner review",
+            updatedAt: "2026-09-20T12:00:00.000Z",
+          },
+        ]),
+      );
+      localStorage.setItem(actionKey, JSON.stringify([]));
+    },
+    { prospectKey, actionKey },
+  );
+  await page.reload();
+  await page.getByRole("tab", { name: "Culinary", exact: true }).click();
+  await page
+    .getByRole("button", {
+      name: "Copy private Artist Development pipeline report",
+      exact: true,
+    })
+    .click();
+  await expect(
+    page.getByText("Private Artist Development pipeline report copied.", {
+      exact: true,
+    }),
+  ).toBeVisible();
+  expect(await page.evaluate(() => navigator.clipboard.readText())).toContain(
+    "Kitchen Artist · Culinary",
+  );
 });
 
 test("Artist Development hub links to the private pipeline dashboard", async ({
