@@ -1,12 +1,18 @@
 import { mediaProjectStatuses, type MediaProjectStatus } from '../data/mediaProjects';
 
 export const MEDIA_DRAFTS_KEY = '@ptown/media-drafts/v1';
-export type MediaDraft = { id: string; title: string; division: string; owner: string; status: MediaProjectStatus; deadline: string; notes: string; updatedAt: string };
+export type MediaWorkbookEntry = { checks: string[]; notes: string };
+export type MediaDraft = { id: string; title: string; division: string; owner: string; status: MediaProjectStatus; deadline: string; notes: string; updatedAt: string; workbook?: Record<string, MediaWorkbookEntry> };
 export function readMediaDrafts(value: string | null): MediaDraft[] {
   if (!value) return [];
   const parsed: unknown = JSON.parse(value);
   if (!Array.isArray(parsed)) throw new Error('Invalid drafts');
-  return parsed.filter((item): item is MediaDraft => Boolean(item && typeof item === 'object' && typeof (item as MediaDraft).id === 'string' && typeof (item as MediaDraft).title === 'string' && typeof (item as MediaDraft).division === 'string' && typeof (item as MediaDraft).owner === 'string' && mediaProjectStatuses.includes((item as MediaDraft).status) && typeof (item as MediaDraft).deadline === 'string' && typeof (item as MediaDraft).notes === 'string' && typeof (item as MediaDraft).updatedAt === 'string'));
+  return parsed.filter((item): item is MediaDraft => Boolean(item && typeof item === 'object' && typeof (item as MediaDraft).id === 'string' && typeof (item as MediaDraft).title === 'string' && typeof (item as MediaDraft).division === 'string' && typeof (item as MediaDraft).owner === 'string' && mediaProjectStatuses.includes((item as MediaDraft).status) && typeof (item as MediaDraft).deadline === 'string' && typeof (item as MediaDraft).notes === 'string' && typeof (item as MediaDraft).updatedAt === 'string' && validWorkbook((item as MediaDraft).workbook)));
+}
+function validWorkbook(value: MediaDraft['workbook']) {
+  if (value === undefined) return true;
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return false;
+  return Object.values(value).every(entry => entry && Array.isArray(entry.checks) && entry.checks.every(check => typeof check === 'string') && typeof entry.notes === 'string' && entry.notes.length <= 1000);
 }
 export function templateForMediaDraft(draft: MediaDraft) {
   if (draft.status === 'Production') return 'show-rundown';
@@ -15,7 +21,8 @@ export function templateForMediaDraft(draft: MediaDraft) {
   return 'assignment-brief';
 }
 export function mediaDraftSummary(draft: MediaDraft) {
-  return ['PTOWN MEDIA GROUP — PRIVATE PRODUCTION DRAFT', '', `Project: ${draft.title}`, `Division: ${draft.division}`, `Owner or responsible role: ${draft.owner}`, `Status: ${draft.status}`, `Deadline or timing: ${draft.deadline || 'Not entered'}`, `Planning notes: ${draft.notes || 'Not entered'}`, `Last updated: ${draft.updatedAt}`, '', 'PRIVATE DEVICE DRAFT — Not submitted, shared, assigned, or approved.'].join('\n');
+  const workbookCount = Object.values(draft.workbook ?? {}).reduce((total, entry) => total + entry.checks.length, 0);
+  return ['PTOWN MEDIA GROUP — PRIVATE PRODUCTION DRAFT', '', `Project: ${draft.title}`, `Division: ${draft.division}`, `Owner or responsible role: ${draft.owner}`, `Status: ${draft.status}`, `Deadline or timing: ${draft.deadline || 'Not entered'}`, `Planning notes: ${draft.notes || 'Not entered'}`, `Workbook checks marked: ${workbookCount}`, `Last updated: ${draft.updatedAt}`, '', 'PRIVATE DEVICE DRAFT — Not submitted, shared, assigned, or approved.'].join('\n');
 }
 export const MAX_MEDIA_DRAFT_TRANSFER = 100000;
 export function createMediaDraftTransfer(drafts: MediaDraft[]) { return JSON.stringify({ app: 'PTown Access', type: 'media-drafts', format: 1, drafts }); }
