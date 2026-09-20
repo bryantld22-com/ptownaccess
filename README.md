@@ -1,9 +1,15 @@
 # PTown Access
 
-Build 17 of PTown Dinner Club’s app for Paducah, Kentucky. React Native,
+Build 18 of PTown Dinner Club’s app for Paducah, Kentucky. React Native,
 Expo SDK 57, TypeScript, and Expo Router. Black, warm cream, and gold.
 
 ## Included
+
+- Six working Media Group production templates: Assignment Brief, Show Rundown,
+  Production Call Sheet, Rights & Release Checklist, Content Approval Record,
+  and Archive Handoff. Each supports draft fields, checklist controls, a live
+  review summary, and explicit copy action without claiming submission, saving,
+  synchronization, or approval.
 
 - Six detailed Media Group division pages with accountable leads, planned
   programs, core responsibilities, and Skills Passport evidence. A first
@@ -233,8 +239,8 @@ assets/              Approved PTown launcher, splash, favicon, and brand logo as
 
 ## Next implementation priorities
 
-1. Add Media Group production templates: assignment brief, show rundown,
-   call sheet, rights/release checklist, approval record, and archive handoff.
+1. Add a Media Group production dashboard linking assignments, templates,
+   content status, department ownership, deadlines, and archive readiness.
 2. Confirm real event dates, artists, pricing, food inclusions, and policies.
 3. Test on physical iPhone, Android, and tablet devices; review large text and
    assistive technology behavior, native clipboard, and native share-sheet completion
@@ -262,7 +268,7 @@ Dinner-note tests verify persistence, editing/removal, summary and backup conten
 independent-device transfers, older drafts, maximum length, invalid-note rejection,
 failed writes, and phone layouts.
 
-## Build 17 completion
+## Build 18 completion
 
 The app foundation, Media Group divisions and initial director guide, event and creative discovery, plan review, navigation, device planning flows, and approved launcher branding are implemented. TypeScript checks,
 Expo dependency checks, web/iOS/Android exports, and Chromium navigation

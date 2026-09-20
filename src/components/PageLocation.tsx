@@ -6,6 +6,7 @@ import { sections } from '../data/sections';
 import { mediaFeatures } from '../data/media';
 import { sampleFriends } from '../data/friends';
 import { mediaGroupDivisions } from '../data/mediaGroup';
+import { mediaTemplates } from '../data/mediaTemplates';
 import { theme } from '../theme';
 
 type Parent = { label: string; href: Href };
@@ -36,6 +37,9 @@ function locate(pathname: string): Location | undefined {
   const friend = sampleFriends.find(item => pathname === `/friends/${item.id}`);
   if (friend) return { label: `${friend.name} · Sample profile`, parents: [{ label: 'Friend 2 Friend', href: '/friends' }] };
   if (pathname === '/media-group/operations-guide') return { label: 'Media Director Guide', parents: [{ label: 'PTown Media Group', href: '/media-group' }] };
+  if (pathname === '/media-templates') return { label: 'Production templates', parents: [{ label: 'PTown Media Group', href: '/media-group' }] };
+  const mediaTemplate = mediaTemplates.find(item => pathname === `/media-templates/${item.id}`);
+  if (mediaTemplate) return { label: mediaTemplate.title, parents: [{ label: 'Production templates', href: '/media-templates' }, { label: 'PTown Media Group', href: '/media-group' }] };
   const mediaDivision = mediaGroupDivisions.find(item => pathname === `/media-group/${item.id}`);
   if (mediaDivision) return { label: mediaDivision.title, parents: [{ label: 'PTown Media Group', href: '/media-group' }] };
   const media = mediaFeatures.find(item => pathname === `/media/${item.id}`);

@@ -12,6 +12,6 @@ export default function MediaDirectorOperationsGuide() {
     <Card title="Emergency controls" description="The director or designated safety lead must be able to stop the program output, mute audio, remove an unauthorized feed, preserve an incident record, and notify venue leadership. Guest or participant camera access requires consent and role-based approval." />
     <Card title="Rights before release" description="No item advances to publication without the required releases, music and content licenses, privacy/publicity review, ownership and credit record, sponsor disclosure, and approved usage classification." />
     <SectionHeader title="Required operating records" /><Card title="One accountable project file" description="Keep the brief, assignment, rundown, call sheet, source notes, releases, rights, approvals, sponsor requirements, final exports, captions, metadata, archive location, correction history, and performance report together." />
-    <Button label="Return to PTown Media Group" href="/media-group" secondary /><Footer />
+    <Button label="Open Media Group production templates" href="/media-templates" /><Button label="Return to PTown Media Group" href="/media-group" secondary /><Footer />
   </Screen>;
 }
