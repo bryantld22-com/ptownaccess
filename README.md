@@ -1,9 +1,14 @@
 # PTown Access
 
-Build 47 of PTown Dinner Club’s app for Paducah, Kentucky. React Native,
+Build 48 of PTown Dinner Club’s app for Paducah, Kentucky. React Native,
 Expo SDK 57, TypeScript, and Expo Router. Black, warm cream, and gold.
 
 ## Included
+
+- Owner-facing private Artist Development pipeline dashboard with prospect,
+  readiness, track, open, overdue, high-priority, untimed, completed, and
+  unlinked-history totals. Its attention queue connects each prospect directly
+  to review and filtered follow-up planning without outreach or staff assignment.
 
 - Final private Artist Development transfer receipt with completion time,
   replaced prospect and follow-up counts, linked and retained-unlinked totals,
@@ -383,8 +388,7 @@ assets/              Approved PTown launcher, splash, favicon, and brand logo as
 
 ## Next implementation priorities
 
-1. Add an owner-facing Artist Development pipeline dashboard across prospects,
-   readiness, follow-ups, priorities, and timing.
+1. Add shareable Artist Development pipeline views and a selectable owner report.
 2. Confirm real event dates, artists, pricing, food inclusions, and policies.
 3. Test on physical iPhone, Android, and tablet devices; review large text and
    assistive technology behavior, native clipboard, and native share-sheet completion
@@ -412,7 +416,7 @@ Dinner-note tests verify persistence, editing/removal, summary and backup conten
 independent-device transfers, older drafts, maximum length, invalid-note rejection,
 failed writes, and phone layouts.
 
-## Build 47 completion
+## Build 48 completion
 
 The app foundation, Media Group divisions and initial director guide, event and creative discovery, plan review, navigation, device planning flows, and approved launcher branding are implemented. TypeScript checks,
 Expo dependency checks, web/iOS/Android exports, and Chromium navigation

@@ -41,7 +41,8 @@ export function ArtistDevelopmentHub() {
     <Card title="01 · Practice together" description="Develop your skills through planned projects that connect performance, technical production, culinary craft, and storytelling." />
     <Card title="02 · Document your work" description="Build a portfolio showing the project, your role, the process, and what you learned. Keep evidence of your creative and technical contributions." />
     <Card title="03 · Explore your next step" description="Mentorship and connections to internships, apprenticeships, and employers are part of PTown’s development vision. Participation and career support details will be confirmed before enrollment." />
-    <Button label="Manage private prospect profiles" href="/artist-prospects" />
+    <Button label="Open private Artist Development pipeline" href="/artist-development-dashboard" />
+    <Button label="Manage private prospect profiles" href="/artist-prospects" secondary />
     <Button label="See Media projects" href="/media" secondary />
     <Button label="Review saved creative interests" href="/profile" secondary />
     <Button label="Browse all creative pathways" href="/creative" secondary />
