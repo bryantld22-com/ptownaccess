@@ -30,6 +30,7 @@ export default function RootLayout() {
     <Stack.Screen name="media-actions" options={{ title: 'Media owner action queue' }} />
     <Stack.Screen name="media-actions-unlinked" options={{ title: 'Unlinked action review' }} />
     <Stack.Screen name="media-action-backup" options={{ title: 'Private action transfer' }} />
+    <Stack.Screen name="media-bundle-backup" options={{ title: 'Unified Media Group transfer' }} />
     <Stack.Screen name="media-draft-delete/[id]" options={{ title: 'Review draft removal' }} />
     <Stack.Screen name="[section]" options={{ title: 'PTown Access' }} />
     <Stack.Screen name="events/[id]" options={{ title: 'Program details' }} />

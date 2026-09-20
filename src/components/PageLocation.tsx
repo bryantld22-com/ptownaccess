@@ -45,6 +45,7 @@ function locate(pathname: string): Location | undefined {
   if (pathname === '/media-actions') return { label: 'Owner action queue', parents: [{ label: 'Owner readiness report', href: '/media-readiness' }, { label: 'PTown Media Group', href: '/media-group' }] };
   if (pathname === '/media-actions-unlinked') return { label: 'Unlinked action review', parents: [{ label: 'Owner action queue', href: '/media-actions' }, { label: 'PTown Media Group', href: '/media-group' }] };
   if (pathname === '/media-action-backup') return { label: 'Private action transfer', parents: [{ label: 'Owner action queue', href: '/media-actions' }, { label: 'PTown Media Group', href: '/media-group' }] };
+  if (pathname === '/media-bundle-backup') return { label: 'Unified Media Group transfer', parents: [{ label: 'Private production drafts', href: '/media-drafts' }, { label: 'PTown Media Group', href: '/media-group' }] };
   if (pathname.startsWith('/media-draft-delete/')) return { label: 'Review draft removal', parents: [{ label: 'Private production drafts', href: '/media-drafts' }, { label: 'PTown Media Group', href: '/media-group' }] };
   if (pathname.startsWith('/media-drafts/')) return { label: 'Private draft review', parents: [{ label: 'Private production drafts', href: '/media-drafts' }, { label: 'PTown Media Group', href: '/media-group' }] };
   if (pathname.startsWith('/media-draft-workbook/')) return { label: 'Private production workbook', parents: [{ label: 'Private production drafts', href: '/media-drafts' }, { label: 'PTown Media Group', href: '/media-group' }] };
