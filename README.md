@@ -1,9 +1,14 @@
 # PTown Access
 
-Build 42 of PTown Dinner Club’s app for Paducah, Kentucky. React Native,
+Build 43 of PTown Dinner Club’s app for Paducah, Kentucky. React Native,
 Expo SDK 57, TypeScript, and Expo Router. Black, warm cream, and gold.
 
 ## Included
+
+- Prospect-removal impact review that shows linked private follow-ups before a
+  profile is deleted. Owners deliberately preserve them as unlinked history,
+  reassign them to another prospect, or remove them with the profile; cancel
+  keeps both private datasets unchanged.
 
 - Reviewed private Artist Development backup and transfer that moves prospect
   profiles and linked follow-up history together, reports linked and unlinked
@@ -359,8 +364,8 @@ assets/              Approved PTown launcher, splash, favicon, and brand logo as
 
 ## Next implementation priorities
 
-1. Add prospect deletion impact review so linked follow-ups can be retained,
-   reassigned, or removed before a private profile is deleted.
+1. Add an unlinked prospect-follow-up review so preserved history can be
+   reconnected, retained, or removed deliberately.
 2. Confirm real event dates, artists, pricing, food inclusions, and policies.
 3. Test on physical iPhone, Android, and tablet devices; review large text and
    assistive technology behavior, native clipboard, and native share-sheet completion
@@ -388,7 +393,7 @@ Dinner-note tests verify persistence, editing/removal, summary and backup conten
 independent-device transfers, older drafts, maximum length, invalid-note rejection,
 failed writes, and phone layouts.
 
-## Build 42 completion
+## Build 43 completion
 
 The app foundation, Media Group divisions and initial director guide, event and creative discovery, plan review, navigation, device planning flows, and approved launcher branding are implemented. TypeScript checks,
 Expo dependency checks, web/iOS/Android exports, and Chromium navigation

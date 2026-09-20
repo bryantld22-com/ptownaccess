@@ -40,6 +40,7 @@ function locate(pathname: string): Location | undefined {
   if (pathname === '/artist-prospects') return { label: 'Private prospect profiles', parents: [{ label: 'Artist Development', href: '/artist-development' }] };
   if (pathname === '/artist-prospect-actions') return { label: 'Private prospect follow-ups', parents: [{ label: 'Private prospect profiles', href: '/artist-prospects' }, { label: 'Artist Development', href: '/artist-development' }] };
   if (pathname === '/artist-prospect-backup') return { label: 'Private Artist Development transfer', parents: [{ label: 'Private prospect profiles', href: '/artist-prospects' }, { label: 'Artist Development', href: '/artist-development' }] };
+  if (pathname.startsWith('/artist-prospect-delete/')) return { label: 'Review prospect removal', parents: [{ label: 'Private prospect profiles', href: '/artist-prospects' }, { label: 'Artist Development', href: '/artist-development' }] };
   if (pathname.startsWith('/artist-prospects/')) return { label: 'Private prospect review', parents: [{ label: 'Private prospect profiles', href: '/artist-prospects' }, { label: 'Artist Development', href: '/artist-development' }] };
   if (pathname === '/media-templates') return { label: 'Production templates', parents: [{ label: 'PTown Media Group', href: '/media-group' }] };
   if (pathname === '/media-dashboard') return { label: 'Production dashboard', parents: [{ label: 'PTown Media Group', href: '/media-group' }] };
