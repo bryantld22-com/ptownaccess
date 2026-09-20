@@ -1,9 +1,14 @@
 # PTown Access
 
-Build 31 of PTown Dinner Club’s app for Paducah, Kentucky. React Native,
+Build 32 of PTown Dinner Club’s app for Paducah, Kentucky. React Native,
 Expo SDK 57, TypeScript, and Expo Router. Black, warm cream, and gold.
 
 ## Included
+
+- Draft deletion impact review that shows every linked private action before a
+  production draft is removed. Owners deliberately preserve the actions as
+  unlinked history, reassign them to another device draft, or remove them with
+  the draft; cancel leaves all device data unchanged.
 
 - Linked private action history on each production-draft review, including open,
   completed, overdue, priority, responsible role, and timing information. Draft
@@ -305,8 +310,8 @@ assets/              Approved PTown launcher, splash, favicon, and brand logo as
 
 ## Next implementation priorities
 
-1. Add draft deletion impact review so owners can preserve, reassign, or remove
-   linked private actions before deleting a production draft.
+1. Add an unlinked-action review so preserved history can be reconnected,
+   retained, or removed deliberately.
 2. Confirm real event dates, artists, pricing, food inclusions, and policies.
 3. Test on physical iPhone, Android, and tablet devices; review large text and
    assistive technology behavior, native clipboard, and native share-sheet completion
@@ -334,7 +339,7 @@ Dinner-note tests verify persistence, editing/removal, summary and backup conten
 independent-device transfers, older drafts, maximum length, invalid-note rejection,
 failed writes, and phone layouts.
 
-## Build 31 completion
+## Build 32 completion
 
 The app foundation, Media Group divisions and initial director guide, event and creative discovery, plan review, navigation, device planning flows, and approved launcher branding are implemented. TypeScript checks,
 Expo dependency checks, web/iOS/Android exports, and Chromium navigation
