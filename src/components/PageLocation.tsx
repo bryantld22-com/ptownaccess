@@ -43,6 +43,7 @@ function locate(pathname: string): Location | undefined {
   if (pathname === '/media-draft-backup') return { label: 'Private draft transfer', parents: [{ label: 'Private production drafts', href: '/media-drafts' }, { label: 'PTown Media Group', href: '/media-group' }] };
   if (pathname === '/media-readiness') return { label: 'Owner readiness report', parents: [{ label: 'Private production drafts', href: '/media-drafts' }, { label: 'PTown Media Group', href: '/media-group' }] };
   if (pathname === '/media-actions') return { label: 'Owner action queue', parents: [{ label: 'Owner readiness report', href: '/media-readiness' }, { label: 'PTown Media Group', href: '/media-group' }] };
+  if (pathname === '/media-action-backup') return { label: 'Private action transfer', parents: [{ label: 'Owner action queue', href: '/media-actions' }, { label: 'PTown Media Group', href: '/media-group' }] };
   if (pathname.startsWith('/media-drafts/')) return { label: 'Private draft review', parents: [{ label: 'Private production drafts', href: '/media-drafts' }, { label: 'PTown Media Group', href: '/media-group' }] };
   if (pathname.startsWith('/media-draft-workbook/')) return { label: 'Private production workbook', parents: [{ label: 'Private production drafts', href: '/media-drafts' }, { label: 'PTown Media Group', href: '/media-group' }] };
   const mediaTemplate = mediaTemplates.find(item => pathname === `/media-templates/${item.id}`);

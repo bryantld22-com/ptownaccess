@@ -28,6 +28,7 @@ export default function RootLayout() {
     <Stack.Screen name="media-draft-workbook/[id]" options={{ title: 'Private production workbook' }} />
     <Stack.Screen name="media-readiness" options={{ title: 'Media readiness report' }} />
     <Stack.Screen name="media-actions" options={{ title: 'Media owner action queue' }} />
+    <Stack.Screen name="media-action-backup" options={{ title: 'Private action transfer' }} />
     <Stack.Screen name="[section]" options={{ title: 'PTown Access' }} />
     <Stack.Screen name="events/[id]" options={{ title: 'Program details' }} />
     <Stack.Screen name="+not-found" options={{ title: 'PTown Access' }} />
