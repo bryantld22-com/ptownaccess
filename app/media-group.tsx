@@ -30,6 +30,7 @@ export default function MediaGroup() {
     <Card title="Investor and partner access" description="A protected future path will present selected investor documents, due-diligence materials, sponsorship opportunities, media-partner inquiries, and production-service information. No confidential documents are exposed in this preview." />
     <Button label="Open the Media Director Operations Guide" href="/media-group/operations-guide" secondary />
     <Button label="Open production templates" href="/media-templates" secondary />
+    <Button label="Open the production dashboard" href="/media-dashboard" secondary />
     <Button label="Explore planned PTown media" href="/media" />
     <Button label="Explore creative media pathways" href="/creative?division=Media" secondary />
     <Footer />
