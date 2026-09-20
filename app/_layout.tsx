@@ -15,6 +15,7 @@ export default function RootLayout() {
     <Stack.Screen name="artist-prospects" options={{ title: 'Private artist prospects' }} />
     <Stack.Screen name="artist-prospects/[id]" options={{ title: 'Private prospect review' }} />
     <Stack.Screen name="artist-prospect-actions" options={{ title: 'Private prospect follow-ups' }} />
+    <Stack.Screen name="artist-prospect-actions-unlinked" options={{ title: 'Unlinked prospect follow-ups' }} />
     <Stack.Screen name="artist-prospect-backup" options={{ title: 'Private Artist Development transfer' }} />
     <Stack.Screen name="artist-prospect-delete/[id]" options={{ title: 'Review prospect removal' }} />
     <Stack.Screen name="friends" options={{ title: 'Friend 2 Friend' }} />
