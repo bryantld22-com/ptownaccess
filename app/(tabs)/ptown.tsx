@@ -4,6 +4,7 @@ import { View } from 'react-native';
 import { sections } from '../../src/data/sections';
 import type { SectionIconName } from '../../src/components/SectionIcon';
 const planningTools: { title: string; subtitle: string; href: Href; icon: SectionIconName }[] = [
+  { title: 'PTown Media Group', subtitle: 'Explore the newsroom, production, distribution, and career vision', href: '/media-group', icon: 'radio-outline' },
   { title: 'Search PTown', subtitle: 'Find programs, creative pathways, and sections', href: '/search', icon: 'search-outline' },
   { title: 'Plan your visit', subtitle: 'Explore the proposed week and dinner information', href: '/visit', icon: 'map-outline' },
   { title: 'Compare programs', subtitle: 'Consider up to three evenings side by side', href: '/compare', icon: 'git-compare-outline' },

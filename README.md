@@ -1,9 +1,16 @@
 # PTown Access
 
-Build 15 of PTown Dinner Club’s app for Paducah, Kentucky. React Native,
+Build 16 of PTown Dinner Club’s app for Paducah, Kentucky. React Native,
 Expo SDK 57, TypeScript, and Expo Router. Black, warm cream, and gold.
 
 ## Included
+
+- Dedicated PTown Media Group foundation hub covering News & Editorial,
+  Radio & Podcasts, Live & Recorded Production, Digital Distribution,
+  Partnerships & Revenue, and the Media Academy. It defines the planned
+  editorial promise, leadership structure, owned-distribution strategy,
+  training-to-job pathway, and protected investor/partner direction without
+  claiming that enrollment, confidential access, or live services are open.
 
 - Approved launcher artwork built from the official PTown Dinner Club logo’s
   center speaker and skyline, with coordinated iOS, Android adaptive,
@@ -220,8 +227,8 @@ assets/              Approved PTown launcher, splash, favicon, and brand logo as
 
 ## Next implementation priorities
 
-1. Build the PTown Media Group foundation: its divisions, editorial standards,
-   programming, training-to-job pathway, distribution, and protected investor path.
+1. Expand PTown Media Group with individual division pages, program concepts,
+   roles, Skills Passport requirements, and the Media Director operations guide.
 2. Confirm real event dates, artists, pricing, food inclusions, and policies.
 3. Test on physical iPhone, Android, and tablet devices; review large text and
    assistive technology behavior, native clipboard, and native share-sheet completion
@@ -249,9 +256,9 @@ Dinner-note tests verify persistence, editing/removal, summary and backup conten
 independent-device transfers, older drafts, maximum length, invalid-note rejection,
 failed writes, and phone layouts.
 
-## Build 15 completion
+## Build 16 completion
 
-The app foundation, event and creative discovery, plan review, navigation, device planning flows, and approved launcher branding are implemented. TypeScript checks,
+The app foundation, Media Group foundation, event and creative discovery, plan review, navigation, device planning flows, and approved launcher branding are implemented. TypeScript checks,
 Expo dependency checks, web/iOS/Android exports, and Chromium navigation
 and saved-plan checks passed during development. Screens were visually reviewed at phone
 and desktop widths. Physical-device testing remains a release task.

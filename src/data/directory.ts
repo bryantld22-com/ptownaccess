@@ -4,6 +4,7 @@ import { mediaFeatures } from './media';
 
 export type DirectoryPage = { title: string; description: string; keywords: string; href: Href };
 export const directoryPages: DirectoryPage[] = [
+  { title: 'PTown Media Group', description: 'Explore PTown’s independent newsroom, production, distribution, training, and career vision.', keywords: 'media group independent unfiltered artist driven journal radio podcast livestream documentary newsroom journalism production internship jobs placement distribution investor sponsor licensing', href: '/media-group' },
   { title: 'Friend 2 Friend', description: 'Preview sample profiles and build a planning invitation for good company at PTown.', keywords: 'friends friend 2 friend social connection invitation join me community sample profile', href: '/friends' },
   ...sections.map(section => {
     const slug = section.href.slice(1);

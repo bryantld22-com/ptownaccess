@@ -5,7 +5,7 @@ import { mediaCategories, mediaFeatures, type MediaCategory } from '../data/medi
 import { theme } from '../theme';
 import { ActionButton, Field } from './forms';
 import { MediaCard } from './MediaCard';
-import { Body, Card, Eyebrow, SectionHeader, styles } from './ui';
+import { Body, Button, Card, Eyebrow, SectionHeader, styles } from './ui';
 
 type Filter = 'All media' | MediaCategory;
 const filters: Filter[] = ['All media', ...mediaCategories];
@@ -26,6 +26,7 @@ export function MediaLibrary() {
   const matches = mediaFeatures.filter(feature => (filter === 'All media' || feature.category === filter) && words.every(word => [feature.title, feature.category, feature.description, feature.project, ...feature.topics].join(' ').toLowerCase().includes(word)));
   return <>
     <View style={styles.card}><Eyebrow>PTOWN MEDIA GROUP</Eyebrow><Text style={styles.cardTitle}>PTown, in sound and story.</Text><Body>Explore the stories, conversations, and performances we plan to share. Episodes, videos, and live streams will appear when available.</Body></View>
+    <Button label="Explore the Media Group foundation" href="/media-group" secondary />
     <SectionHeader title="Explore planned media" />
     <Field label="Search PTown media" placeholder="Try documentary, podcast, or music" hint="Copy this page’s link to keep your search and category." value={query} onChangeText={changeQuery} autoCorrect={false} autoCapitalize="none" maxLength={120} />
     <View accessibilityRole="tablist" accessibilityLabel="Media categories" style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 10 }}>
