@@ -1,9 +1,14 @@
 # PTown Access
 
-Build 14 of PTown Dinner Club’s app for Paducah, Kentucky. React Native,
+Build 15 of PTown Dinner Club’s app for Paducah, Kentucky. React Native,
 Expo SDK 57, TypeScript, and Expo Router. Black, warm cream, and gold.
 
 ## Included
+
+- Approved launcher artwork built from the official PTown Dinner Club logo’s
+  center speaker and skyline, with coordinated iOS, Android adaptive,
+  monochrome, web favicon, and full-logo splash assets. The underlying official
+  logo remains unchanged.
 
 - Reviewed invitation text can be handed to supported web/native sharing tools
   only on explicit action. Unsupported browsers retain copy/manual fallbacks;
@@ -210,12 +215,13 @@ src/state/           Versioned device preview storage and actions
 src/utils/           Local-date weekday calculation and preview summary formatting
 src/types/           Shared content types
 src/services/        Reserved for later approved integrations
-assets/              Temporary PT monogram launcher assets
+assets/              Approved PTown launcher, splash, favicon, and brand logo assets
 ```
 
 ## Next implementation priorities
 
-1. Replace temporary launcher assets with the approved PTown logo and icons.
+1. Build the PTown Media Group foundation: its divisions, editorial standards,
+   programming, training-to-job pathway, distribution, and protected investor path.
 2. Confirm real event dates, artists, pricing, food inclusions, and policies.
 3. Test on physical iPhone, Android, and tablet devices; review large text and
    assistive technology behavior, native clipboard, and native share-sheet completion
@@ -243,13 +249,12 @@ Dinner-note tests verify persistence, editing/removal, summary and backup conten
 independent-device transfers, older drafts, maximum length, invalid-note rejection,
 failed writes, and phone layouts.
 
-## Build 14 completion
+## Build 15 completion
 
-The app foundation, event and creative discovery, plan review, navigation, and device planning flows are implemented. TypeScript checks,
+The app foundation, event and creative discovery, plan review, navigation, device planning flows, and approved launcher branding are implemented. TypeScript checks,
 Expo dependency checks, web/iOS/Android exports, and Chromium navigation
 and saved-plan checks passed during development. Screens were visually reviewed at phone
-and desktop widths. Physical-device testing and replacement of the temporary
-launcher monogram with approved artwork remain release tasks.
+and desktop widths. Physical-device testing remains a release task.
 
 The preview uses static Expo web output hosted privately. The hosting identity
 is retained in `.openai/hosting.json`; runtime accounts, booking services, and
