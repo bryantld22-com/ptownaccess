@@ -37,6 +37,7 @@ function locate(pathname: string): Location | undefined {
   const friend = sampleFriends.find(item => pathname === `/friends/${item.id}`);
   if (friend) return { label: `${friend.name} · Sample profile`, parents: [{ label: 'Friend 2 Friend', href: '/friends' }] };
   if (pathname === '/media-group/operations-guide') return { label: 'Media Director Guide', parents: [{ label: 'PTown Media Group', href: '/media-group' }] };
+  if (pathname === '/artist-prospects') return { label: 'Private prospect profiles', parents: [{ label: 'Artist Development', href: '/artist-development' }] };
   if (pathname === '/media-templates') return { label: 'Production templates', parents: [{ label: 'PTown Media Group', href: '/media-group' }] };
   if (pathname === '/media-dashboard') return { label: 'Production dashboard', parents: [{ label: 'PTown Media Group', href: '/media-group' }] };
   if (pathname === '/media-drafts') return { label: 'Private production drafts', parents: [{ label: 'PTown Media Group', href: '/media-group' }] };

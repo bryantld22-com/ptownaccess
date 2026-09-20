@@ -1,0 +1,9 @@
+export const ARTIST_PROSPECTS_KEY = '@ptown/artist-prospects/v1';
+export type ArtistProspectTrack = 'Performance' | 'Production' | 'Culinary';
+export type ArtistProspectStatus = 'New lead' | 'Needs materials' | 'Ready for owner review';
+export type ArtistProspect = { id: string; name: string; track: ArtistProspectTrack; market: string; portfolio: string; availability: string; notes: string; status: ArtistProspectStatus; updatedAt: string };
+export function readArtistProspects(value: string | null): ArtistProspect[] {
+  if (!value) return []; const parsed: unknown = JSON.parse(value); if (!Array.isArray(parsed)) throw new Error('Invalid prospects');
+  return parsed.filter((item): item is ArtistProspect => Boolean(item && typeof item === 'object' && typeof (item as ArtistProspect).id === 'string' && typeof (item as ArtistProspect).name === 'string' && (item as ArtistProspect).name.length <= 120 && ['Performance', 'Production', 'Culinary'].includes((item as ArtistProspect).track) && typeof (item as ArtistProspect).market === 'string' && (item as ArtistProspect).market.length <= 120 && typeof (item as ArtistProspect).portfolio === 'string' && (item as ArtistProspect).portfolio.length <= 300 && typeof (item as ArtistProspect).availability === 'string' && (item as ArtistProspect).availability.length <= 160 && typeof (item as ArtistProspect).notes === 'string' && (item as ArtistProspect).notes.length <= 1000 && ['New lead', 'Needs materials', 'Ready for owner review'].includes((item as ArtistProspect).status) && typeof (item as ArtistProspect).updatedAt === 'string'));
+}
+export function artistProspectReadiness(item: ArtistProspect) { const missing = [['home market', item.market], ['portfolio or work reference', item.portfolio], ['availability or timing', item.availability]].filter(([, value]) => !value.trim()).map(([label]) => label); return { ready: missing.length === 0, missing }; }
