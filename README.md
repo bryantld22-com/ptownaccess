@@ -1,9 +1,13 @@
 # PTown Access
 
-Build 34 of PTown Dinner Club’s app for Paducah, Kentucky. React Native,
+Build 35 of PTown Dinner Club’s app for Paducah, Kentucky. React Native,
 Expo SDK 57, TypeScript, and Expo Router. Black, warm cream, and gold.
 
 ## Included
+
+- Unified-transfer integrity report that identifies duplicate private draft
+  titles, actions whose drafts are absent, and stored action titles that no
+  longer match their linked drafts before any whole-device replacement.
 
 - Unified private Media Group transfer bundle for drafts, workbooks, supporting
   record references, and owner actions. The reviewed whole-device replacement
@@ -320,8 +324,8 @@ assets/              Approved PTown launcher, splash, favicon, and brand logo as
 
 ## Next implementation priorities
 
-1. Add a unified transfer integrity report that identifies duplicate titles,
-   orphaned actions, and action-to-draft title mismatches before replacement.
+1. Add reviewed repair controls for incoming Media Group bundles so title
+   mismatches can be corrected and orphaned actions can be reassigned or removed.
 2. Confirm real event dates, artists, pricing, food inclusions, and policies.
 3. Test on physical iPhone, Android, and tablet devices; review large text and
    assistive technology behavior, native clipboard, and native share-sheet completion
@@ -349,7 +353,7 @@ Dinner-note tests verify persistence, editing/removal, summary and backup conten
 independent-device transfers, older drafts, maximum length, invalid-note rejection,
 failed writes, and phone layouts.
 
-## Build 34 completion
+## Build 35 completion
 
 The app foundation, Media Group divisions and initial director guide, event and creative discovery, plan review, navigation, device planning flows, and approved launcher branding are implemented. TypeScript checks,
 Expo dependency checks, web/iOS/Android exports, and Chromium navigation
