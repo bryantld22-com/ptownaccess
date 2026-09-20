@@ -31,6 +31,7 @@ export default function MediaGroup() {
     <Button label="Open the Media Director Operations Guide" href="/media-group/operations-guide" secondary />
     <Button label="Open production templates" href="/media-templates" secondary />
     <Button label="Open the production dashboard" href="/media-dashboard" secondary />
+    <Button label="Create private production drafts" href="/media-drafts" secondary />
     <Button label="Explore planned PTown media" href="/media" />
     <Button label="Explore creative media pathways" href="/creative?division=Media" secondary />
     <Footer />
