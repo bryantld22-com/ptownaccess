@@ -2,7 +2,8 @@ import { mediaProjectStatuses, type MediaProjectStatus } from '../data/mediaProj
 import { mediaTemplates } from '../data/mediaTemplates';
 
 export const MEDIA_DRAFTS_KEY = '@ptown/media-drafts/v1';
-export type MediaWorkbookEntry = { checks: string[]; notes: string };
+export type MediaWorkbookRecord = { documentName: string; location: string; reviewer: string; reviewedOn: string };
+export type MediaWorkbookEntry = { checks: string[]; notes: string; record?: MediaWorkbookRecord };
 export type MediaDraft = { id: string; title: string; division: string; owner: string; status: MediaProjectStatus; deadline: string; notes: string; updatedAt: string; workbook?: Record<string, MediaWorkbookEntry> };
 export function readMediaDrafts(value: string | null): MediaDraft[] {
   if (!value) return [];
@@ -13,8 +14,9 @@ export function readMediaDrafts(value: string | null): MediaDraft[] {
 function validWorkbook(value: MediaDraft['workbook']) {
   if (value === undefined) return true;
   if (!value || typeof value !== 'object' || Array.isArray(value)) return false;
-  return Object.values(value).every(entry => entry && Array.isArray(entry.checks) && entry.checks.every(check => typeof check === 'string') && typeof entry.notes === 'string' && entry.notes.length <= 1000);
+  return Object.values(value).every(entry => entry && Array.isArray(entry.checks) && entry.checks.every(check => typeof check === 'string') && typeof entry.notes === 'string' && entry.notes.length <= 1000 && validRecord(entry.record));
 }
+function validRecord(record: MediaWorkbookEntry['record']) { return record === undefined || Boolean(record && typeof record.documentName === 'string' && record.documentName.length <= 160 && typeof record.location === 'string' && record.location.length <= 240 && typeof record.reviewer === 'string' && record.reviewer.length <= 120 && typeof record.reviewedOn === 'string' && record.reviewedOn.length <= 40); }
 export function templateForMediaDraft(draft: MediaDraft) {
   if (draft.status === 'Production') return 'show-rundown';
   if (draft.status === 'Review' || draft.status === 'Approved') return 'approval-record';
@@ -55,7 +57,8 @@ export function mediaDraftGates(draft: MediaDraft) {
   return required.map(id => {
     const template = mediaTemplates.find(item => item.id === id)!;
     const marked = draft.workbook?.[id]?.checks.filter(check => template.checks.includes(check)).length ?? 0;
-    return { id, title: template.title, marked, total: template.checks.length, complete: marked === template.checks.length };
+    const record = draft.workbook?.[id]?.record; const recordComplete = Boolean(record?.documentName.trim() && record.location.trim() && record.reviewer.trim() && record.reviewedOn.trim());
+    return { id, title: template.title, marked, total: template.checks.length, complete: marked === template.checks.length, recordComplete };
   });
 }
 export function mediaDraftStageRecommendation(draft: MediaDraft) {
