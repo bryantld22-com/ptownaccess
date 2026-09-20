@@ -24,6 +24,7 @@ export default function RootLayout() {
     <Stack.Screen name="media-dashboard" options={{ title: 'Media production dashboard' }} />
     <Stack.Screen name="media-drafts" options={{ title: 'Private media drafts' }} />
     <Stack.Screen name="media-drafts/[id]" options={{ title: 'Private draft review' }} />
+    <Stack.Screen name="media-draft-backup" options={{ title: 'Private draft transfer' }} />
     <Stack.Screen name="[section]" options={{ title: 'PTown Access' }} />
     <Stack.Screen name="events/[id]" options={{ title: 'Program details' }} />
     <Stack.Screen name="+not-found" options={{ title: 'PTown Access' }} />
