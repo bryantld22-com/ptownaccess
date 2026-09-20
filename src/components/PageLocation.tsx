@@ -40,6 +40,7 @@ function locate(pathname: string): Location | undefined {
   if (pathname === '/media-templates') return { label: 'Production templates', parents: [{ label: 'PTown Media Group', href: '/media-group' }] };
   if (pathname === '/media-dashboard') return { label: 'Production dashboard', parents: [{ label: 'PTown Media Group', href: '/media-group' }] };
   if (pathname === '/media-drafts') return { label: 'Private production drafts', parents: [{ label: 'PTown Media Group', href: '/media-group' }] };
+  if (pathname.startsWith('/media-drafts/')) return { label: 'Private draft review', parents: [{ label: 'Private production drafts', href: '/media-drafts' }, { label: 'PTown Media Group', href: '/media-group' }] };
   const mediaTemplate = mediaTemplates.find(item => pathname === `/media-templates/${item.id}`);
   if (mediaTemplate) return { label: mediaTemplate.title, parents: [{ label: 'Production templates', href: '/media-templates' }, { label: 'PTown Media Group', href: '/media-group' }] };
   const mediaDivision = mediaGroupDivisions.find(item => pathname === `/media-group/${item.id}`);
