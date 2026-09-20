@@ -2,7 +2,7 @@
   "expo": {
     "name": "PTown Access",
     "slug": "ptownaccess",
-    "version": "0.46.0",
+    "version": "0.47.0",
     "orientation": "portrait",
     "userInterfaceStyle": "dark",
     "scheme": "ptownaccess",
@@ -27,9 +27,6 @@
       "output": "static",
       "favicon": "./assets/favicon.png"
     },
-    "plugins": [
-      "expo-router",
-      "expo-font"
-    ]
+    "plugins": ["expo-router", "expo-font"]
   }
 }
