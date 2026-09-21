@@ -28,6 +28,7 @@ export default function MediaGroup() {
     <SectionHeader title="Distribution and access" />
     <Card title="Audience experience" description="Planned channels include PTown Journal, PTown Radio, the Podcast Network, livestreams, documentaries, artist interviews, performance highlights, community information, tourism and culture, and the PTown Story Archive." />
     <Card title="Investor and partner access" description="A protected future path will present selected investor documents, due-diligence materials, sponsorship opportunities, media-partner inquiries, and production-service information. No confidential documents are exposed in this preview." />
+    <Button label="Review Investor Access tiers" href="/investor-access" secondary />
     <Button label="Open the Media Director Operations Guide" href="/media-group/operations-guide" secondary />
     <Button label="Open production templates" href="/media-templates" secondary />
     <Button label="Open the production dashboard" href="/media-dashboard" secondary />

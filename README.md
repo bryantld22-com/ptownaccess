@@ -1,9 +1,17 @@
 # PTown Access
 
-Build 60 of PTown Dinner Club’s app for Paducah, Kentucky. React Native,
+Build 61 of PTown Dinner Club’s app for Paducah, Kentucky. React Native,
 Expo SDK 57, TypeScript, and Expo Router. Black, warm cream, and gold.
 
 ## Included
+
+- A tiered Investor Access blueprint for Public Overview, Prospective Investor,
+  Approved / Active Investor, and exceptional document-specific permission.
+  Each tier states its planned material, prerequisites, and default denials,
+  with identity, confidentiality, least-privilege, audit, expiration, and
+  revocation controls. It is discoverable from PTown, Media Group, and global
+  search while exposing no sign-in, verification, documents, data room,
+  financial files, investment offer, approval, transaction, or operating access.
 
 - A role-request worksheet that turns the PTown Access boundary map into a
   reviewable least-privilege plan. It carries the selected role from the role
@@ -490,12 +498,12 @@ Dinner-note tests verify persistence, editing/removal, summary and backup conten
 independent-device transfers, older drafts, maximum length, invalid-note rejection,
 failed writes, and phone layouts.
 
-## Build 60 completion
+## Build 61 completion
 
 The app foundation, Media Group divisions and initial director guide, event and creative discovery, plan review, navigation, device planning flows, and approved launcher branding are implemented. TypeScript checks,
-Expo dependency checks, web/iOS/Android exports, and Chromium navigation
-and saved-plan checks passed during development. Screens were visually reviewed at phone
-and desktop widths. Physical-device testing remains a release task.
+Expo dependency checks, the static web export, and all 174 Chromium browser
+regressions passed. The Investor Access page was visually reviewed at phone and
+desktop widths. Physical-device testing remains a release task.
 
 The preview uses static Expo web output hosted privately. The hosting identity
 is retained in `.openai/hosting.json`; runtime accounts, booking services, and
