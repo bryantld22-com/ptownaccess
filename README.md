@@ -1,5 +1,9 @@
 # PTown Access
 
+Build 29 adds the guarded Supabase development-project activation handoff. Cloud
+features remain off until client configuration, schema, staff authorization,
+backup, recovery, conflict, and migration reconciliation checks pass.
+
 Build 14 of PTown Dinner Club’s app for Paducah, Kentucky. React Native,
 Expo SDK 57, TypeScript, and Expo Router. Black, warm cream, and gold.
 
@@ -97,6 +101,21 @@ the project to open it. It is a preview of Build 14, not an App Store release.
 ## Run
 
 Use Node.js 24 LTS and npm.
+
+## Supabase development activation
+
+Copy `.env.example` to a local `.env` file and provide only the development
+project URL and publishable key. `.env` files are ignored by Git. Never place a
+Supabase service-role key in Expo configuration, a browser build, a mobile build,
+or this repository.
+
+Keep `EXPO_PUBLIC_RUNTIME_MODE=preview` and
+`EXPO_PUBLIC_SYNC_ENABLED=false` during development setup. Apply
+`supabase/migrations/202609210001_ptown_operations.sql`, establish the first
+Owner profile through a controlled administrative process, deploy the
+`invite-staff` Edge Function, and use `/operations/activation` to run the safe
+schema connection check. Production sync must remain disabled until backup,
+restore, authorization, conflict, and migration reconciliation tests pass.
 
 ```sh
 npm ci

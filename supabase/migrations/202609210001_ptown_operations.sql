@@ -11,7 +11,7 @@ create table public.staff_profiles (
 
 create table public.operations_records (
   id uuid primary key default gen_random_uuid(),
-  collection text not null check (collection in ('artists','bookings','outreach','economics','offers','deal_rooms','show_days','settlements','reviews','incidents','due_items')),
+  collection text not null check (collection in ('artist_updates','bookings','outreach_drafts','economics','offers','deal_rooms','show_days','settlements','post_show_reviews','incidents','due_items','audit_log')),
   record_key text not null,
   payload jsonb not null default '{}'::jsonb,
   version bigint not null default 1,
