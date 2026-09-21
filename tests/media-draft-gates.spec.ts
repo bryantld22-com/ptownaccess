@@ -12,5 +12,5 @@ test('Production status reports incomplete required workbook gates', async ({ pa
 
 test('Completing required planning checks changes the gate without claiming verification', async ({ page }) => {
   await page.goto('/media-drafts'); await page.evaluate(({ key, value }) => localStorage.setItem(key, JSON.stringify([value])), { key, value: { ...base, workbook: { 'assignment-brief': { checks: assignmentChecks, notes: '' }, 'rights-checklist': { checks: rightsChecks, notes: '' } } } }); await page.goto('/media-drafts/gate-draft');
-  await expect(page.getByText('Marked complete · Rights & Release Checklist', { exact: true })).toBeVisible(); await expect(page.getByText(/Marks are not verification/)).toHaveCount(2); await expect(page.getByText('Recommended next stage · Content Approval Record', { exact: true })).toBeVisible();
+  await expect(page.getByText('Marked complete · Rights & Release Checklist', { exact: true })).toBeVisible(); await expect(page.getByText(/Marks and references are not verification/)).toHaveCount(2); await expect(page.getByText('Recommended next stage · Content Approval Record', { exact: true })).toBeVisible();
 });

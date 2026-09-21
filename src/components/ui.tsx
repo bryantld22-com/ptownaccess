@@ -40,7 +40,7 @@ export function SectionCard({ title, subtitle, href, icon }: { title: string; su
   const { width } = useWindowDimensions();
   const [layoutReady, setLayoutReady] = useState(Platform.OS !== 'web');
   useEffect(() => { setLayoutReady(true); }, []);
-  return <Link href={href} asChild><Pressable accessibilityRole="link" android_ripple={{ color: c.border }} style={StyleSheet.flatten([styles.sectionCard, { width: !layoutReady || width < 600 ? '100%' : width >= 900 ? '23.5%' : '48%' }])}>
+  return <Link href={href} asChild><Pressable accessibilityRole="link" accessibilityLabel={`${title}. ${subtitle}`} android_ripple={{ color: c.border }} style={StyleSheet.flatten([styles.sectionCard, { width: !layoutReady || width < 600 ? '100%' : width >= 900 ? '23.5%' : '48%' }])}>
     <View style={styles.sectionCardTop}><SectionIcon name={icon} /><Text style={styles.arrow}>↗</Text></View>
     <Text style={styles.cardTitle}>{title}</Text><Text style={styles.smallBody}>{subtitle}</Text>
   </Pressable></Link>;

@@ -4,7 +4,7 @@ export const weekDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday',
 // Proposed recurring program, not a confirmed event calendar.
 // Keep IDs stable so earlier links and saved plans survive program-name changes.
 export const events: ProgramEvent[] = [
-  { id: 'monday-jazz', title: 'House Jazz', day: 'Monday', category: 'Jazz', admission: 'Free', description: 'Ease into the week with the sound of PTown’s house jazz and an open menu.' },
+  { id: 'monday-jazz', title: 'Auditions for PTown', day: 'Monday', category: 'Auditions', admission: 'Free', description: 'Monday night auditions for PTown performers and creative talent. Audition dates, eligibility, requirements, and selections will be announced.' },
   { id: 'tuesday-jazz', title: 'Musician Jam Session', day: 'Tuesday', category: 'Jam Session', admission: 'Free', description: 'Musicians come together for a jam session, good food, and creative connection. Explore the open menu.' },
   { id: 'ptown-flow', title: 'PTown Flow Practice', day: 'Wednesday', category: 'Community', admission: 'Free', description: 'A place to practice, connect, and grow your creative voice. Open menu planned.' },
   { id: 'comedy', title: 'Comedy Night', day: 'Thursday', category: 'Comedy', admission: 'Ticketed', description: 'Dinner, live music, and a night of laughter. Ticket nights feature one culture signature plate and one alternate plate.', opening: 'PTown house band opens the evening.' },

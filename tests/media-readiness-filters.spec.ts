@@ -8,7 +8,7 @@ const drafts = [
 
 test('Owner readiness filters and sorting persist in shared links', async ({ page }) => {
   await page.goto('/media-drafts'); await page.evaluate(({ key, drafts }) => localStorage.setItem(key, JSON.stringify(drafts)), { key, drafts }); await page.goto('/media-readiness');
-  await page.getByRole('tab', { name: 'Timing attention', exact: true }).click(); await expect(page).toHaveURL('/media-readiness?priority=Timing+attention'); await expect(page.getByText('2 of 2 private drafts shown', { exact: true })).toBeVisible();
+  await page.getByRole('tab', { name: 'Timing attention', exact: true }).click(); await expect(page).toHaveURL(url => url.pathname === '/media-readiness' && url.searchParams.get('priority') === 'Timing attention'); await expect(page.getByText('2 of 2 private drafts shown', { exact: true })).toBeVisible();
   await page.getByRole('tab', { name: 'Live & Recorded Production', exact: true }).click(); await expect(page.getByText('1 of 2 private drafts shown', { exact: true })).toBeVisible(); await expect(page.getByText('Live capture', { exact: true })).toBeVisible(); await expect(page.getByText('News assignment', { exact: true })).toHaveCount(0);
   await page.reload(); await expect(page.getByRole('tab', { name: 'Live & Recorded Production', exact: true })).toHaveAttribute('aria-selected', 'true');
 });

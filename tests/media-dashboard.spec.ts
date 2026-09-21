@@ -15,7 +15,8 @@ test('Media dashboard filters sample production items and preserves shared links
 
 test('Dashboard items connect to the correct working template', async ({ page }) => {
   await page.goto('/media-dashboard?status=Production');
+  await expect(page.getByText('1 of 6 sample production items', { exact: true })).toBeVisible();
   await expect(page.getByText('Live Music Spotlight', { exact: true })).toBeVisible();
-  await page.getByRole('link', { name: 'Open related production template →', exact: true }).click();
+  await page.getByText('Live Music Spotlight', { exact: true }).locator('..').getByRole('link', { name: 'Open related production template →', exact: true }).click();
   await expect(page).toHaveURL('/media-templates/rights-checklist');
 });

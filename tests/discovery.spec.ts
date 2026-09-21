@@ -6,7 +6,7 @@ test('Search, admission, and weekday filters combine and reset after empty resul
   await page.goto('/events');
   const search = page.getByRole('textbox', { name: 'Search programs', exact: true });
   const cards = page.getByRole('link').and(page.locator('a[href^="/events/"]'));
-  await search.fill('  MONDAY jazz  ');
+  await search.fill('  MONDAY auditions  ');
   await expect(cards).toHaveCount(1);
   await expect(cards).toHaveAttribute('href', '/events/monday-jazz');
   await page.getByRole('tab', { name: 'Ticketed', exact: true }).click();

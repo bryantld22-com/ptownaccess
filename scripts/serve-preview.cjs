@@ -22,6 +22,13 @@ http.createServer((request, response) => {
       : /^\/programs\/[^/]+\/?$/.test(pathname) ? 'programs/[id].html'
       : /^\/media\/[^/]+\/?$/.test(pathname) ? 'media/[id].html'
       : /^\/friends\/[^/]+\/?$/.test(pathname) ? 'friends/[id].html'
+      : /^\/artist-prospects\/[^/]+\/?$/.test(pathname) ? 'artist-prospects/[id].html'
+      : /^\/artist-prospect-delete\/[^/]+\/?$/.test(pathname) ? 'artist-prospect-delete/[id].html'
+      : /^\/media-group\/[^/]+\/?$/.test(pathname) ? 'media-group/[id].html'
+      : /^\/media-drafts\/[^/]+\/?$/.test(pathname) ? 'media-drafts/[id].html'
+      : /^\/media-draft-delete\/[^/]+\/?$/.test(pathname) ? 'media-draft-delete/[id].html'
+      : /^\/media-draft-workbook\/[^/]+\/?$/.test(pathname) ? 'media-draft-workbook/[id].html'
+      : /^\/media-templates\/[^/]+\/?$/.test(pathname) ? 'media-templates/[id].html'
       : /^\/[^/.]+\/?$/.test(pathname) ? '[section].html' : '+not-found.html';
     file = path.join(root, fallback);
     status = 404;

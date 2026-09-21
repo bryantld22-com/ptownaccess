@@ -11,5 +11,5 @@ test('Workbook stage retains a supporting-record reference without claiming veri
 
 test('Draft review distinguishes complete record reference from verified evidence', async ({ page }) => {
   const value = { ...draft, workbook: { 'assignment-brief': { checks: ['Editorial category is identified', 'Decision-maker and deadline are clear', 'Required deliverables are listed', 'Known sensitivities or conflicts are disclosed'], notes: '', record: { documentName: 'Assignment memo', location: 'Binder A-14', reviewer: 'Media Director', reviewedOn: '2026-09-20' } } } };
-  await page.goto('/media-drafts'); await page.evaluate(({ key, value }) => localStorage.setItem(key, JSON.stringify([value])), { key, value }); await page.goto('/media-drafts/record-draft'); await expect(page.getByText(/A complete supporting-record reference is entered/)).toBeVisible(); await expect(page.getByText(/references are not verification/)).toBeVisible();
+  await page.goto('/media-drafts'); await page.evaluate(({ key, value }) => localStorage.setItem(key, JSON.stringify([value])), { key, value }); await page.goto('/media-drafts/record-draft'); await expect(page.getByText(/Supporting-record quality: stale/)).toBeVisible(); await expect(page.getByText(/No status-at-review record is available/)).toBeVisible(); await expect(page.getByText(/references are not verification/)).toBeVisible();
 });

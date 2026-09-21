@@ -6,9 +6,9 @@ test('Media Group divisions expose programs, responsibilities, and Skills Passpo
   for (const [title, id] of divisions) {
     await page.getByRole('link', { name: new RegExp(`^${title}`) }).click();
     await expect(page).toHaveURL(`/media-group/${id}`);
-    await expect(page.getByText('Planned programs', { exact: true })).toBeVisible();
-    await expect(page.getByText('Core responsibilities', { exact: true })).toBeVisible();
-    await expect(page.getByText('Skills Passport evidence', { exact: true })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Planned programs', exact: true }).first()).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Core responsibilities', exact: true }).first()).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Skills Passport evidence', exact: true }).first()).toBeVisible();
     await page.getByRole('link', { name: 'Return to PTown Media Group →', exact: true }).click();
   }
 });

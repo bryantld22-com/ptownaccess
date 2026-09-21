@@ -194,7 +194,7 @@ test("Artist Development transfer reports duplicate names, orphaned follow-ups, 
   await expect(
     page.getByText("3 of 3 integrity findings unresolved", { exact: true }),
   ).toBeVisible();
-  await expect(page.getByText(/Duplicate prospect name:/)).toBeVisible();
+  await expect(page.getByText('Duplicate prospect name: River Producer', { exact: true })).toBeVisible();
   await expect(
     page.getByText("Unlinked follow-up: Archive notes", { exact: true }),
   ).toBeVisible();

@@ -15,7 +15,8 @@ test('Private media drafts can be created, edited, retained, and removed on one 
   await page.getByRole('textbox', { name: 'Project title', exact: true }).fill('Opening weekend coverage');
   await page.getByRole('button', { name: 'Update private draft', exact: true }).click();
   await expect(page.getByText('Opening weekend coverage', { exact: true })).toBeVisible();
-  await page.getByRole('button', { name: 'Remove Opening weekend coverage', exact: true }).click();
+  await page.getByRole('link', { name: 'Review removal of Opening weekend coverage →', exact: true }).click();
+  await page.getByRole('button', { name: 'Remove draft with reviewed action decision', exact: true }).click();
   await expect(page.getByText('No private production drafts', { exact: true })).toBeVisible();
 });
 

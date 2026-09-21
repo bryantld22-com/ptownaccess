@@ -9,7 +9,7 @@ const drafts = [
 
 test('Owner report summarizes blocked drafts, timing, and next actions', async ({ page }) => {
   await page.goto('/media-drafts'); await page.evaluate(({ key, drafts }) => localStorage.setItem(key, JSON.stringify(drafts)), { key, drafts }); await page.goto('/media-readiness');
-  await expect(page.getByText('2', { exact: true })).toHaveCount(1); await expect(page.getByText('Blocked coverage', { exact: true })).toBeVisible(); await expect(page.getByText('Prepared coverage', { exact: true })).toBeVisible(); await expect(page.getByText('No deadline or timing entered', { exact: false })).toBeVisible(); await expect(page.getByText(/Recommended next action: Assignment Brief/)).toBeVisible();
+  await expect(page.getByText('2', { exact: true })).toHaveCount(1); await expect(page.getByText('Blocked coverage', { exact: true })).toBeVisible(); await expect(page.getByText('Prepared coverage', { exact: true })).toBeVisible(); await expect(page.getByText('No deadline or timing entered', { exact: false }).first()).toBeVisible(); await expect(page.getByText(/Recommended next action: Assignment Brief/)).toBeVisible();
 });
 
 test('Owner report copies only after explicit action', async ({ page, context }) => {

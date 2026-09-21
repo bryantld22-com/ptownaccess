@@ -6,7 +6,7 @@ test('Comparison respects three-program limits, canonical weekday links, reloads
   await page.getByRole('link', { name: 'Compare programs' }).click();
   await expect(page.getByText('Which evening feels like you?', { exact: true })).toBeVisible();
   await page.getByRole('checkbox', { name: 'Friday: R&B & Blues', exact: true }).click();
-  await page.getByRole('checkbox', { name: 'Monday: House Jazz', exact: true }).click();
+  await page.getByRole('checkbox', { name: 'Monday: Auditions for PTown', exact: true }).click();
   await page.getByRole('checkbox', { name: 'Thursday: Comedy Night', exact: true }).click();
   await expect(page).toHaveURL('/compare?ids=monday-jazz%2Ccomedy%2Crnb-blues');
   await expect(page.getByRole('checkbox', { name: 'Sunday: Communion Sunday', exact: true })).toBeDisabled();

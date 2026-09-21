@@ -1,9 +1,22 @@
 # PTown Access
 
-Build 51 of PTown Dinner Club’s app for Paducah, Kentucky. React Native,
+Build 53 of PTown Dinner Club’s app for Paducah, Kentucky. React Native,
 Expo SDK 57, TypeScript, and Expo Router. Black, warm cream, and gold.
 
 ## Included
+
+- Monday’s proposed weekly lineup is now Auditions for PTown. Its stable program
+  ID remains unchanged so earlier saved plans, invitations, and shared links
+  continue to work.
+
+- Event details and every weekday visit plan now hand the selected proposed
+  program directly to Friend 2 Friend. The invitation returns to the matching
+  weekday guide, while dates, guest counts, notes, saved plans, favorites, and
+  RSVP status remain unchanged until the user explicitly acts.
+
+- Media and Artist Development choices now expose their selected state and
+  concise control names to assistive technology. Local preview routing also
+  resolves device-created review, workbook, template, and removal links.
 
 - Artist Development decision-stage summaries and shareable planning-status
   filters for new leads, prospects needing materials, and prospects ready for
@@ -254,7 +267,8 @@ Expo SDK 57, TypeScript, and Expo Router. Black, warm cream, and gold.
   at its original 2:1 aspect ratio across phone, tablet, and desktop widths.
   The bundled PNG is copied unchanged from the owner’s upload.
 
-- Updated weekly program: Tuesday is Musician Jam Session; Saturday is Any Genre.
+- Updated weekly program: Monday is Auditions for PTown, Tuesday is Musician Jam
+  Session, and Saturday is Any Genre.
 
 - Creative-library searches and division/saved filters persist in direct query
   links and reloads. Defaults match static HTML before applying URL state.
@@ -431,7 +445,7 @@ Dinner-note tests verify persistence, editing/removal, summary and backup conten
 independent-device transfers, older drafts, maximum length, invalid-note rejection,
 failed writes, and phone layouts.
 
-## Build 51 completion
+## Build 53 completion
 
 The app foundation, Media Group divisions and initial director guide, event and creative discovery, plan review, navigation, device planning flows, and approved launcher branding are implemented. TypeScript checks,
 Expo dependency checks, web/iOS/Android exports, and Chromium navigation

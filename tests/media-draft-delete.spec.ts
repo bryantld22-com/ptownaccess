@@ -22,6 +22,6 @@ test('Draft removal can reassign linked actions to another draft', async ({ page
 });
 
 test('Draft removal can remove linked actions while cancel keeps everything', async ({ page }) => {
-  await seed(page); await page.getByRole('link', { name: 'Cancel and keep private draft', exact: true }).click(); await expect(page).toHaveURL('/media-drafts'); expect(await page.evaluate(key => JSON.parse(localStorage.getItem(key)!), draftKey)).toEqual([source, destination]);
+  await seed(page); await page.getByRole('link', { name: 'Cancel and keep private draft →', exact: true }).click(); await expect(page).toHaveURL('/media-drafts'); expect(await page.evaluate(key => JSON.parse(localStorage.getItem(key)!), draftKey)).toEqual([source, destination]);
   await page.goto(`/media-draft-delete/${source.id}`); await page.getByRole('radio', { name: 'Remove linked actions', exact: true }).click(); await page.getByRole('button', { name: 'Remove draft with reviewed action decision', exact: true }).click(); expect(await page.evaluate(key => JSON.parse(localStorage.getItem(key)!), actionKey)).toEqual([]);
 });

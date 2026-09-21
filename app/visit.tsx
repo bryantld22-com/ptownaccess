@@ -2,6 +2,7 @@ import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { ActionButton } from '../src/components/forms';
+import { FriendInvitationLinks } from '../src/components/FriendInvitationLinks';
 import { Body, Button, Card, DraftDateNotice, EventCard, Footer, PageHeader, PreviewNotice, Screen, SectionHeader, styles } from '../src/components/ui';
 import { events, weekDays } from '../src/data/events';
 import { visitQuestions } from '../src/data/visit';
@@ -42,6 +43,7 @@ export default function Visit() {
     <Card title="Your dinner options" description={selectedDay === 'Sunday' ? 'Gospel jazz brunch is planned, followed by R&B jazz until 6 pm. Brunch hours, dishes, prices, and food inclusions will be announced.' : ticketed ? 'Ticket nights are planned around one culture signature plate and one alternate plate. Specific dishes, prices, and ticket food inclusions will be announced.' : 'An open menu is planned Monday through Wednesday. Dishes, prices, and availability will be announced.'} />
     {programs.map(event => event.opening && <Card key={`opening-${event.id}`} title="Opening the evening" description={event.opening} />)}
     {programs.map(event => event.afterParty && <Card key={`after-${event.id}`} title="After the show" description={`${event.afterParty} Entry terms and prices will be announced separately; a show ticket does not confirm after-party entry.`} />)}
+    <FriendInvitationLinks programs={programs} />
     <Button label={`Browse ${selectedDay} programs`} href={{ pathname: '/events', params: { day: selectedDay } }} secondary />
     <SectionHeader title="Keep your ideas together" />
     <Button label="Plan your dinner" href="/reservations" />

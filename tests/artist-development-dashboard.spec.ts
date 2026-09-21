@@ -69,20 +69,20 @@ test("Artist Development dashboard summarizes readiness, tracks, priority, and t
       exact: true,
     }),
   ).toBeVisible();
-  await expect(page.getByText("Ready for review").locator("..")).toContainText(
+  await expect(page.getByText("Ready for review", { exact: true }).locator("..")).toContainText(
     "1",
   );
   await expect(
-    page.getByText("Overdue", { exact: true }).locator(".."),
+    page.getByText("Overdue", { exact: true }).first().locator(".."),
   ).toContainText("1");
   await expect(
     page.getByText("No timing entered", { exact: true }).locator(".."),
   ).toContainText("1");
   await expect(
-    page.getByText("Production", { exact: true }).locator(".."),
+    page.getByText("Production", { exact: true }).first().locator(".."),
   ).toContainText("1 private prospect");
   await expect(
-    page.getByText("New lead", { exact: true }).locator(".."),
+    page.getByText("New lead", { exact: true }).first().locator(".."),
   ).toContainText("1");
   await expect(
     page
@@ -127,7 +127,7 @@ test("Artist Development dashboard summarizes readiness, tracks, priority, and t
     page.getByRole("tab", { name: "Ready for owner review", exact: true }),
   ).toHaveAttribute("aria-selected", "true");
   await page
-    .getByRole("link", { name: "Open River Producer follow-ups", exact: true })
+    .getByRole("link", { name: "Open River Producer follow-ups →", exact: true })
     .click();
   await expect(page).toHaveURL("/artist-prospect-actions?prospect=ready");
 });
@@ -249,7 +249,7 @@ test("Artist Development hub links to the private pipeline dashboard", async ({
   await page.goto("/artist-development");
   await page
     .getByRole("link", {
-      name: "Open private Artist Development pipeline",
+      name: "Open private Artist Development pipeline →",
       exact: true,
     })
     .click();
