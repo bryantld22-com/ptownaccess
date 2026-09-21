@@ -1,0 +1,2 @@
+import { expect, test } from '@playwright/test';
+test('deal room tracks rider notes and booking documents',async({page})=>{await page.goto('/operations/deal-room');await page.getByLabel('Technical rider notes').fill('Confirm LED wall inputs and monitor mix.');await page.getByText('Signed contract').click();await page.getByText('Technical rider reviewed').click();await page.getByText('Save deal room').click();await expect(page.getByText('Artist deal room saved on this device.')).toBeVisible();await expect(page.getByText('2/13')).toBeVisible();});
