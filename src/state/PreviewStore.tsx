@@ -3,17 +3,20 @@ import { createContext, useCallback, useContext, useEffect, useRef, useState, ty
 import { events } from '../data/events';
 import { programDay } from '../utils/programDay';
 import { pathways } from '../data/pathways';
+import { tournamentGames, type TournamentGameId } from '../data/tournament';
 
 export const PREVIEW_STORAGE_KEY = '@ptown/preview/v1';
 export const maxDinnerNoteLength = 280;
 export type MembershipInterest = 'community' | 'vip';
 export type ReservationDraft = { date: string; partySize: number; occasion: string; savedAt: string; notes?: string };
+export type TournamentInterest = { gameIds: TournamentGameId[]; savedAt: string };
 export type PreviewState = {
   version: 1;
   savedEventIds: string[];
   savedPathwayIds: string[];
   reservationDraft: ReservationDraft | null;
   membershipInterest: MembershipInterest | null;
+  tournamentInterest?: TournamentInterest | null;
 };
 const emptyState = (): PreviewState => ({ version: 1, savedEventIds: [], savedPathwayIds: [], reservationDraft: null, membershipInterest: null });
 
@@ -27,12 +30,15 @@ export function parseStoredState(raw: string | null): PreviewState {
   const draft = value.reservationDraft;
   if (draft !== null && (!draft || typeof draft.date !== 'string' || programDay(draft.date) === null || !Number.isInteger(draft.partySize) || draft.partySize < 1 || draft.partySize > 999 || typeof draft.occasion !== 'string' || draft.occasion.length > 80 || typeof draft.savedAt !== 'string')) throw new Error('Invalid draft');
   if (draft !== null && draft.notes !== undefined && (typeof draft.notes !== 'string' || draft.notes.length > maxDinnerNoteLength)) throw new Error('Invalid dinner note');
+  const tournamentInterest = value.tournamentInterest;
+  if (tournamentInterest !== undefined && tournamentInterest !== null && (!Array.isArray(tournamentInterest.gameIds) || tournamentInterest.gameIds.length < 1 || tournamentInterest.gameIds.some((id: unknown) => typeof id !== 'string' || !tournamentGames.some(game => game.id === id)) || typeof tournamentInterest.savedAt !== 'string')) throw new Error('Invalid tournament interest');
   return {
     version: 1,
     savedEventIds: [...new Set<string>(value.savedEventIds)].filter(id => events.some(event => event.id === id)),
     savedPathwayIds: [...new Set<string>(savedPathways)].filter(id => pathways.some(pathway => pathway.id === id)),
     reservationDraft: draft === null ? null : { date: draft.date, partySize: draft.partySize, occasion: draft.occasion, savedAt: draft.savedAt, ...(draft.notes !== undefined ? { notes: draft.notes } : {}) },
     membershipInterest: value.membershipInterest,
+    ...(tournamentInterest !== undefined ? { tournamentInterest: tournamentInterest === null ? null : { gameIds: [...new Set<TournamentGameId>(tournamentInterest.gameIds)], savedAt: tournamentInterest.savedAt } } : {}),
   };
 }
 
@@ -44,6 +50,7 @@ type Store = PreviewState & {
   togglePathway: (id: string) => Promise<boolean>;
   saveDraft: (draft: ReservationDraft | null) => Promise<boolean>;
   saveInterest: (interest: MembershipInterest | null) => Promise<boolean>;
+  saveTournamentInterest: (interest: TournamentInterest | null) => Promise<boolean>;
   clearPlans: () => Promise<boolean>;
   restorePlans: (plans: PreviewState) => Promise<boolean>;
 };
@@ -107,13 +114,14 @@ export function PreviewStoreProvider({ children }: PropsWithChildren) {
     return update(current => ({ ...current, savedPathwayIds: current.savedPathwayIds.includes(id) ? current.savedPathwayIds.filter(saved => saved !== id) : [...current.savedPathwayIds, id] }));
   }, [update]);
   const saveInterest = useCallback((interest: MembershipInterest | null) => update(current => ({ ...current, membershipInterest: interest })), [update]);
+  const saveTournamentInterest = useCallback((interest: TournamentInterest | null) => update(current => ({ ...current, tournamentInterest: interest })), [update]);
   const clearPlans = useCallback(() => update(emptyState, true), [update]);
   const restorePlans = useCallback(async (plans: PreviewState) => {
     const validated = parseStoredState(JSON.stringify(plans));
     return update(() => validated, false, true);
   }, [update]);
 
-  return <Context.Provider value={{ ...state, ready, busy: pending > 0, storageError, toggleEvent, togglePathway, saveDraft, saveInterest, clearPlans, restorePlans }}>{children}</Context.Provider>;
+  return <Context.Provider value={{ ...state, ready, busy: pending > 0, storageError, toggleEvent, togglePathway, saveDraft, saveInterest, saveTournamentInterest, clearPlans, restorePlans }}>{children}</Context.Provider>;
 }
 
 export function usePreviewStore() {

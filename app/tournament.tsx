@@ -6,6 +6,8 @@ import { Body, Button, Card, Footer, PageHeader, PreviewNotice, Screen, SectionH
 import { events } from '../src/data/events';
 import { tournamentGames, type TournamentGameId } from '../src/data/tournament';
 import { theme } from '../src/theme';
+import { ActionButton, Feedback, formStyles } from '../src/components/forms';
+import { usePreviewStore } from '../src/state/PreviewStore';
 
 type GameFilter = 'all' | TournamentGameId;
 
@@ -14,12 +16,30 @@ export default function Tournament() {
   const router = useRouter();
   const routeGame = typeof game === 'string' && tournamentGames.some(item => item.id === game) ? game as TournamentGameId : 'all';
   const [selected, setSelected] = useState<GameFilter>('all');
+  const { ready, busy, tournamentInterest, saveTournamentInterest } = usePreviewStore();
+  const [interestIds, setInterestIds] = useState<TournamentGameId[]>([]);
+  const [message, setMessage] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
   useEffect(() => { setSelected(routeGame); }, [routeGame]);
+  useEffect(() => { if (ready) setInterestIds(tournamentInterest?.gameIds ?? []); }, [ready, tournamentInterest]);
   const visible = selected === 'all' ? tournamentGames : tournamentGames.filter(item => item.id === selected);
   const monday = events.find(event => event.id === 'monday-jazz');
   function choose(value: GameFilter) {
     setSelected(value);
     router.setParams({ game: value === 'all' ? undefined : value });
+  }
+  function toggleInterest(id: TournamentGameId) {
+    setMessage(null); setError(null);
+    setInterestIds(current => current.includes(id) ? current.filter(value => value !== id) : [...current, id]);
+  }
+  async function saveInterests() {
+    setMessage(null); setError(null);
+    if (!interestIds.length) { setError('Choose at least one tournament game before saving.'); return; }
+    if (await saveTournamentInterest({ gameIds: interestIds, savedAt: new Date().toISOString() })) setMessage('Tournament interests saved on this device. You are not registered and no place is reserved.');
+  }
+  async function clearInterests() {
+    setMessage(null); setError(null);
+    if (await saveTournamentInterest(null)) { setInterestIds([]); setMessage('Tournament interests removed from this device.'); }
   }
 
   return <Screen>
@@ -35,6 +55,15 @@ export default function Tournament() {
     </View>
     <Text accessibilityLiveRegion="polite" style={styles.smallBody}>{visible.length} of {tournamentGames.length} tournament games shown</Text>
     {visible.map(item => <Card key={item.id} title={item.title} description={`${item.category} · Included in the monthly tournament plan. Game-specific table setup, player or team format, rules, scoring, match order, and time limits will be announced.`} />)}
+    <SectionHeader title="Save your tournament interests" />
+    <Body>Choose every game that interests you. This saves a private planning preference on this device only—it does not submit a registration, reserve entry, create a player profile, or record check-in.</Body>
+    <View role="group" aria-label="Games that interest you" style={styles.grid}>
+      {tournamentGames.map(item => { const checked = interestIds.includes(item.id); return <Pressable key={`interest-${item.id}`} accessibilityRole="checkbox" aria-checked={checked} accessibilityState={{ checked, disabled: !ready || busy }} disabled={!ready || busy} onPress={() => toggleInterest(item.id)} style={{ minHeight: 48, paddingHorizontal: 18, paddingVertical: 14, borderRadius: 12, borderWidth: 1, borderColor: checked ? theme.colors.gold : theme.colors.border, backgroundColor: checked ? theme.colors.elevated : theme.colors.surface, opacity: ready ? 1 : 0.5 }}><Text style={{ color: checked ? theme.colors.gold : theme.colors.cream, fontWeight: '600' }}>{item.title}</Text></Pressable>; })}
+    </View>
+    <ActionButton label="Save tournament interests" disabled={!ready || busy} onPress={() => { void saveInterests(); }} />
+    {tournamentInterest?.gameIds.length ? <ActionButton label="Remove saved tournament interests" disabled={!ready || busy} secondary onPress={() => { void clearInterests(); }} /> : null}
+    <Feedback message={message} />{error && <Text accessibilityRole="alert" style={formStyles.error}>{error}</Text>}
+    {ready && <Body>{tournamentInterest?.gameIds.length ? `Saved on this device: ${tournamentGames.filter(item => tournamentInterest.gameIds.includes(item.id)).map(item => item.title).join(', ')}.` : 'No tournament interests are saved on this device.'}</Body>}
     <SectionHeader title="Tournament readiness" />
     <Card title="Monthly date and start time" description="To be confirmed. PTown has not published a tournament date, arrival window, start time, or closing time." />
     <Card title="Entry and competition format" description="To be confirmed. Player eligibility, game assignments, table or bracket structure, advancement, tie-breakers, and capacity have not been published." />

@@ -1,17 +1,19 @@
 import { events, weekDays } from '../data/events';
-import type { MembershipInterest, ReservationDraft } from '../state/PreviewStore';
+import type { MembershipInterest, ReservationDraft, TournamentInterest } from '../state/PreviewStore';
 import { isPastDate, programDay } from './programDay';
 import { pathways } from '../data/pathways';
+import { tournamentGames } from '../data/tournament';
 
-export function planSummary({ savedEventIds, savedPathwayIds = [], reservationDraft, membershipInterest }: {
-  savedEventIds: readonly string[]; savedPathwayIds?: readonly string[]; reservationDraft: ReservationDraft | null; membershipInterest: MembershipInterest | null;
+export function planSummary({ savedEventIds, savedPathwayIds = [], reservationDraft, membershipInterest, tournamentInterest }: {
+  savedEventIds: readonly string[]; savedPathwayIds?: readonly string[]; reservationDraft: ReservationDraft | null; membershipInterest: MembershipInterest | null; tournamentInterest?: TournamentInterest | null;
 }) {
   const programs = weekDays.flatMap(day => events.filter(event => event.day === day && savedEventIds.includes(event.id)));
   const weekday = reservationDraft ? programDay(reservationDraft.date) : null;
   const matchingPrograms = weekday ? programs.filter(event => event.day === weekday) : [];
   const ticketedPrograms = programs.filter(event => event.admission === 'Ticketed');
   const creativeInterests = pathways.filter(pathway => savedPathwayIds.includes(pathway.id));
-  const hasPlans = programs.length > 0 || creativeInterests.length > 0 || reservationDraft !== null || membershipInterest !== null;
+  const tournamentInterests = tournamentGames.filter(game => tournamentInterest?.gameIds.includes(game.id));
+  const hasPlans = programs.length > 0 || creativeInterests.length > 0 || reservationDraft !== null || membershipInterest !== null || tournamentInterests.length > 0;
   const lines = [
     'PTOWN ACCESS — PREVIEW PLAN',
     'PTown Dinner Club · Paducah, Kentucky',
@@ -35,10 +37,13 @@ export function planSummary({ savedEventIds, savedPathwayIds = [], reservationDr
     'MEMBERSHIP INTEREST',
     membershipInterest ? `${membershipInterest === 'vip' ? 'VIP Society' : 'PTown community'} (interest only; not enrolled)` : 'None saved.',
     '',
+    'TOURNAMENT INTERESTS',
+    ...(tournamentInterests.length ? tournamentInterests.map(game => `- ${game.title} (interest only; not registered and no place reserved)`) : ['None saved.']),
+    '',
     'CREATIVE INTERESTS',
     ...(creativeInterests.length ? creativeInterests.map(pathway => `- ${pathway.title} · ${pathway.division} (interest only; no application submitted)`) : ['None saved.']),
     '',
     'Plans are stored only on this device. Copying or sharing this summary does not sync plans to another device.',
   ];
-  return { programs, weekday, matchingPrograms, ticketedPrograms, creativeInterests, hasPlans, text: lines.join('\n') };
+  return { programs, weekday, matchingPrograms, ticketedPrograms, creativeInterests, tournamentInterests, hasPlans, text: lines.join('\n') };
 }

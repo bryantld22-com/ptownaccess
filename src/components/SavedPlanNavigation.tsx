@@ -7,9 +7,9 @@ export const profileViews = ['all', 'events', 'dinner', 'membership', 'creative'
 export type ProfileView = typeof profileViews[number];
 
 export function SavedPlanNavigation({ selected, onSelect }: { selected: ProfileView; onSelect: (view: ProfileView) => void }) {
-  const { ready, savedEventIds, savedPathwayIds, reservationDraft, membershipInterest } = usePreviewStore();
+  const { ready, savedEventIds, savedPathwayIds, reservationDraft, membershipInterest, tournamentInterest } = usePreviewStore();
   const items: { id: ProfileView; title: string; count: number }[] = [
-    { id: 'all', title: 'All plans', count: savedEventIds.length + savedPathwayIds.length + Number(!!reservationDraft) + Number(!!membershipInterest) },
+    { id: 'all', title: 'All plans', count: savedEventIds.length + savedPathwayIds.length + Number(!!reservationDraft) + Number(!!membershipInterest) + Number(!!tournamentInterest?.gameIds.length) },
     { id: 'events', title: 'Events', count: savedEventIds.length },
     { id: 'dinner', title: 'Dinner', count: Number(!!reservationDraft) },
     { id: 'membership', title: 'Membership', count: Number(!!membershipInterest) },

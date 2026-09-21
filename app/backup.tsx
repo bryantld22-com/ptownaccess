@@ -55,7 +55,7 @@ export default function Backup() {
   return <Screen>
     <PageHeader eyebrow="KEEP YOUR PTOWN IDEAS" title="Back up your plans." description="Copy a transfer code to keep a backup or move your saved ideas to another device. You choose when to restore it." />
     <PreviewNotice />
-    <Card title="A manual transfer, on your terms" description="This code contains your saved programs, creative interests, dinner date, guest count, occasion, dinner note, and membership interest. Keep it somewhere you can find again. It does not create an account or automatically sync devices." />
+    <Card title="A manual transfer, on your terms" description="This code contains your saved programs, tournament and creative interests, dinner date, guest count, occasion, dinner note, and membership interest. Keep it somewhere you can find again. It does not create an account or automatically sync devices." />
     <SectionHeader title="Copy from this device" />
     {!store.ready ? <Body>{store.storageError ? 'Your current saved data is unreadable. You can review and restore a valid transfer code below, or reset data in Profile.' : 'Loading your saved plans…'}</Body> : !hasPlans ? <Card title="No plans to back up yet" description="Save a program or another planning idea first. You can still restore a transfer code below." /> : <View style={styles.card}>
       <ActionButton label={copying ? 'Copying…' : 'Copy transfer code'} disabled={copying || store.busy} onPress={() => { void copy(); }} />
@@ -69,7 +69,7 @@ export default function Backup() {
     <Feedback message={restoreMessage} />{restoreError && <Text accessibilityRole="alert" style={formStyles.error}>{restoreError}</Text>}
     {incoming && <View style={styles.card}>
       <SectionHeader title="Review before replacing" />
-      <Body>{incoming.savedEventIds.length} saved {incoming.savedEventIds.length === 1 ? 'program' : 'programs'} · {incoming.savedPathwayIds.length} creative {incoming.savedPathwayIds.length === 1 ? 'interest' : 'interests'} · {incoming.reservationDraft ? 'Dinner draft included' : 'No dinner draft'} · {incoming.membershipInterest ? 'Membership interest included' : 'No membership interest'}</Body>
+      <Body>{incoming.savedEventIds.length} saved {incoming.savedEventIds.length === 1 ? 'program' : 'programs'} · {incoming.tournamentInterest?.gameIds.length ?? 0} tournament {(incoming.tournamentInterest?.gameIds.length ?? 0) === 1 ? 'interest' : 'interests'} · {incoming.savedPathwayIds.length} creative {incoming.savedPathwayIds.length === 1 ? 'interest' : 'interests'} · {incoming.reservationDraft ? 'Dinner draft included' : 'No dinner draft'} · {incoming.membershipInterest ? 'Membership interest included' : 'No membership interest'}</Body>
       {incoming.reservationDraft && isPastDate(incoming.reservationDraft.date) && <Body>This imported date has passed. You can edit it after restoring.</Body>}
       <Field label="Plans to restore" value={planSummary(incoming).text} multiline editable={false} style={{ minHeight: 300, lineHeight: 23, fontSize: 14, textAlignVertical: 'top' }} />
       <Body>Restoring replaces all saved plans on this device with the reviewed contents. It does not merge them. Back up your current plans first if you want to keep them.</Body>

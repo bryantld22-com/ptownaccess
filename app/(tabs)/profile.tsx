@@ -9,6 +9,7 @@ import { PlanChecklist } from '../../src/components/PlanChecklist';
 import { PathwayCard } from '../../src/components/PathwayCard';
 import { pathways } from '../../src/data/pathways';
 import { profileViews, SavedPlanNavigation, type ProfileView } from '../../src/components/SavedPlanNavigation';
+import { tournamentGames } from '../../src/data/tournament';
 export default function Profile() {
   const { view } = useLocalSearchParams<{ view?: string }>();
   const router = useRouter();
@@ -16,12 +17,13 @@ export default function Profile() {
   const [selectedView, setSelectedView] = useState<ProfileView>('all');
   useEffect(() => { setSelectedView(normalizedView); }, [normalizedView]);
   function selectView(value: ProfileView) { setSelectedView(value); router.setParams({ view: value === 'all' ? undefined : value }); }
-  const { ready, busy, storageError, savedEventIds, savedPathwayIds, reservationDraft, membershipInterest, clearPlans } = usePreviewStore();
+  const { ready, busy, storageError, savedEventIds, savedPathwayIds, reservationDraft, membershipInterest, tournamentInterest, clearPlans } = usePreviewStore();
   const [confirmClear, setConfirmClear] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
   const savedEvents = savedEventIds.map(id => events.find(event => event.id === id)).filter(event => event !== undefined);
   const savedPathways = pathways.filter(pathway => savedPathwayIds.includes(pathway.id));
-  const hasPlans = savedEvents.length > 0 || savedPathways.length > 0 || reservationDraft !== null || membershipInterest !== null;
+  const selectedTournamentGames = tournamentGames.filter(game => tournamentInterest?.gameIds.includes(game.id));
+  const hasPlans = savedEvents.length > 0 || savedPathways.length > 0 || reservationDraft !== null || membershipInterest !== null || selectedTournamentGames.length > 0;
   async function clear() {
     setMessage(null);
     if (await clearPlans()) {
@@ -30,7 +32,7 @@ export default function Profile() {
     }
   }
   return <Screen>
-    <PageHeader eyebrow="YOUR PTOWN PLANS" title="Keep the good ideas." description="Saved events, a dinner draft, and your membership and creative interests—all in one place." />
+    <PageHeader eyebrow="YOUR PTOWN PLANS" title="Keep the good ideas." description="Saved events, tournament and creative interests, a dinner draft, and membership ideas—all in one place." />
     <PreviewNotice />
     <Card title="Saved on this device" description="No account is needed. These preview plans stay in this browser or app on this device. They do not sync across devices, and clearing app or browser data removes them." />
     <SavedPlanNavigation selected={selectedView} onSelect={selectView} />
@@ -43,6 +45,11 @@ export default function Profile() {
       <SectionHeader title="Saved events" href="/events" action="Browse" />
       <Button label="Compare your programs" href="/compare" secondary />
       {savedEvents.length ? savedEvents.map(event => <EventCard key={event.id} event={event} />) : <Card title="Your next evening starts here" description="Save a proposed program from its detail page and return to it here." />}
+      </>}
+      {selectedView === 'all' && <>
+      <SectionHeader title="Tournament interests" />
+      {selectedTournamentGames.length ? <Card title={selectedTournamentGames.map(game => game.title).join(' · ')} description="Saved on this device as interests only. You are not registered, no place is reserved, and no attendance or check-in has been recorded." /> : <Card title="No tournament interests saved" description="Explore the Monday Tournament Hub and save the games that interest you. Saving does not register a player." />}
+      <Button label={selectedTournamentGames.length ? 'Review tournament interests' : 'Explore the Tournament Hub'} href="/tournament" secondary />
       </>}
       {(selectedView === 'all' || selectedView === 'dinner') && <>
       <SectionHeader title="Reservation draft" />
@@ -63,7 +70,7 @@ export default function Profile() {
     </>}
     {(hasPlans || storageError) && <View style={styles.card}>
       <SectionHeader title="Manage saved data" />
-      {confirmClear ? <><Body>Clear all saved events, creative interests, your reservation draft, and membership interest from this device? This also resets unreadable preview data.</Body><View style={formStyles.row}><ActionButton label="Clear my saved plans" disabled={busy} onPress={() => { void clear(); }} /><ActionButton label="Keep my plans" disabled={busy} secondary onPress={() => setConfirmClear(false)} /></View></> : <><Body>You can remove this device’s preview plans at any time.</Body><ActionButton label="Clear saved preview data" disabled={busy} secondary onPress={() => { setMessage(null); setConfirmClear(true); }} /></>}
+      {confirmClear ? <><Body>Clear all saved events, tournament and creative interests, your reservation draft, and membership interest from this device? This also resets unreadable preview data.</Body><View style={formStyles.row}><ActionButton label="Clear my saved plans" disabled={busy} onPress={() => { void clear(); }} /><ActionButton label="Keep my plans" disabled={busy} secondary onPress={() => setConfirmClear(false)} /></View></> : <><Body>You can remove this device’s preview plans at any time.</Body><ActionButton label="Clear saved preview data" disabled={busy} secondary onPress={() => { setMessage(null); setConfirmClear(true); }} /></>}
     </View>}
     <Feedback message={message} /><Footer />
   </Screen>;

@@ -6,8 +6,8 @@ import { SectionIcon, type SectionIconName } from './SectionIcon';
 import { Body, Button, SectionHeader, styles } from './ui';
 
 export function ContinuePlanning() {
-  const { ready, storageError, savedEventIds, savedPathwayIds, reservationDraft, membershipInterest } = usePreviewStore();
-  const hasPlans = savedEventIds.length > 0 || savedPathwayIds.length > 0 || !!reservationDraft || !!membershipInterest;
+  const { ready, storageError, savedEventIds, savedPathwayIds, reservationDraft, membershipInterest, tournamentInterest } = usePreviewStore();
+  const hasPlans = savedEventIds.length > 0 || savedPathwayIds.length > 0 || !!reservationDraft || !!membershipInterest || !!tournamentInterest?.gameIds.length;
   const past = reservationDraft ? isPastDate(reservationDraft.date) : false;
   const day = reservationDraft ? programDay(reservationDraft.date) : null;
   const shortcuts: { title: string; detail: string; href: Href; icon: SectionIconName }[] = [];
@@ -15,6 +15,7 @@ export function ContinuePlanning() {
   if (reservationDraft) shortcuts.push({ title: past ? 'Update your dinner draft' : 'Review dinner draft', detail: `${reservationDraft.date}${day ? ` · ${day}` : ''} · ${reservationDraft.partySize} ${reservationDraft.partySize === 1 ? 'guest' : 'guests'}${past ? ' · Preferred date has passed' : ' · No table held'}`, href: past ? '/reservations' : { pathname: '/profile', params: { view: 'dinner' } }, icon: 'restaurant-outline' });
   if (membershipInterest) shortcuts.push({ title: 'Review membership interest', detail: `${membershipInterest === 'vip' ? 'VIP Society' : 'PTown community'} · Not enrolled`, href: { pathname: '/profile', params: { view: 'membership' } }, icon: 'people-outline' });
   if (savedPathwayIds.length) shortcuts.push({ title: 'Review creative interests', detail: `${savedPathwayIds.length} creative ${savedPathwayIds.length === 1 ? 'interest' : 'interests'} · No application submitted`, href: { pathname: '/profile', params: { view: 'creative' } }, icon: 'color-palette-outline' });
+  if (tournamentInterest?.gameIds.length) shortcuts.push({ title: 'Review tournament interests', detail: `${tournamentInterest.gameIds.length} ${tournamentInterest.gameIds.length === 1 ? 'game' : 'games'} · Not registered`, href: '/tournament', icon: 'trophy-outline' });
   return <View style={styles.card}>
     <SectionHeader title="Your saved plans" />
     {!ready ? <Body>{storageError ? 'Your saved plans could not be read. Open Profile to recover this device’s preview data.' : 'Loading this device’s saved plans…'}</Body> : hasPlans ? <>

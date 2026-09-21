@@ -68,6 +68,7 @@ test('Invalid transfers leave plans untouched and copy denial offers selectable 
     transfer({ ...sourcePlans, savedEventIds: [123] }),
     transfer({ ...sourcePlans, savedEventIds: ['unknown-program'] }),
     transfer({ ...sourcePlans, savedPathwayIds: ['unknown-pathway'] }),
+    transfer({ ...sourcePlans, tournamentInterest: { gameIds: ['unknown-game'], savedAt: '2026-09-21T00:00:00.000Z' } }),
   ];
   for (const code of invalid) {
     await page.getByRole('textbox', { name: 'Paste a transfer code', exact: true }).fill(code);

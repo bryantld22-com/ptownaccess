@@ -6,7 +6,7 @@ export const maxTransferLength = 20000;
 
 export function createTransferCode(plans: PreviewState) {
   // Whitelist the stored fields; provider actions and transient errors never travel.
-  const snapshot = parseStoredState(JSON.stringify({ version: 1, savedEventIds: plans.savedEventIds, savedPathwayIds: plans.savedPathwayIds, reservationDraft: plans.reservationDraft, membershipInterest: plans.membershipInterest }));
+  const snapshot = parseStoredState(JSON.stringify({ version: 1, savedEventIds: plans.savedEventIds, savedPathwayIds: plans.savedPathwayIds, reservationDraft: plans.reservationDraft, membershipInterest: plans.membershipInterest, ...(plans.tournamentInterest !== undefined ? { tournamentInterest: plans.tournamentInterest } : {}) }));
   return JSON.stringify({ app: 'PTown Access', format: 1, plans: snapshot }, null, 2);
 }
 
