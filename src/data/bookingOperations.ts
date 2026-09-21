@@ -9,17 +9,30 @@ export type ArtistLead = {
   feeRange: string;
   status: PipelineStatus;
   contactRoute: string;
+  contactVerified: boolean;
+  contactSource: string;
+  contactVerifiedOn?: string;
   lastContact?: string;
+  followUpDate?: string;
   nextAction: string;
+  notes: string;
+  feeHistory: { date: string; quote: string; source: string }[];
+  showHistory: { date: string; event: string; result: string }[];
+  contractStatus: 'Not started' | 'Drafting' | 'Sent' | 'Signed';
+  paymentStatus: 'Not started' | 'Deposit due' | 'Deposit paid' | 'Paid in full';
 };
 
 export const artistLeads: ArtistLead[] = [
-  { id: 'noah-thompson', name: 'Noah Thompson', genre: 'Country', market: 'Kentucky', recognition: 'American Idol alumnus', feeRange: 'Verify quote', status: 'Identified', contactRoute: 'Official booking/management', nextAction: 'Verify current representation' },
-  { id: 'huntergirl', name: 'HunterGirl', genre: 'Country', market: 'Tennessee', recognition: 'American Idol alumna', feeRange: 'Verify quote', status: 'Identified', contactRoute: 'Official booking/management', nextAction: 'Verify current representation' },
-  { id: 'emily-ann-roberts', name: 'Emily Ann Roberts', genre: 'Country', market: 'Tennessee', recognition: 'The Voice alumna', feeRange: 'Verify quote', status: 'Identified', contactRoute: 'Official booking/management', nextAction: 'Verify current representation' },
-  { id: 'jake-hoot', name: 'Jake Hoot', genre: 'Country', market: 'Tennessee', recognition: 'The Voice alumnus', feeRange: 'Verify quote', status: 'Identified', contactRoute: 'Official booking/management', nextAction: 'Verify current representation' },
-  { id: 'clark-beckham', name: 'Clark Beckham', genre: 'Soul / Pop', market: 'Nashville', recognition: 'American Idol alumnus', feeRange: 'Verify quote', status: 'Identified', contactRoute: 'Official artist/booking channel', nextAction: 'Verify current contact' },
+  { id: 'noah-thompson', name: 'Noah Thompson', genre: 'Country', market: 'Kentucky', recognition: 'American Idol alumnus', feeRange: 'Verify quote', status: 'Identified', contactRoute: 'Official booking/management', contactVerified: false, contactSource: 'Pending official-source verification', nextAction: 'Verify current representation', notes: 'Potential fit for Saturday Any Genre and regional Kentucky marketing.', feeHistory: [], showHistory: [], contractStatus: 'Not started', paymentStatus: 'Not started' },
+  { id: 'huntergirl', name: 'HunterGirl', genre: 'Country', market: 'Tennessee', recognition: 'American Idol alumna', feeRange: 'Verify quote', status: 'Identified', contactRoute: 'Official booking/management', contactVerified: false, contactSource: 'Pending official-source verification', nextAction: 'Verify current representation', notes: 'Evaluate routing opportunities from Nashville into Paducah.', feeHistory: [], showHistory: [], contractStatus: 'Not started', paymentStatus: 'Not started' },
+  { id: 'emily-ann-roberts', name: 'Emily Ann Roberts', genre: 'Country', market: 'Tennessee', recognition: 'The Voice alumna', feeRange: 'Verify quote', status: 'Identified', contactRoute: 'Official booking/management', contactVerified: false, contactSource: 'Pending official-source verification', nextAction: 'Verify current representation', notes: 'Strong Saturday Any Genre prospect; verify room-size fit and routing.', feeHistory: [], showHistory: [], contractStatus: 'Not started', paymentStatus: 'Not started' },
+  { id: 'jake-hoot', name: 'Jake Hoot', genre: 'Country', market: 'Tennessee', recognition: 'The Voice alumnus', feeRange: 'Verify quote', status: 'Identified', contactRoute: 'Official booking/management', contactVerified: false, contactSource: 'Pending official-source verification', nextAction: 'Verify current representation', notes: 'Consider for a cross-generational Saturday headline program.', feeHistory: [], showHistory: [], contractStatus: 'Not started', paymentStatus: 'Not started' },
+  { id: 'clark-beckham', name: 'Clark Beckham', genre: 'Soul / Pop', market: 'Nashville', recognition: 'American Idol alumnus', feeRange: 'Verify quote', status: 'Identified', contactRoute: 'Official artist/booking channel', contactVerified: false, contactSource: 'Pending official-source verification', nextAction: 'Verify current contact', notes: 'Possible Friday R&B/Blues or Saturday Any Genre fit.', feeHistory: [], showHistory: [], contractStatus: 'Not started', paymentStatus: 'Not started' },
 ];
+
+export function getArtistLead(id: string) {
+  return artistLeads.find(artist => artist.id === id);
+}
 
 export const weeklyProgramming = [
   { day: 'Mon', program: 'House Jazz', booking: 'House / community' },

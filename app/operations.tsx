@@ -25,11 +25,12 @@ export default function OperationsScreen() {
       <View style={styles.metricGrid}>{metrics.map(([label,value,icon]) => <View key={label} style={styles.metric}><Ionicons name={icon} size={20} color={theme.colors.gold}/><Text style={styles.metricValue}>{value}</Text><Text style={styles.metricLabel}>{label}</Text></View>)}</View>
 
       <Section title="Booking Pipeline" action="Artist CRM">
-        {artistLeads.map(artist => <View key={artist.id} style={styles.artistRow}>
+        <Pressable accessibilityRole="link" onPress={() => router.push('/operations/artists')} style={styles.crmButton}><Text style={styles.crmButtonText}>Open complete Artist CRM →</Text></Pressable>
+        {artistLeads.map(artist => <Pressable accessibilityRole="link" onPress={() => router.push({ pathname: '/operations/artists/[id]', params: { id: artist.id } })} key={artist.id} style={styles.artistRow}>
           <View style={styles.avatar}><Text style={styles.avatarText}>{artist.name.split(' ').map(x=>x[0]).slice(0,2).join('')}</Text></View>
           <View style={{ flex: 1 }}><Text style={styles.artist}>{artist.name}</Text><Text style={styles.meta}>{artist.genre} · {artist.market}{artist.recognition ? ` · ${artist.recognition}` : ''}</Text><Text style={styles.next}>{artist.nextAction}</Text></View>
           <View style={styles.status}><Text style={styles.statusText}>{artist.status}</Text></View>
-        </View>)}
+        </Pressable>)}
       </Section>
 
       <Section title="PTOWN Weekly Booking Map" action="Programming">
@@ -53,6 +54,7 @@ const styles = StyleSheet.create({
   live:{borderWidth:1,borderColor:theme.colors.border,borderRadius:20,paddingHorizontal:10,paddingVertical:7,flexDirection:'row',gap:6,alignItems:'center'},dot:{width:7,height:7,borderRadius:4,backgroundColor:theme.colors.green},liveText:{color:theme.colors.muted,fontSize:9,fontWeight:'800'},
   metricGrid:{flexDirection:'row',flexWrap:'wrap',gap:10},metric:{minWidth:'47%',flexGrow:1,backgroundColor:theme.colors.surface,borderColor:theme.colors.border,borderWidth:1,borderRadius:theme.radius.card,padding:16},metricValue:{color:theme.colors.cream,fontSize:28,fontWeight:'800',marginTop:8},metricLabel:{color:theme.colors.muted,fontSize:12},
   section:{backgroundColor:theme.colors.surface,borderWidth:1,borderColor:theme.colors.border,borderRadius:theme.radius.card,padding:16,gap:12},sectionHead:{flexDirection:'row',justifyContent:'space-between',alignItems:'center'},sectionTitle:{color:theme.colors.cream,fontSize:19,fontWeight:'800'},action:{color:theme.colors.gold,fontSize:12,fontWeight:'700'},
+  crmButton:{backgroundColor:theme.colors.gold,borderRadius:12,paddingHorizontal:14,paddingVertical:12,alignItems:'center'},crmButtonText:{color:theme.colors.background,fontWeight:'800',fontSize:13},
   artistRow:{flexDirection:'row',alignItems:'center',gap:10,paddingVertical:10,borderTopWidth:1,borderTopColor:theme.colors.border},avatar:{width:38,height:38,borderRadius:19,backgroundColor:theme.colors.elevated,alignItems:'center',justifyContent:'center'},avatarText:{color:theme.colors.gold,fontWeight:'800'},artist:{color:theme.colors.cream,fontSize:14,fontWeight:'700'},meta:{color:theme.colors.muted,fontSize:11,marginTop:3},next:{color:theme.colors.gold,fontSize:10,marginTop:4},status:{borderWidth:1,borderColor:theme.colors.border,borderRadius:12,paddingHorizontal:8,paddingVertical:5},statusText:{color:theme.colors.cream,fontSize:10},
   week:{gap:8},day:{backgroundColor:theme.colors.elevated,borderRadius:14,padding:12},dayName:{color:theme.colors.gold,fontSize:11,fontWeight:'900'},program:{color:theme.colors.cream,fontSize:15,fontWeight:'800',marginTop:3},
   sequence:{flexDirection:'row',gap:10,alignItems:'center',paddingVertical:7},step:{width:30,height:30,borderRadius:15,backgroundColor:theme.colors.elevated,alignItems:'center',justifyContent:'center'},stepText:{color:theme.colors.gold,fontWeight:'900'},safety:{flexDirection:'row',gap:10,backgroundColor:theme.colors.elevated,padding:12,borderRadius:14,alignItems:'flex-start'},safetyText:{color:theme.colors.muted,fontSize:11,lineHeight:17,flex:1}

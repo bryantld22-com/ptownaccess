@@ -9,6 +9,7 @@ const planningTools: { title: string; subtitle: string; href: Href }[] = [
   { title: 'Creative pathways', subtitle: 'Discover planned opportunities to build your craft', href: '/creative' },
   { title: 'Review your plan', subtitle: 'Bring your saved programs and dinner ideas together', href: '/plans' },
   { title: 'Back up your plans', subtitle: 'Manually transfer saved ideas to another device', href: '/backup' },
+  { title: 'Booking operations', subtitle: 'Open the PTown management Artist CRM', href: '/operations' },
 ];
 export default function PTown() {
   return <Screen>

@@ -15,6 +15,10 @@ export default function RootLayout() {
     <Stack.Screen name="programs/[id]" options={{ title: 'Creative pathway' }} />
     <Stack.Screen name="[section]" options={{ title: 'PTown Access' }} />
     <Stack.Screen name="events/[id]" options={{ title: 'Program details' }} />
+    <Stack.Screen name="operations" options={{ headerShown: false }} />
+    <Stack.Screen name="operations/artists/index" options={{ title: 'Artist CRM' }} />
+    <Stack.Screen name="operations/artists/[id]" options={{ title: 'Artist profile' }} />
+    <Stack.Screen name="operations/artists/[id]/booking" options={{ title: 'Start booking' }} />
     <Stack.Screen name="+not-found" options={{ title: 'PTown Access' }} />
   </Stack></PreviewStoreProvider></SafeAreaProvider>;
 }
