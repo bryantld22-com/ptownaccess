@@ -8,7 +8,7 @@ import { isPastDate, programDay } from '../utils/programDay';
 import { ActionButton, Feedback, Field, formStyles } from './forms';
 import { FriendSavedPrograms } from './FriendSavedPrograms';
 import { Body, Button, SectionHeader, styles } from './ui';
-import { tournamentGames } from '../data/tournament';
+import { tournamentGames, type TournamentGameId } from '../data/tournament';
 
 export function FriendInvitation() {
   const { program, games } = useLocalSearchParams<{ program?: string; games?: string | string[] }>();
@@ -21,6 +21,7 @@ export function FriendInvitation() {
   const [note, setNote] = useState('');
   const [date, setDate] = useState('');
   const [guests, setGuests] = useState('');
+  const [editingGames, setEditingGames] = useState(false);
   const [working, setWorking] = useState(false);
   const operationPending = useRef(false);
   const [canShare, setCanShare] = useState(Platform.OS !== 'web');
@@ -97,7 +98,18 @@ export function FriendInvitation() {
 
   function chooseProgram(id: string) {
     setSelected(id);
+    setEditingGames(false);
     router.setParams({ program: id, games: id === 'monday-jazz' && invitationGames.length ? invitationGames.map(game => game.id).join(',') : undefined });
+  }
+
+  function updateInvitationGames(ids: TournamentGameId[]) {
+    const normalized = tournamentGames.filter(game => ids.includes(game.id)).map(game => game.id);
+    router.setParams({ games: normalized.length ? normalized.join(',') : undefined });
+  }
+
+  function toggleInvitationGame(id: TournamentGameId) {
+    const current = activeGames.map(game => game.id);
+    updateInvitationGames(current.includes(id) ? current.filter(gameId => gameId !== id) : [...current, id]);
   }
 
   return <>
@@ -107,12 +119,20 @@ export function FriendInvitation() {
     <View accessibilityRole="radiogroup" accessibilityLabel="Invitation program" style={styles.grid}>{events.map(item => <Pressable key={item.id} accessibilityRole="radio" accessibilityLabel={`${item.day}: ${item.title}`} accessibilityState={{ checked: selected === item.id, disabled: working }} aria-checked={selected === item.id} disabled={working} onPress={() => chooseProgram(item.id)} style={{ flexBasis: 240, flexGrow: 1, flexShrink: 1, minWidth: 0, minHeight: 64, padding: 16, gap: 6, borderRadius: 14, borderWidth: 1, borderColor: selected === item.id ? theme.colors.gold : theme.colors.border, backgroundColor: selected === item.id ? theme.colors.elevated : theme.colors.surface }}>
       <Text style={styles.eyebrow}>{item.day}</Text><Text style={styles.cardTitle}>{item.title}</Text><Text style={styles.smallBody}>{item.admission} · Proposed program</Text>
     </Pressable>)}</View>
-    {activeGames.length > 0 && <View style={styles.card}>
+    {event.id === 'monday-jazz' && !activeGames.length && !editingGames && <ActionButton label="Add tournament games to invitation" secondary disabled={working} onPress={() => setEditingGames(true)} />}
+    {event.id === 'monday-jazz' && (activeGames.length > 0 || editingGames) && <View style={styles.card}>
       <SectionHeader title="Tournament games in this invitation" />
-      <Body>{activeGames.map(game => game.title).join(' · ')}</Body>
-      <Body>Only these game names came from the Tournament Hub. They are planning interests—not registration, reserved entry, an RSVP, or a check-in record.</Body>
-      <ActionButton label="Remove tournament games from invitation" secondary disabled={working} onPress={() => router.setParams({ games: undefined })} />
-      <Button label="Change tournament games" href="/tournament" secondary />
+      <Body>{activeGames.length ? activeGames.map(game => game.title).join(' · ') : 'No tournament games selected.'}</Body>
+      <Body>Only the game names you explicitly choose here enter this invitation and its page link. Changes do not save tournament interests, include other plans, register anyone, reserve entry, create an RSVP, or record check-in.</Body>
+      {editingGames && <>
+        <View role="group" aria-label="Tournament games for this invitation" style={styles.grid}>
+          {tournamentGames.map(item => { const checked = activeGames.some(game => game.id === item.id); return <Pressable key={`invitation-${item.id}`} accessibilityRole="checkbox" aria-checked={checked} accessibilityState={{ checked, disabled: working }} disabled={working} onPress={() => toggleInvitationGame(item.id)} style={{ minHeight: 48, paddingHorizontal: 18, paddingVertical: 14, borderRadius: 12, borderWidth: 1, borderColor: checked ? theme.colors.gold : theme.colors.border, backgroundColor: checked ? theme.colors.elevated : theme.colors.surface }}><Text style={{ color: checked ? theme.colors.gold : theme.colors.cream, fontWeight: '600' }}>{item.title}</Text></Pressable>; })}
+        </View>
+        <ActionButton label="Done choosing tournament games" secondary disabled={working} onPress={() => setEditingGames(false)} />
+      </>}
+      {!editingGames && <ActionButton label="Change tournament games in invitation" secondary disabled={working} onPress={() => setEditingGames(true)} />}
+      {activeGames.length > 0 && <ActionButton label="Remove tournament games from invitation" secondary disabled={working} onPress={() => { setEditingGames(false); router.setParams({ games: undefined }); }} />}
+      <Button label="Open Tournament Hub details" href="/tournament" secondary />
     </View>}
     <View style={styles.card}>
       <SectionHeader title="Plan the group (optional)" />
