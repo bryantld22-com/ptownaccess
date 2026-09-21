@@ -40,13 +40,13 @@ test('Game filters are shareable, reload safely, and recover unknown selections'
 
 test('Monday program, visit guide, and global search lead to the Tournament Hub', async ({ page }) => {
   await page.goto('/events/monday-jazz');
-  await page.getByRole('link', { name: 'Explore the monthly tournament →', exact: true }).click();
+  await page.getByRole('link', { name: 'Explore the quarterly tournament →', exact: true }).click();
   await expect(page).toHaveURL('/tournament');
   await page.goto('/visit?day=Monday');
-  await expect(page.getByRole('link', { name: 'Explore the monthly tournament →', exact: true })).toHaveAttribute('href', '/tournament');
+  await expect(page.getByRole('link', { name: 'Explore the quarterly tournament →', exact: true })).toHaveAttribute('href', '/tournament');
   await page.goto('/search?q=tournament+hub');
   await expect(page.getByText('1 result', { exact: true })).toBeVisible();
-  await page.getByRole('link', { name: 'Open Monthly Tournament Hub', exact: true }).click();
+  await page.getByRole('link', { name: 'Open Quarterly Tournament Hub', exact: true }).click();
   await expect(page).toHaveURL('/tournament');
 });
 

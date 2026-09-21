@@ -47,18 +47,20 @@ export default function Tournament() {
   }
 
   return <Screen>
-    <Stack.Screen options={{ title: 'Monthly Tournament Hub' }} />
-    <PageHeader eyebrow="MONDAY AT PTOWN · MONTHLY FEATURE" title="Cards, Dominoes & Chess Tournament" description="Explore the five games planned for PTown’s monthly Monday tournament and follow confirmed details as they are released." />
+    <Stack.Screen options={{ title: 'Quarterly Tournament Hub' }} />
+    <PageHeader eyebrow="MONDAY AT PTOWN · QUARTERLY SERIES" title="Cards, Dominoes & Chess Tournament" description="Explore the five community games in PTown’s quarterly plan and the proposed road from local play to a championship opportunity." />
     <PreviewNotice calendar />
-    <Card title="Part of Auditions for PTown" description="The monthly tournament adds a community game-night experience without replacing Monday’s artist and comedian auditions. The room schedule and timing between activities will be announced." />
-    <Card title="Free admission · PTown Access check-in planned" description="Monday development nights are planned with free guest admission. PTown Access registration and check-in will be required once enabled. Registration is not open, and viewing this page does not enroll a player, hold a place, or record attendance." />
+    <Card title="Quarterly feature within Auditions for PTown" description="The tournament adds four planned community competition dates without replacing Monday’s artist and comedian auditions. The season calendar, room schedule, and timing between activities will be announced." />
+    <Card title="Guest admission and competitor entry are separate" description="Monday development nights remain planned with free guest admission. The competitor registration model and any fee are not set. PTown Access registration and check-in will be required once enabled; viewing this page does not enroll a player, hold a place, or record attendance." />
+    <Card title="Recommended first-season model" description="Use sponsor-funded free preregistration, confirm the travel award before promotion, and consider a modest fee only if verified operating costs, demand, refund terms, and Kentucky legal and tax review support it." />
+    <Button label="Open the Championship Path blueprint" href="/championship-path" secondary />
     <SectionHeader title="Choose a game" />
     <Body>View all five games or focus the hub on one. The selected game stays in the page link so you can return to the same view.</Body>
     <View accessibilityRole="tablist" accessibilityLabel="Tournament games" style={styles.grid}>
       {([{ id: 'all', title: 'All games' }, ...tournamentGames] as { id: GameFilter; title: string }[]).map(item => <Pressable key={item.id} accessibilityRole="tab" aria-selected={selected === item.id} accessibilityState={{ selected: selected === item.id }} onPress={() => choose(item.id)} style={{ minHeight: 48, paddingHorizontal: 18, paddingVertical: 14, borderRadius: 30, borderWidth: 1, borderColor: selected === item.id ? theme.colors.gold : theme.colors.border, backgroundColor: selected === item.id ? theme.colors.gold : theme.colors.surface }}><Text style={{ color: selected === item.id ? theme.colors.background : theme.colors.cream, fontWeight: '600' }}>{item.title}</Text></Pressable>)}
     </View>
     <Text accessibilityLiveRegion="polite" style={styles.smallBody}>{visible.length} of {tournamentGames.length} tournament games shown</Text>
-    {visible.map(item => <Card key={item.id} title={item.title} description={`${item.category} · Included in the monthly tournament plan. Game-specific table setup, player or team format, rules, scoring, match order, and time limits will be announced.`} />)}
+    {visible.map(item => <Card key={item.id} title={item.title} description={`${item.category} · ${item.programRole}. Game-specific table setup, player or team format, rules, scoring, match order, qualification, and time limits will be announced.`} />)}
     <SectionHeader title="Save your tournament interests" />
     <Body>Choose every game that interests you. This saves a private planning preference on this device only—it does not submit a registration, reserve entry, create a player profile, or record check-in.</Body>
     <View role="group" aria-label="Games that interest you" style={styles.grid}>
@@ -71,9 +73,10 @@ export default function Tournament() {
     {ready && <Body>{tournamentInterest?.gameIds.length ? `Saved on this device: ${tournamentGames.filter(item => tournamentInterest.gameIds.includes(item.id)).map(item => item.title).join(', ')}.` : 'No tournament interests are saved on this device.'}</Body>}
     <Body>Planning with friends carries only the currently selected game names into the invitation preview after you press the button. It does not include other saved plans or send anything.</Body>
     <SectionHeader title="Tournament readiness" />
-    <Card title="Monthly date and start time" description="To be confirmed. PTown has not published a tournament date, arrival window, start time, or closing time." />
-    <Card title="Entry and competition format" description="To be confirmed. Player eligibility, game assignments, table or bracket structure, advancement, tie-breakers, and capacity have not been published." />
-    <Card title="Host, sponsor, and prizes" description="A radio-personality host and sponsorship opportunities are planned for development. No host, sponsor, prize, or promotional terms are confirmed." />
+    <Card title="Quarterly calendar" description="To be confirmed. PTown has not published the four dates, arrival windows, start times, registration windows, or closing times." />
+    <Card title="Entry, points, and advancement" description="To be confirmed. Player eligibility, fees, game assignments, table or bracket structure, points, standings, advancement, tie-breakers, and capacity have not been published." />
+    <Card title="Chess affiliation and contender travel" description="To be confirmed. PTown has not claimed official chess-hub, sanctioned, rated, qualifier, or championship status, and no contender trip has been awarded." />
+    <Card title="Host, sponsors, prizes, and broadcast" description="A radio-personality host, sponsor packages, documented travel support, and filmed coverage are planned for development. No host, sponsor, prize, trip, recording consent, stream, or promotional terms are confirmed." />
     {monday && <FriendInvitationLinks programs={[monday]} />}
     <Button label="Open Auditions for PTown" href="/events/monday-jazz" />
     <Button label="Plan a Monday visit" href={{ pathname: '/visit', params: { day: 'Monday' } }} secondary />

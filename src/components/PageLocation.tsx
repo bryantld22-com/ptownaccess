@@ -27,7 +27,8 @@ const pages: Record<string, Location> = {
   '/access-request': { label: 'Role request worksheet', parents: [{ label: 'Access roles', href: '/access-roles' }, ptown] },
   '/investor-access': { label: 'Investor Access', parents: [ptown] },
   '/friends': { label: 'Friend 2 Friend', parents: [ptown] },
-  '/tournament': { label: 'Monthly Tournament Hub', parents: [{ label: 'Auditions for PTown', href: '/events/monday-jazz' }, ptown] },
+  '/tournament': { label: 'Quarterly Tournament Hub', parents: [{ label: 'Auditions for PTown', href: '/events/monday-jazz' }, ptown] },
+  '/championship-path': { label: 'Championship Path', parents: [{ label: 'Quarterly Tournament Hub', href: '/tournament' }, ptown] },
   '/media-group': { label: 'PTown Media Group', parents: [ptown] },
 };
 const divisions: Record<CreativeDivision, Parent> = {

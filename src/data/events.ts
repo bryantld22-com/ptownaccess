@@ -10,10 +10,10 @@ export const events: ProgramEvent[] = [
     day: 'Monday',
     category: 'Auditions',
     admission: 'Free',
-    description: 'Monday night auditions for PTown performers and creative talent, plus a monthly community tournament featuring cards, dominoes, and chess. Dates and participation details will be announced.',
-    monthlyFeature: {
-      title: 'Monthly Cards, Dominoes & Chess Tournament',
-      description: 'The monthly tournament features Spades, Bid Whist, Hearts, Dominoes, and Chess. The tournament schedule, entry details, and format will be announced.',
+    description: 'Monday night auditions for PTown performers and creative talent, plus a quarterly community tournament featuring cards, dominoes, and chess. Dates and participation details will be announced.',
+    tournamentFeature: {
+      title: 'Quarterly Cards, Dominoes & Chess Tournament',
+      description: 'The quarterly plan centers Spades, Bid Whist, Dominoes, and a chess contender pathway. Hearts remains available as a community exhibition. The calendar, registration policy, qualification rules, sponsors, and travel award will be announced only after approval.',
     },
   },
   { id: 'tuesday-jazz', title: 'Musician Jam Session', day: 'Tuesday', category: 'Jam Session', admission: 'Free', description: 'Musicians come together for a jam session, good food, and creative connection. Explore the open menu.' },

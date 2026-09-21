@@ -1,9 +1,17 @@
 # PTown Access
 
-Build 61 of PTown Dinner Club’s app for Paducah, Kentucky. React Native,
+Build 62 of PTown Dinner Club’s app for Paducah, Kentucky. React Native,
 Expo SDK 57, TypeScript, and Expo Router. Black, warm cream, and gold.
 
 ## Included
+
+- A shareable Championship Path blueprint for PTown’s quarterly tournament
+  season, sponsor-first funding, chess-hub development, contender travel, and
+  filmed/broadcast coverage. It recommends sponsor-funded free preregistration
+  for the first season, preserves Hearts as a community exhibition, documents
+  the controls required before fees, prizes, travel, affiliation, standings, or
+  filming can be claimed, and exposes no registration, payment, qualification,
+  media consent, or live competition workflow.
 
 - A tiered Investor Access blueprint for Public Overview, Prospective Investor,
   Approved / Active Investor, and exceptional document-specific permission.
@@ -48,19 +56,22 @@ Expo SDK 57, TypeScript, and Expo Router. Black, warm cream, and gold.
   Every surface states that an interest is not registration, reserved entry,
   attendance, check-in, or a player profile.
 
-- A dedicated Monday Tournament Hub for Spades, Bid Whist, Hearts, Dominoes,
+- A dedicated Quarterly Tournament Hub for Spades, Bid Whist, Hearts, Dominoes,
   and Chess, with shareable game filters, direct links from Monday planning,
-  Friend 2 Friend invitations, and honest readiness status for every detail
-  PTown has not confirmed.
+  Friend 2 Friend invitations, a Championship Path handoff, and honest readiness
+  status for every detail PTown has not confirmed. Spades, Bid Whist, and
+  Dominoes are planned as core divisions; Chess is a contender pathway while
+  affiliation is reviewed; Hearts remains a community exhibition unless later
+  approved as a formal division.
 
 - The Tournament Hub carries forward free planned admission and future PTown
   Access registration/check-in without pretending that registration, a place,
   or attendance is currently available or recorded.
 
 - Monday’s proposed weekly lineup remains Auditions for PTown and now includes a
-  distinct monthly Cards, Dominoes & Chess Tournament featuring Spades, Bid Whist,
-  Hearts, Dominoes, and Chess. Its stable program ID remains unchanged so earlier
-  saved plans, invitations, and shared links continue to work.
+  distinct quarterly Cards, Dominoes & Chess Tournament. Its stable program ID
+  remains unchanged so earlier saved plans, tournament interests, invitations,
+  and shared links continue to work.
 
 - Event details and every weekday visit plan now hand the selected proposed
   program directly to Friend 2 Friend. The invitation returns to the matching
@@ -469,14 +480,18 @@ assets/              Approved PTown launcher, splash, favicon, and brand logo as
 
 ## Next implementation priorities
 
-1. Add Artist Development pipeline aging signals for stale prospects and
+1. Confirm the regional cards, dominoes, and chess organizations, championship
+   calendars, affiliation requirements, and contender-qualification paths.
+2. Approve the quarterly dates, game rules, points system, eligibility, entry
+   policy, sponsor packages, travel-award terms, consent plan, and operating budget.
+3. Add Artist Development pipeline aging signals for stale prospects and
    follow-ups that have not been updated recently.
-2. Confirm real event dates, artists, pricing, food inclusions, and policies.
-3. Test on physical iPhone, Android, and tablet devices; review large text and
+4. Confirm real event dates, artists, pricing, food inclusions, and policies.
+5. Test on physical iPhone, Android, and tablet devices; review large text and
    assistive technology behavior, native clipboard, and native share-sheet completion
    and cancellation.
-4. Review the private browser preview on laptop, phone, and tablet.
-5. Define accounts, reservations, tickets, and membership requirements before
+6. Review the private browser preview on laptop, phone, and tablet.
+7. Define accounts, reservations, tickets, and membership requirements before
    introducing any backend or payment integration.
 
 Visit-guide tests cover all seven days, reloads and invalid weekday links, FAQs,
@@ -498,12 +513,15 @@ Dinner-note tests verify persistence, editing/removal, summary and backup conten
 independent-device transfers, older drafts, maximum length, invalid-note rejection,
 failed writes, and phone layouts.
 
-## Build 61 completion
+## Build 62 completion
 
-The app foundation, Media Group divisions and initial director guide, event and creative discovery, plan review, navigation, device planning flows, and approved launcher branding are implemented. TypeScript checks,
-Expo dependency checks, the static web export, and all 174 Chromium browser
-regressions passed. The Investor Access page was visually reviewed at phone and
-desktop widths. Physical-device testing remains a release task.
+The app foundation, Media Group divisions and initial director guide, event and
+creative discovery, plan review, navigation, device planning flows, and approved
+launcher branding are implemented. Build 62 adds the Quarterly Tournament Hub
+positioning and Championship Path operating blueprint while preserving earlier
+saved tournament interests and invitation links. TypeScript checks, Expo dependency
+checks, static exports, and Chromium browser regressions are required before this
+build is released. Physical-device testing remains a release task.
 
 The preview uses static Expo web output hosted privately. The hosting identity
 is retained in `.openai/hosting.json`; runtime accounts, booking services, and

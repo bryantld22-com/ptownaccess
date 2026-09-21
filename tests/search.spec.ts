@@ -4,7 +4,7 @@ test('App search combines words and categories, reloads cleanly, and opens the r
   const errors: string[] = []; page.on('pageerror', error => errors.push(error.message));
   await page.goto('/');
   await page.getByRole('link', { name: 'Search all PTown' }).click();
-  await expect(page.getByText('53 results', { exact: true })).toBeVisible();
+  await expect(page.getByText('54 results', { exact: true })).toBeVisible();
   const input = page.getByRole('textbox', { name: 'Search all PTown', exact: true });
   await input.fill('  MONDAY auditions  ');
   await expect(page.getByText('1 result', { exact: true })).toBeVisible();
@@ -17,7 +17,7 @@ test('App search combines words and categories, reloads cleanly, and opens the r
   await expect(page.getByText('No results match', { exact: true })).toBeVisible();
   await page.getByRole('button', { name: 'Reset search', exact: true }).click();
   await expect(page).toHaveURL('/search');
-  await expect(page.getByText('53 results', { exact: true })).toBeVisible();
+  await expect(page.getByText('54 results', { exact: true })).toBeVisible();
   await page.getByRole('button', { name: 'Heritage', exact: true }).click();
   await expect(page.getByRole('link', { name: 'The Heritage Tour · Save the Arts', exact: true })).toBeVisible();
   await page.getByRole('tab', { name: 'Creative', exact: true }).click();
