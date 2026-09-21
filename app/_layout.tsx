@@ -28,6 +28,8 @@ export default function RootLayout() {
     <Stack.Screen name="operations/audit" options={{ title: 'Audit history' }} />
     <Stack.Screen name="operations/scenarios" options={{ title: 'Scenario comparison' }} />
     <Stack.Screen name="operations/deal-room" options={{ title: 'Artist deal room' }} />
+    <Stack.Screen name="operations/show-day" options={{ title: 'Show-day advance' }} />
+    <Stack.Screen name="operations/settlement" options={{ title: 'Event settlement' }} />
     <Stack.Screen name="+not-found" options={{ title: 'PTown Access' }} />
   </Stack></OperationsStoreProvider></PreviewStoreProvider></SafeAreaProvider>;
 }
