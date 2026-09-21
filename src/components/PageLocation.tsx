@@ -23,6 +23,7 @@ const pages: Record<string, Location> = {
   '/backup': { label: 'Plan backup', parents: [saved] },
   '/compare': { label: 'Program comparison', parents: [{ label: 'Events', href: '/events' }] },
   '/creative': { label: 'Creative library', parents: [ptown] },
+  '/access-roles': { label: 'Access roles', parents: [ptown] },
   '/friends': { label: 'Friend 2 Friend', parents: [ptown] },
   '/tournament': { label: 'Monthly Tournament Hub', parents: [{ label: 'Auditions for PTown', href: '/events/monday-jazz' }, ptown] },
   '/media-group': { label: 'PTown Media Group', parents: [ptown] },
