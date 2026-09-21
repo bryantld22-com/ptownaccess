@@ -24,6 +24,7 @@ const pages: Record<string, Location> = {
   '/compare': { label: 'Program comparison', parents: [{ label: 'Events', href: '/events' }] },
   '/creative': { label: 'Creative library', parents: [ptown] },
   '/access-roles': { label: 'Access roles', parents: [ptown] },
+  '/access-request': { label: 'Role request worksheet', parents: [{ label: 'Access roles', href: '/access-roles' }, ptown] },
   '/friends': { label: 'Friend 2 Friend', parents: [ptown] },
   '/tournament': { label: 'Monthly Tournament Hub', parents: [{ label: 'Auditions for PTown', href: '/events/monday-jazz' }, ptown] },
   '/media-group': { label: 'PTown Media Group', parents: [ptown] },

@@ -42,6 +42,9 @@ export default function AccessRoles() {
     <SectionHeader title="Relevant preview areas" />
     <Body>These links demonstrate related PTown work already in the preview. They are not permissioned dashboards and opening one does not grant this role.</Body>
     <View style={styles.grid}>{active.links.map(link => <Button key={link.label} label={link.label} href={link.href} secondary />)}</View>
+    <SectionHeader title="Plan the review" />
+    <Card title="Turn this boundary into a limited worksheet" description="Choose one responsibility, one access window, and every safeguard required for owner review. The worksheet does not submit, approve, assign, or grant access." />
+    <Button label={`Build a ${active.title} review worksheet`} href={{ pathname: '/access-request', params: { role: active.id } }} />
     <SectionHeader title="Controls required before live roles" />
     <View style={styles.grid}>
       <Card title="Identity before access" description="Verify the person and account before attaching a member, performer, staff, production, director, or administrative role." />

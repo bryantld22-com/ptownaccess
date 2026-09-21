@@ -52,7 +52,7 @@ test('PTown and search discover the role blueprint without changing plans at any
   await page.getByRole('link', { name: /Access roles\. Map guest, member, talent, staff, media, and leadership boundaries/i }).click();
   await expect(page).toHaveURL('/access-roles');
   await expect(page.getByRole('navigation', { name: 'Your location in PTown', exact: true })).toContainText('Current: Access roles');
-  await page.goto('/search?q=least+privilege&filter=Sections');
+  await page.goto('/search?q=camera+host+permissions&filter=Sections');
   await expect(page.getByText('1 result', { exact: true })).toBeVisible();
   await page.getByRole('link', { name: 'Open PTown Access Roles', exact: true }).click();
   await expect(page).toHaveURL('/access-roles');

@@ -1,9 +1,17 @@
 # PTown Access
 
-Build 59 of PTown Dinner Club’s app for Paducah, Kentucky. React Native,
+Build 60 of PTown Dinner Club’s app for Paducah, Kentucky. React Native,
 Expo SDK 57, TypeScript, and Expo Router. Black, warm cream, and gold.
 
 ## Included
+
+- A role-request worksheet that turns the PTown Access boundary map into a
+  reviewable least-privilege plan. It carries the selected role from the role
+  blueprint, limits the request to one responsibility and access window,
+  requires identity, scope, consent/training, and review/revocation safeguards,
+  and copies an owner-review summary. The worksheet stays on the screen, asks
+  for no personal or confidential details, and never submits, approves,
+  assigns, saves, syncs, or grants access.
 
 - A shareable PTown Access role-and-permission blueprint for Guest / Viewer,
   Registered Member, VIP Member, Performer / Artist, Staff / Server, Camera Host,
@@ -482,7 +490,7 @@ Dinner-note tests verify persistence, editing/removal, summary and backup conten
 independent-device transfers, older drafts, maximum length, invalid-note rejection,
 failed writes, and phone layouts.
 
-## Build 59 completion
+## Build 60 completion
 
 The app foundation, Media Group divisions and initial director guide, event and creative discovery, plan review, navigation, device planning flows, and approved launcher branding are implemented. TypeScript checks,
 Expo dependency checks, web/iOS/Android exports, and Chromium navigation
