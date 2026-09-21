@@ -1,6 +1,6 @@
 import type { OperationsBackend, StaffSession, SyncEnvelope, SyncResult } from './operationsBackend';
 
-type SupabaseLike = { auth:{ getSession():Promise<{data:{session:null|{user:{id:string;user_metadata?:Record<string,unknown>};expires_at?:number}}}>; signOut():Promise<unknown> }; from(table:string):any; rpc(name:string,args:Record<string,unknown>):Promise<{data:any;error:any}> };
+type SupabaseLike = { auth:{ getSession():Promise<{data:{session:null|{user:{id:string;user_metadata?:Record<string,unknown>};expires_at?:number}}}>; signOut():Promise<unknown> }; from(table:string):any; rpc(name:string,args:Record<string,unknown>):any };
 export class SupabaseOperationsBackend implements OperationsBackend {
   constructor(private client: SupabaseLike) {}
   async getSession():Promise<StaffSession|null>{const{data}=await this.client.auth.getSession();const session=data.session;if(!session)return null;const profile=await this.client.from('staff_profiles').select('display_name,role,active').eq('user_id',session.user.id).single();if(profile.error||!profile.data?.active)return null;return{userId:session.user.id,displayName:profile.data.display_name,role:profile.data.role==='owner'?'Owner':profile.data.role==='booking_manager'?'Booking Manager':'Viewer',expiresAt:new Date((session.expires_at??0)*1000).toISOString()};}

@@ -1,0 +1,1 @@
+import{expect,test}from'@playwright/test';test('staff access stays disabled without production credentials',async({page})=>{await page.goto('/operations/staff-access');await expect(page.getByText('CONNECTION REQUIRED')).toBeVisible();await expect(page.getByText('never paste a service-role key')).toBeVisible();});
