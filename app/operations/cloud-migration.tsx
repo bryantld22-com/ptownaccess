@@ -42,7 +42,7 @@ export default function CloudMigration() {
     <Gate label="Supabase project configured" ready={supabaseConfigured}/><Gate label="Authenticated staff session" ready={Boolean(session)}/><Gate label="Verified Owner role" ready={session?.role === 'Owner'}/><Gate label="Local validation passed" ready={plan.ready}/>
     <ActionButton label="Upload remains locked in this build" disabled={!ownerReady || !plan.ready || !checked} onPress={() => setFeedback('Upload execution is intentionally unavailable until the production migration runbook and recovery test are approved.')} />
     <Body>Even with every gate ready, a production upload requires an approved backup, rollback plan, record-count reconciliation, and post-migration verification.</Body>
-    <Button label="Staff access" href="/operations/staff-access"/><Button label="Production readiness" href="/operations/production-readiness" secondary/>
+    <Button label="Create operations backup" href="/operations/backup"/><Button label="Staff access" href="/operations/staff-access" secondary/><Button label="Production readiness" href="/operations/production-readiness" secondary/>
   </Screen>;
 }
 

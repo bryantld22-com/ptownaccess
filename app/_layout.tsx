@@ -40,6 +40,7 @@ export default function RootLayout() {
     <Stack.Screen name="operations/invite-staff" options={{ title: 'Invite staff' }} />
     <Stack.Screen name="operations/cloud-migration" options={{ title: 'Cloud migration' }} />
     <Stack.Screen name="operations/activation" options={{ title: 'Supabase activation' }} />
+    <Stack.Screen name="operations/backup" options={{ title: 'Operations backup' }} />
     <Stack.Screen name="+not-found" options={{ title: 'PTown Access' }} />
   </Stack></OperationsStoreProvider></PreviewStoreProvider></SafeAreaProvider>;
 }
