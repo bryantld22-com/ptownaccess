@@ -1,0 +1,10 @@
+import type { OperationsBackend, StaffSession, SyncEnvelope, SyncResult } from './operationsBackend';
+
+type SupabaseLike = { auth:{ getSession():Promise<{data:{session:null|{user:{id:string;user_metadata?:Record<string,unknown>};expires_at?:number}}}>; signOut():Promise<unknown> }; from(table:string):any; rpc(name:string,args:Record<string,unknown>):Promise<{data:any;error:any}> };
+export class SupabaseOperationsBackend implements OperationsBackend {
+  constructor(private client: SupabaseLike) {}
+  async getSession():Promise<StaffSession|null>{const{data}=await this.client.auth.getSession();const session=data.session;if(!session)return null;const profile=await this.client.from('staff_profiles').select('display_name,role,active').eq('user_id',session.user.id).single();if(profile.error||!profile.data?.active)return null;return{userId:session.user.id,displayName:profile.data.display_name,role:profile.data.role==='owner'?'Owner':profile.data.role==='booking_manager'?'Booking Manager':'Viewer',expiresAt:new Date((session.expires_at??0)*1000).toISOString()};}
+  async signOut(){await this.client.auth.signOut();}
+  async pull<T>(collection:string,since?:string):Promise<SyncEnvelope<T>[]>{let query=this.client.from('operations_records').select('record_key,version,updated_at,updated_by,payload').eq('collection',collection);if(since)query=query.gt('updated_at',since);const{data,error}=await query.order('updated_at');if(error)throw error;return(data??[]).map((row:any)=>({recordId:row.record_key,version:row.version,updatedAt:row.updated_at,updatedBy:row.updated_by,payload:row.payload as T}));}
+  async push<T>(collection:string,record:SyncEnvelope<T>):Promise<SyncResult>{const{data,error}=await this.client.rpc('write_operations_record',{p_collection:collection,p_record_key:record.recordId,p_payload:record.payload,p_expected_version:record.version});if(error){if(String(error.message).includes('version conflict'))return{accepted:false,serverVersion:record.version};throw error;}return{accepted:true,serverVersion:data.version};}
+}
