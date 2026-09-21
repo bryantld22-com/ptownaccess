@@ -9,6 +9,9 @@ test('Search, admission, and weekday filters combine and reset after empty resul
   await search.fill('  MONDAY auditions  ');
   await expect(cards).toHaveCount(1);
   await expect(cards).toHaveAttribute('href', '/events/monday-jazz');
+  await search.fill('Bid Whist');
+  await expect(cards).toHaveCount(1);
+  await expect(cards).toHaveAttribute('href', '/events/monday-jazz');
   await page.getByRole('tab', { name: 'Ticketed', exact: true }).click();
   await expect(page.getByRole('tab', { name: 'Ticketed', exact: true })).toHaveAttribute('aria-selected', 'true');
   await expect(cards).toHaveCount(0);

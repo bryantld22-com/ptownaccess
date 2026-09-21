@@ -10,6 +10,9 @@ test('App search combines words and categories, reloads cleanly, and opens the r
   await expect(page.getByText('1 result', { exact: true })).toBeVisible();
   const programLinks = page.getByRole('link').and(page.locator('a[href^="/events/"]'));
   await expect(programLinks).toHaveAttribute('href', '/events/monday-jazz');
+  await input.fill('spades hearts');
+  await expect(page.getByText('1 result', { exact: true })).toBeVisible();
+  await expect(programLinks).toHaveAttribute('href', '/events/monday-jazz');
   await page.getByRole('tab', { name: 'Creative', exact: true }).click();
   await expect(page.getByText('No results match', { exact: true })).toBeVisible();
   await page.getByRole('button', { name: 'Reset search', exact: true }).click();

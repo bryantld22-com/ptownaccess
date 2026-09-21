@@ -18,7 +18,7 @@ export function useEventFilter(params: { day?: string | string[]; filter?: strin
   const words = query.trim().toLowerCase().split(/\s+/).filter(Boolean);
   const matches = events.filter(event => {
     const admissionMatches = filter === 'All' || (filter === 'Saved' ? savedEventIds.includes(event.id) : event.admission === filter);
-    const text = [event.title, event.day, event.category, event.description, event.opening, event.afterParty].filter(Boolean).join(' ').toLowerCase();
+    const text = [event.title, event.day, event.category, event.description, event.opening, event.afterParty, event.monthlyFeature?.title, event.monthlyFeature?.description].filter(Boolean).join(' ').toLowerCase();
     return admissionMatches && (day === 'Any day' || event.day === day) && words.every(word => text.includes(word));
   });
   return { filter, setFilter, query, setQuery, day, setDay, events: matches };

@@ -16,7 +16,11 @@ test('Visit guide covers every day, keeps weekday links, and exposes clear answe
     await expect(page.getByRole('button', { name: day, exact: true })).toHaveAttribute('aria-pressed', 'true');
     await expect(programs).toHaveCount(1);
     await expect(programs).toHaveAttribute('href', `/events/${ids[index]}`);
-    if (day === 'Monday') await expect(programs).toContainText('Auditions for PTown');
+    if (day === 'Monday') {
+      await expect(programs).toContainText('Auditions for PTown');
+      await expect(page.getByText('Monthly Cards, Dominoes & Chess Tournament', { exact: true })).toBeVisible();
+      await expect(page.getByText(/Spades, Bid Whist, Hearts, Dominoes, and Chess/)).toBeVisible();
+    }
     if (day === 'Tuesday') await expect(programs).toContainText('Musician Jam Session');
     if (day === 'Saturday') await expect(programs).toContainText('Any Genre');
     await expect(page.getByText(index >= 3 && index <= 5 ? 'A ticketed evening is planned' : 'Free program admission is planned', { exact: true })).toBeVisible();

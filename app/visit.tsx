@@ -39,6 +39,7 @@ export default function Visit() {
     </View>}
     <SectionHeader title={`${selectedDay} at PTown`} />
     {programs.map(event => <EventCard key={event.id} event={event} />)}
+    {programs.map(event => event.monthlyFeature && <Card key={`monthly-${event.id}`} title={event.monthlyFeature.title} description={event.monthlyFeature.description} />)}
     <Card title={ticketed ? 'A ticketed evening is planned' : 'Free program admission is planned'} description={ticketed ? 'Confirmed dates, artists, ticket prices, and sale details will be announced. Saving a program does not purchase admission.' : 'The recurring program is proposed with free entry. Confirmed dates and entry details will be announced. Meals and drinks are not confirmed as included.'} />
     <Card title="Your dinner options" description={selectedDay === 'Sunday' ? 'Gospel jazz brunch is planned, followed by R&B jazz until 6 pm. Brunch hours, dishes, prices, and food inclusions will be announced.' : ticketed ? 'Ticket nights are planned around one culture signature plate and one alternate plate. Specific dishes, prices, and ticket food inclusions will be announced.' : 'An open menu is planned Monday through Wednesday. Dishes, prices, and availability will be announced.'} />
     {programs.map(event => event.opening && <Card key={`opening-${event.id}`} title="Opening the evening" description={event.opening} />)}

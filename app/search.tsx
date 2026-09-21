@@ -27,7 +27,7 @@ export default function Search() {
   const { ready, storageError, savedEventIds, savedPathwayIds } = usePreviewStore();
   const words = normalize(query).trim().split(/\s+/).filter(Boolean);
   const matches = (text: string) => words.every(word => normalize(text).includes(word));
-  const programs = events.filter(event => (filter === 'All' || filter === 'Programs' || (filter === 'Saved' && ready && savedEventIds.includes(event.id))) && matches([event.title, event.day, event.category, event.admission, event.description, event.opening, event.afterParty].join(' ')));
+  const programs = events.filter(event => (filter === 'All' || filter === 'Programs' || (filter === 'Saved' && ready && savedEventIds.includes(event.id))) && matches([event.title, event.day, event.category, event.admission, event.description, event.opening, event.afterParty, event.monthlyFeature?.title, event.monthlyFeature?.description].join(' ')));
   const creative = pathways.filter(pathway => (filter === 'All' || filter === 'Creative' || (filter === 'Saved' && ready && savedPathwayIds.includes(pathway.id))) && matches([pathway.title, pathway.division, pathway.description, pathway.project, ...pathway.focus].join(' ')));
   const pages = directoryPages.filter(page => (filter === 'All' || filter === 'Sections') && matches([page.title, page.description, page.keywords].join(' ')));
   const count = programs.length + creative.length + pages.length;
