@@ -67,3 +67,29 @@ end $$;
 
 revoke all on function public.write_operations_record(text,text,jsonb,bigint) from public;
 grant execute on function public.write_operations_record(text,text,jsonb,bigint) to authenticated;
+
+create function public.migrate_operations_batch(p_records jsonb)
+returns table(result_collection text,result_record_key text,accepted boolean)
+language plpgsql security definer set search_path=public as $$
+declare item jsonb; inserted_id uuid;
+begin
+  if public.current_ptown_role()<>'owner' then raise exception 'owner access required'; end if;
+  if p_records is null or jsonb_typeof(p_records)<>'array' or jsonb_array_length(p_records)>100 then raise exception 'invalid migration batch'; end if;
+  for item in select value from jsonb_array_elements(p_records)
+  loop
+    result_collection:=item->>'collection'; result_record_key:=item->>'recordId'; inserted_id:=null;
+    if coalesce(result_collection,'')='' or coalesce(result_record_key,'')='' or not(item ? 'payload') then raise exception 'invalid migration record'; end if;
+    insert into public.operations_records(collection,record_key,payload,version,created_by,updated_by)
+    values(result_collection,result_record_key,item->'payload',1,auth.uid(),auth.uid())
+    on conflict(collection,record_key) do nothing returning id into inserted_id;
+    accepted:=inserted_id is not null;
+    if accepted then
+      insert into public.operations_audit(record_id,action,before_value,after_value,actor_id)
+      values(inserted_id,'local_migration',null,item->'payload',auth.uid());
+    end if;
+    return next;
+  end loop;
+end $$;
+
+revoke all on function public.migrate_operations_batch(jsonb) from public;
+grant execute on function public.migrate_operations_batch(jsonb) to authenticated;

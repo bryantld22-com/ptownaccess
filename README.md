@@ -1,9 +1,10 @@
 # PTown Access
 
-Build 30 adds a checksummed operations backup and guarded recovery workflow ahead
-of the Supabase development-project activation handoff. Cloud features remain off
-until client configuration, schema, staff authorization, backup, recovery,
-conflict, and migration reconciliation checks pass.
+Build 31 adds a controlled Owner-only migration executor with server-side
+conflict protection and post-upload reconciliation. It builds on the checksummed
+operations backup and guarded recovery workflow. Cloud features remain off until
+client configuration, schema, staff authorization, backup, recovery, conflict,
+and migration reconciliation checks pass.
 
 Build 14 of PTown Dinner Club’s app for Paducah, Kentucky. React Native,
 Expo SDK 57, TypeScript, and Expo Router. Black, warm cream, and gold.
