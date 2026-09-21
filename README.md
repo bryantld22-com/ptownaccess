@@ -1,7 +1,8 @@
 # PTown Access
 
-Build 31 adds a controlled Owner-only migration executor with server-side
-conflict protection and post-upload reconciliation. It builds on the checksummed
+Build 32 adds a read-only cloud reconciliation center that compares keys and
+canonical payload checksums without changing either data copy. It builds on the
+controlled Owner-only migration executor, server-side conflict protection, and checksummed
 operations backup and guarded recovery workflow. Cloud features remain off until
 client configuration, schema, staff authorization, backup, recovery, conflict,
 and migration reconciliation checks pass.

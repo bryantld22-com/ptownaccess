@@ -32,7 +32,7 @@ export default function CloudMigration() {
     {error&&<Text accessibilityRole="alert" style={formStyles.error}>{error}</Text>}
     {report&&<Card title={report.reconciled?'Reconciliation passed':'Owner review required'} description={`${report.accepted}/${report.attempted} records created · ${report.conflicts.length} protected conflicts · ${report.missingAfterUpload.length} missing after verification. Local device records were not changed.`}/>}
     <Body>Migration writes only new record keys, records the authenticated Owner in the server audit trail, and verifies every expected key after upload. Conflicts require review; they are not silently overwritten.</Body>
-    <Button label="Create operations backup" href="/operations/backup"/><Button label="Staff access" href="/operations/staff-access" secondary/><Button label="Production readiness" href="/operations/production-readiness" secondary/>
+    <Button label="Run cloud reconciliation" href="/operations/reconciliation"/><Button label="Create operations backup" href="/operations/backup" secondary/><Button label="Staff access" href="/operations/staff-access" secondary/><Button label="Production readiness" href="/operations/production-readiness" secondary/>
   </Screen>;
 }
 function Metric({label,value,danger=false}:{label:string;value:number;danger?:boolean}){return <View style={s.metric}><Text style={[s.metricValue,danger&&s.danger]}>{value}</Text><Text style={s.metricLabel}>{label}</Text></View>}

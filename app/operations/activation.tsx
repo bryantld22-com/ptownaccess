@@ -33,7 +33,7 @@ export default function Activation() {
     {steps.map((step, index) => <View key={step} style={s.step}><Text style={s.stepNumber}>{index + 1}</Text><Text style={s.stepText}>{step}</Text></View>)}
     <SectionHeader title="Release gate" />
     <Body>Keep runtime mode in preview and synchronization disabled until the Owner account, row-level permissions, backup restore, conflict handling, and migration reconciliation have all passed in development.</Body>
-    <Button label="Create operations backup" href="/operations/backup"/><Button label="Cloud migration dry run" href="/operations/cloud-migration" secondary/><Button label="Production readiness" href="/operations/production-readiness" secondary/>
+    <Button label="Create operations backup" href="/operations/backup"/><Button label="Cloud migration" href="/operations/cloud-migration" secondary/><Button label="Cloud reconciliation" href="/operations/reconciliation" secondary/><Button label="Production readiness" href="/operations/production-readiness" secondary/>
   </Screen>;
 }
 
