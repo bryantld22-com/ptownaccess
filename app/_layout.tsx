@@ -3,8 +3,9 @@ import { StatusBar } from 'expo-status-bar';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { theme } from '../src/theme';
 import { PreviewStoreProvider } from '../src/state/PreviewStore';
+import { OperationsStoreProvider } from '../src/state/OperationsStore';
 export default function RootLayout() {
-  return <SafeAreaProvider><PreviewStoreProvider><StatusBar style="light" /><Stack screenOptions={{ headerStyle: { backgroundColor: theme.colors.background }, headerTintColor: theme.colors.cream, headerTitleStyle: { fontSize: 16 }, contentStyle: { backgroundColor: theme.colors.background } }}>
+  return <SafeAreaProvider><PreviewStoreProvider><OperationsStoreProvider><StatusBar style="light" /><Stack screenOptions={{ headerStyle: { backgroundColor: theme.colors.background }, headerTintColor: theme.colors.cream, headerTitleStyle: { fontSize: 16 }, contentStyle: { backgroundColor: theme.colors.background } }}>
     <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
     <Stack.Screen name="plans" options={{ title: 'Your evening plan' }} />
     <Stack.Screen name="visit" options={{ title: 'Plan your visit' }} />
@@ -19,6 +20,8 @@ export default function RootLayout() {
     <Stack.Screen name="operations/artists/index" options={{ title: 'Artist CRM' }} />
     <Stack.Screen name="operations/artists/[id]" options={{ title: 'Artist profile' }} />
     <Stack.Screen name="operations/artists/[id]/booking" options={{ title: 'Start booking' }} />
+    <Stack.Screen name="operations/artists/[id]/edit" options={{ title: 'Edit artist' }} />
+    <Stack.Screen name="operations/calendar" options={{ title: 'Booking calendar' }} />
     <Stack.Screen name="+not-found" options={{ title: 'PTown Access' }} />
-  </Stack></PreviewStoreProvider></SafeAreaProvider>;
+  </Stack></OperationsStoreProvider></PreviewStoreProvider></SafeAreaProvider>;
 }

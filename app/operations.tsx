@@ -3,6 +3,7 @@ import { router } from 'expo-router';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { artistLeads, outreachSequence, weeklyProgramming } from '../src/data/bookingOperations';
 import { theme } from '../src/theme';
+import { useOperationsStore } from '../src/state/OperationsStore';
 
 const metrics = [
   ['Artist Leads', String(artistLeads.length), 'people-outline'],
@@ -12,6 +13,7 @@ const metrics = [
 ] as const;
 
 export default function OperationsScreen() {
+  const { bookings } = useOperationsStore();
   return (
     <ScrollView style={styles.screen} contentContainerStyle={styles.content}>
       <View style={styles.topbar}>
@@ -21,6 +23,7 @@ export default function OperationsScreen() {
       </View>
 
       <Text style={styles.subtitle}>Artist CRM · Booking pipeline · Outreach · Programming</Text>
+      <View style={styles.operationsNav}><Pressable onPress={() => router.push('/operations/artists')} style={styles.crmButton}><Text style={styles.crmButtonText}>Artist CRM →</Text></Pressable><Pressable onPress={() => router.push('/operations/calendar')} style={styles.secondaryNav}><Text style={styles.secondaryNavText}>Booking Calendar · {bookings.length} →</Text></Pressable></View>
 
       <View style={styles.metricGrid}>{metrics.map(([label,value,icon]) => <View key={label} style={styles.metric}><Ionicons name={icon} size={20} color={theme.colors.gold}/><Text style={styles.metricValue}>{value}</Text><Text style={styles.metricLabel}>{label}</Text></View>)}</View>
 
@@ -55,6 +58,7 @@ const styles = StyleSheet.create({
   metricGrid:{flexDirection:'row',flexWrap:'wrap',gap:10},metric:{minWidth:'47%',flexGrow:1,backgroundColor:theme.colors.surface,borderColor:theme.colors.border,borderWidth:1,borderRadius:theme.radius.card,padding:16},metricValue:{color:theme.colors.cream,fontSize:28,fontWeight:'800',marginTop:8},metricLabel:{color:theme.colors.muted,fontSize:12},
   section:{backgroundColor:theme.colors.surface,borderWidth:1,borderColor:theme.colors.border,borderRadius:theme.radius.card,padding:16,gap:12},sectionHead:{flexDirection:'row',justifyContent:'space-between',alignItems:'center'},sectionTitle:{color:theme.colors.cream,fontSize:19,fontWeight:'800'},action:{color:theme.colors.gold,fontSize:12,fontWeight:'700'},
   crmButton:{backgroundColor:theme.colors.gold,borderRadius:12,paddingHorizontal:14,paddingVertical:12,alignItems:'center'},crmButtonText:{color:theme.colors.background,fontWeight:'800',fontSize:13},
+  operationsNav:{flexDirection:'row',flexWrap:'wrap',gap:10},secondaryNav:{borderWidth:1,borderColor:theme.colors.gold,borderRadius:12,paddingHorizontal:14,paddingVertical:12,alignItems:'center'},secondaryNavText:{color:theme.colors.gold,fontWeight:'800',fontSize:13},
   artistRow:{flexDirection:'row',alignItems:'center',gap:10,paddingVertical:10,borderTopWidth:1,borderTopColor:theme.colors.border},avatar:{width:38,height:38,borderRadius:19,backgroundColor:theme.colors.elevated,alignItems:'center',justifyContent:'center'},avatarText:{color:theme.colors.gold,fontWeight:'800'},artist:{color:theme.colors.cream,fontSize:14,fontWeight:'700'},meta:{color:theme.colors.muted,fontSize:11,marginTop:3},next:{color:theme.colors.gold,fontSize:10,marginTop:4},status:{borderWidth:1,borderColor:theme.colors.border,borderRadius:12,paddingHorizontal:8,paddingVertical:5},statusText:{color:theme.colors.cream,fontSize:10},
   week:{gap:8},day:{backgroundColor:theme.colors.elevated,borderRadius:14,padding:12},dayName:{color:theme.colors.gold,fontSize:11,fontWeight:'900'},program:{color:theme.colors.cream,fontSize:15,fontWeight:'800',marginTop:3},
   sequence:{flexDirection:'row',gap:10,alignItems:'center',paddingVertical:7},step:{width:30,height:30,borderRadius:15,backgroundColor:theme.colors.elevated,alignItems:'center',justifyContent:'center'},stepText:{color:theme.colors.gold,fontWeight:'900'},safety:{flexDirection:'row',gap:10,backgroundColor:theme.colors.elevated,padding:12,borderRadius:14,alignItems:'flex-start'},safetyText:{color:theme.colors.muted,fontSize:11,lineHeight:17,flex:1}
