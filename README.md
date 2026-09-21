@@ -1,9 +1,18 @@
 # PTown Access
 
-Build 54 of PTown Dinner Club’s app for Paducah, Kentucky. React Native,
+Build 55 of PTown Dinner Club’s app for Paducah, Kentucky. React Native,
 Expo SDK 57, TypeScript, and Expo Router. Black, warm cream, and gold.
 
 ## Included
+
+- A dedicated Monday Tournament Hub for Spades, Bid Whist, Hearts, Dominoes,
+  and Chess, with shareable game filters, direct links from Monday planning,
+  Friend 2 Friend invitations, and honest readiness status for every detail
+  PTown has not confirmed.
+
+- The Tournament Hub carries forward free planned admission and future PTown
+  Access registration/check-in without pretending that registration, a place,
+  or attendance is currently available or recorded.
 
 - Monday’s proposed weekly lineup remains Auditions for PTown and now includes a
   distinct monthly Cards, Dominoes & Chess Tournament featuring Spades, Bid Whist,
@@ -446,7 +455,7 @@ Dinner-note tests verify persistence, editing/removal, summary and backup conten
 independent-device transfers, older drafts, maximum length, invalid-note rejection,
 failed writes, and phone layouts.
 
-## Build 54 completion
+## Build 55 completion
 
 The app foundation, Media Group divisions and initial director guide, event and creative discovery, plan review, navigation, device planning flows, and approved launcher branding are implemented. TypeScript checks,
 Expo dependency checks, web/iOS/Android exports, and Chromium navigation

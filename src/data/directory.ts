@@ -18,6 +18,7 @@ export const directoryPages: DirectoryPage[] = [
   { title: 'Private Media Action Transfer', description: 'Back up, review, and explicitly replace the private owner action queue.', keywords: 'media action backup transfer restore owner queue private', href: '/media-action-backup' },
   ...mediaTemplates.map(template => ({ title: template.title, description: template.purpose, keywords: [...template.fields.map(field => field.label), ...template.checks].join(' '), href: { pathname: '/media-templates/[id]', params: { id: template.id } } as const })),
   { title: 'Friend 2 Friend', description: 'Preview sample profiles and build a planning invitation for good company at PTown.', keywords: 'friends friend 2 friend social connection invitation join me community sample profile', href: '/friends' },
+  { title: 'Monthly Tournament Hub', description: 'Explore PTown’s planned Monday tournament for Spades, Bid Whist, Hearts, Dominoes, and Chess.', keywords: 'monday monthly cards game night tournament spades bid whist hearts dominoes chess radio host sponsor free registration check in', href: '/tournament' },
   ...sections.map(section => {
     const slug = section.href.slice(1);
     const content = slug in sectionContent ? sectionContent[slug as keyof typeof sectionContent] : undefined;
