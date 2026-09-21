@@ -13,12 +13,13 @@ const payments: ArtistLead['paymentStatus'][] = ['Not started','Deposit due','De
 
 export default function EditArtistScreen() {
   const { id } = useLocalSearchParams<{id:string}>();
-  const { getArtist, saveArtist, busy } = useOperationsStore();
+  const { getArtist, saveArtist, busy, canEdit } = useOperationsStore();
   const artist = getArtist(id);
   const [form, setForm] = useState<ArtistLead | null>(artist ?? null);
   const [message, setMessage] = useState<string | null>(null);
   useEffect(() => { if (artist) setForm(artist); }, [id]);
   if (!artist || !form) return <Screen><PageHeader eyebrow="ARTIST CRM" title="Artist not found"/><Button label="Return to Artist CRM" href="/operations/artists" secondary /></Screen>;
+  if (!canEdit) return <Screen><PageHeader eyebrow="VIEWER ACCESS" title="CRM record is read only" description="Switch to Owner or Booking Manager to edit artist records."/><Button label="Manage access role" href="/operations/access"/><Button label="Return to artist" href={{pathname:'/operations/artists/[id]',params:{id}}} secondary /></Screen>;
   const artistId = artist.id;
   const set = <K extends keyof ArtistLead>(key: K, value: ArtistLead[K]) => setForm(current => current ? { ...current, [key]: value } : current);
   async function save() { setMessage(null); const ok = await saveArtist(artistId, { status:form!.status, contactRoute:form!.contactRoute.trim(), contactVerified:form!.contactVerified, contactSource:form!.contactSource.trim(), contactVerifiedOn:form!.contactVerifiedOn?.trim() || undefined, lastContact:form!.lastContact?.trim() || undefined, followUpDate:form!.followUpDate?.trim() || undefined, nextAction:form!.nextAction.trim(), notes:form!.notes.trim(), feeRange:form!.feeRange.trim(), contractStatus:form!.contractStatus, paymentStatus:form!.paymentStatus }); if (ok) { setMessage('Artist CRM record saved on this device.'); router.replace({ pathname:'/operations/artists/[id]', params:{id:artistId} }); } }

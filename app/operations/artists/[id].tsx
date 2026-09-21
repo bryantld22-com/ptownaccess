@@ -7,12 +7,12 @@ import { useOperationsStore } from '../../../src/state/OperationsStore';
 
 export default function ArtistProfileScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
-  const { getArtist } = useOperationsStore();
+  const { getArtist, canEdit } = useOperationsStore();
   const artist = getArtist(id);
   if (!artist) return <Screen><PageHeader eyebrow="ARTIST CRM" title="Artist not found" description="This artist is not in the current PTown booking pipeline."/><Button label="Return to Artist CRM" href="/operations/artists" secondary /></Screen>;
   return <Screen>
     <PageHeader eyebrow={`ARTIST CRM · ${artist.status.toUpperCase()}`} title={artist.name} description={`${artist.genre} · ${artist.market}${artist.recognition ? ` · ${artist.recognition}` : ''}`} />
-    <View style={styles.profileActions}><Button label="Edit CRM record" href={{ pathname:'/operations/artists/[id]/edit', params:{id:artist.id} }} /><Button label="Booking calendar" href="/operations/calendar" secondary /></View>
+    <View style={styles.profileActions}>{canEdit&&<Button label="Edit CRM record" href={{ pathname:'/operations/artists/[id]/edit', params:{id:artist.id} }} />}<Button label="Booking calendar" href="/operations/calendar" secondary /><Button label="Outreach drafts" href={{pathname:'/operations/outreach',params:{artistId:artist.id}}} secondary /></View>
     <View style={styles.actionCard}><View style={styles.actionIcon}><Ionicons name="calendar-outline" size={24} color={theme.colors.gold}/></View><View style={{flex:1,gap:5}}><Text style={styles.actionTitle}>Next action</Text><Text style={styles.actionText}>{artist.nextAction}</Text>{artist.followUpDate && <Text style={styles.meta}>Follow up: {artist.followUpDate}</Text>}</View><Link href={{ pathname:'/operations/artists/[id]/booking', params:{ id:artist.id } }} style={styles.start}>Start Booking →</Link></View>
     <SectionHeader title="Contact verification" />
     <View style={styles.grid}><Detail label="Route" value={artist.contactRoute}/><Detail label="Verification" value={artist.contactVerified ? 'Verified' : 'Required before outreach'}/><Detail label="Source" value={artist.contactSource}/><Detail label="Verified on" value={artist.contactVerifiedOn ?? 'Not yet verified'}/></View>

@@ -1,0 +1,12 @@
+import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { Body, Button, PageHeader, Screen, SectionHeader } from '../../src/components/ui';
+import { useOperationsStore, type OperationsRole } from '../../src/state/OperationsStore';
+import { theme } from '../../src/theme';
+
+const roles: {role:OperationsRole;summary:string;permissions:string[]}[] = [
+  {role:'Owner',summary:'Full approval authority',permissions:['Edit CRM','Manage calendar','Draft outreach','Approve outreach']},
+  {role:'Booking Manager',summary:'Working operations access',permissions:['Edit CRM','Manage calendar','Draft outreach','Submit for approval']},
+  {role:'Viewer',summary:'Read-only oversight',permissions:['View CRM','View calendar','View outreach status']},
+];
+export default function AccessScreen(){const{currentRole,setRole,busy}=useOperationsStore();return <Screen><PageHeader eyebrow="MANAGEMENT CONTROLS" title="Access roles" description="Preview the permissions PTown will enforce when secure staff authentication is connected."/><View style={styles.notice}><Text style={styles.noticeTitle}>PREVIEW ROLE SWITCHER</Text><Body>This device-only selector demonstrates access rules. It is not staff authentication and does not verify identity.</Body></View><SectionHeader title="Current role"/>{roles.map(item=><Pressable disabled={busy} key={item.role} onPress={()=>{void setRole(item.role);}} style={[styles.card,currentRole===item.role&&styles.selected]}><View style={styles.titleRow}><Text style={styles.role}>{item.role}</Text>{currentRole===item.role&&<Text style={styles.active}>ACTIVE</Text>}</View><Text style={styles.summary}>{item.summary}</Text><Text style={styles.permissions}>{item.permissions.join(' · ')}</Text></Pressable>)}<Button label="Return to Booking Operations" href="/operations" secondary /></Screen>}
+const styles=StyleSheet.create({notice:{backgroundColor:theme.colors.elevated,borderLeftWidth:3,borderLeftColor:theme.colors.gold,borderRadius:14,padding:16,gap:7},noticeTitle:{color:theme.colors.gold,fontSize:10,fontWeight:'900',letterSpacing:1.2},card:{backgroundColor:theme.colors.surface,borderWidth:1,borderColor:theme.colors.border,borderRadius:18,padding:18,gap:7},selected:{borderColor:theme.colors.gold},titleRow:{flexDirection:'row',justifyContent:'space-between'},role:{color:theme.colors.cream,fontSize:18,fontWeight:'800'},active:{color:theme.colors.gold,fontSize:10,fontWeight:'900'},summary:{color:theme.colors.gold,fontSize:12},permissions:{color:theme.colors.muted,fontSize:11,lineHeight:18}});

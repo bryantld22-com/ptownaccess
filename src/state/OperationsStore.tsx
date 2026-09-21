@@ -5,10 +5,12 @@ import { artistLeads, type ArtistLead, type PipelineStatus } from '../data/booki
 export const OPERATIONS_STORAGE_KEY = '@ptown/operations/v1';
 export type ArtistUpdate = Pick<ArtistLead, 'status' | 'contactRoute' | 'contactVerified' | 'contactSource' | 'contactVerifiedOn' | 'lastContact' | 'followUpDate' | 'nextAction' | 'notes' | 'feeRange' | 'contractStatus' | 'paymentStatus'>;
 export type BookingEntry = { id: string; artistId: string; date: string; program: string; status: 'Hold' | 'Inquiry' | 'Offer' | 'Contracted'; notes: string; createdAt: string };
-type OperationsState = { version: 1; artistUpdates: Record<string, ArtistUpdate>; bookings: BookingEntry[] };
-type Store = OperationsState & { ready: boolean; busy: boolean; error: string | null; getArtist: (id: string) => ArtistLead | undefined; saveArtist: (id: string, update: ArtistUpdate) => Promise<boolean>; saveBooking: (booking: Omit<BookingEntry, 'id' | 'createdAt'>) => Promise<boolean>; removeBooking: (id: string) => Promise<boolean> };
+export type OperationsRole = 'Owner' | 'Booking Manager' | 'Viewer';
+export type OutreachDraft = { id: string; artistId: string; subject: string; message: string; status: 'Draft' | 'Pending approval' | 'Approved'; createdAt: string; updatedAt: string };
+type OperationsState = { version: 1; artistUpdates: Record<string, ArtistUpdate>; bookings: BookingEntry[]; currentRole: OperationsRole; outreachDrafts: OutreachDraft[] };
+type Store = OperationsState & { ready: boolean; busy: boolean; error: string | null; canEdit: boolean; canApprove: boolean; getArtist: (id: string) => ArtistLead | undefined; saveArtist: (id: string, update: ArtistUpdate) => Promise<boolean>; saveBooking: (booking: Omit<BookingEntry, 'id' | 'createdAt'>) => Promise<boolean>; removeBooking: (id: string) => Promise<boolean>; setRole: (role: OperationsRole) => Promise<boolean>; saveOutreachDraft: (draft: Omit<OutreachDraft, 'id' | 'createdAt' | 'updatedAt' | 'status'>) => Promise<boolean>; setDraftStatus: (id: string, status: OutreachDraft['status']) => Promise<boolean>; removeOutreachDraft: (id: string) => Promise<boolean> };
 
-const emptyState = (): OperationsState => ({ version: 1, artistUpdates: {}, bookings: [] });
+const emptyState = (): OperationsState => ({ version: 1, artistUpdates: {}, bookings: [], currentRole: 'Owner', outreachDrafts: [] });
 const Context = createContext<Store | null>(null);
 const statuses: PipelineStatus[] = ['Identified','Contacted','Warm','Negotiating','Booked','Nurture'];
 const contractStatuses: ArtistLead['contractStatus'][] = ['Not started','Drafting','Sent','Signed'];
@@ -24,7 +26,9 @@ export function parseOperationsState(raw: string | null): OperationsState {
     artistUpdates[id] = update;
   }
   const bookings = value.bookings.filter((item: BookingEntry) => item && typeof item.id === 'string' && artistLeads.some(artist => artist.id === item.artistId) && /^\d{4}-\d{2}-\d{2}$/.test(item.date) && ['Hold','Inquiry','Offer','Contracted'].includes(item.status));
-  return { version: 1, artistUpdates, bookings };
+  const currentRole: OperationsRole = ['Owner','Booking Manager','Viewer'].includes(value.currentRole) ? value.currentRole : 'Owner';
+  const outreachDrafts = Array.isArray(value.outreachDrafts) ? value.outreachDrafts.filter((draft: OutreachDraft) => draft && typeof draft.id === 'string' && artistLeads.some(artist => artist.id === draft.artistId) && ['Draft','Pending approval','Approved'].includes(draft.status)) : [];
+  return { version: 1, artistUpdates, bookings, currentRole, outreachDrafts };
 }
 
 export function OperationsStoreProvider({ children }: PropsWithChildren) {
@@ -41,10 +45,15 @@ export function OperationsStoreProvider({ children }: PropsWithChildren) {
     queue.current = operation; return operation;
   }, []);
   const getArtist = useCallback((id: string) => { const base = artistLeads.find(artist => artist.id === id); return base ? { ...base, ...state.artistUpdates[id] } : undefined; }, [state.artistUpdates]);
-  const saveArtist = useCallback((id: string, artistUpdate: ArtistUpdate) => artistLeads.some(artist => artist.id === id) ? update(current => ({ ...current, artistUpdates: { ...current.artistUpdates, [id]: artistUpdate } })) : Promise.resolve(false), [update]);
-  const saveBooking = useCallback((booking: Omit<BookingEntry, 'id' | 'createdAt'>) => update(current => ({ ...current, bookings: [...current.bookings, { ...booking, id: `booking-${Date.now()}`, createdAt: new Date().toISOString() }] })), [update]);
-  const removeBooking = useCallback((id: string) => update(current => ({ ...current, bookings: current.bookings.filter(booking => booking.id !== id) })), [update]);
-  return <Context.Provider value={{ ...state, ready, busy: pending > 0, error, getArtist, saveArtist, saveBooking, removeBooking }}>{children}</Context.Provider>;
+  const canEdit = state.currentRole !== 'Viewer'; const canApprove = state.currentRole === 'Owner';
+  const saveArtist = useCallback((id: string, artistUpdate: ArtistUpdate) => stateRef.current.currentRole !== 'Viewer' && artistLeads.some(artist => artist.id === id) ? update(current => ({ ...current, artistUpdates: { ...current.artistUpdates, [id]: artistUpdate } })) : Promise.resolve(false), [update]);
+  const saveBooking = useCallback((booking: Omit<BookingEntry, 'id' | 'createdAt'>) => stateRef.current.currentRole !== 'Viewer' ? update(current => ({ ...current, bookings: [...current.bookings, { ...booking, id: `booking-${Date.now()}`, createdAt: new Date().toISOString() }] })) : Promise.resolve(false), [update]);
+  const removeBooking = useCallback((id: string) => stateRef.current.currentRole !== 'Viewer' ? update(current => ({ ...current, bookings: current.bookings.filter(booking => booking.id !== id) })) : Promise.resolve(false), [update]);
+  const setRole = useCallback((currentRole: OperationsRole) => update(current => ({ ...current, currentRole })), [update]);
+  const saveOutreachDraft = useCallback((draft: Omit<OutreachDraft, 'id' | 'createdAt' | 'updatedAt' | 'status'>) => stateRef.current.currentRole !== 'Viewer' ? update(current => { const now = new Date().toISOString(); return { ...current, outreachDrafts: [...current.outreachDrafts, { ...draft, id:`outreach-${Date.now()}`, status:'Draft', createdAt:now, updatedAt:now }] }; }) : Promise.resolve(false), [update]);
+  const setDraftStatus = useCallback((id: string, status: OutreachDraft['status']) => update(current => { if (status === 'Approved' && current.currentRole !== 'Owner') return current; if (current.currentRole === 'Viewer') return current; return { ...current, outreachDrafts: current.outreachDrafts.map(draft => draft.id === id ? { ...draft, status, updatedAt:new Date().toISOString() } : draft) }; }), [update]);
+  const removeOutreachDraft = useCallback((id: string) => stateRef.current.currentRole !== 'Viewer' ? update(current => ({ ...current, outreachDrafts: current.outreachDrafts.filter(draft => draft.id !== id) })) : Promise.resolve(false), [update]);
+  return <Context.Provider value={{ ...state, ready, busy: pending > 0, error, canEdit, canApprove, getArtist, saveArtist, saveBooking, removeBooking, setRole, saveOutreachDraft, setDraftStatus, removeOutreachDraft }}>{children}</Context.Provider>;
 }
 
 export function useOperationsStore() { const store = useContext(Context); if (!store) throw new Error('OperationsStoreProvider is required'); return store; }
