@@ -36,6 +36,7 @@ export default function RootLayout() {
     <Stack.Screen name="operations/readiness" options={{ title: 'Management readiness' }} />
     <Stack.Screen name="operations/production-readiness" options={{ title: 'Production readiness' }} />
     <Stack.Screen name="operations/staff-access" options={{ title: 'Staff access' }} />
+    <Stack.Screen name="operations/account-recovery" options={{ title: 'Account recovery' }} />
     <Stack.Screen name="+not-found" options={{ title: 'PTown Access' }} />
   </Stack></OperationsStoreProvider></PreviewStoreProvider></SafeAreaProvider>;
 }

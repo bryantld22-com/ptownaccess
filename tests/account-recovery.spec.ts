@@ -1,0 +1,1 @@
+import{expect,test}from'@playwright/test';test('account recovery is safe before connection',async({page})=>{await page.goto('/operations/account-recovery');await expect(page.getByText('DEVELOPMENT PROJECT NOT CONNECTED')).toBeVisible();await expect(page.getByText('NO AUTOMATIC STAFF CREATION')).toBeVisible();});
