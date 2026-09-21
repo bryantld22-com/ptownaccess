@@ -41,6 +41,10 @@ export default function Tournament() {
     setMessage(null); setError(null);
     if (await saveTournamentInterest(null)) { setInterestIds([]); setMessage('Tournament interests removed from this device.'); }
   }
+  function planWithFriends() {
+    if (!interestIds.length || busy) return;
+    router.push({ pathname: '/friends', params: { program: 'monday-jazz', games: interestIds.join(',') } });
+  }
 
   return <Screen>
     <Stack.Screen options={{ title: 'Monthly Tournament Hub' }} />
@@ -61,9 +65,11 @@ export default function Tournament() {
       {tournamentGames.map(item => { const checked = interestIds.includes(item.id); return <Pressable key={`interest-${item.id}`} accessibilityRole="checkbox" aria-checked={checked} accessibilityState={{ checked, disabled: !ready || busy }} disabled={!ready || busy} onPress={() => toggleInterest(item.id)} style={{ minHeight: 48, paddingHorizontal: 18, paddingVertical: 14, borderRadius: 12, borderWidth: 1, borderColor: checked ? theme.colors.gold : theme.colors.border, backgroundColor: checked ? theme.colors.elevated : theme.colors.surface, opacity: ready ? 1 : 0.5 }}><Text style={{ color: checked ? theme.colors.gold : theme.colors.cream, fontWeight: '600' }}>{item.title}</Text></Pressable>; })}
     </View>
     <ActionButton label="Save tournament interests" disabled={!ready || busy} onPress={() => { void saveInterests(); }} />
+    <ActionButton label="Plan selected games with friends" disabled={!ready || busy || !interestIds.length} secondary onPress={planWithFriends} />
     {tournamentInterest?.gameIds.length ? <ActionButton label="Remove saved tournament interests" disabled={!ready || busy} secondary onPress={() => { void clearInterests(); }} /> : null}
     <Feedback message={message} />{error && <Text accessibilityRole="alert" style={formStyles.error}>{error}</Text>}
     {ready && <Body>{tournamentInterest?.gameIds.length ? `Saved on this device: ${tournamentGames.filter(item => tournamentInterest.gameIds.includes(item.id)).map(item => item.title).join(', ')}.` : 'No tournament interests are saved on this device.'}</Body>}
+    <Body>Planning with friends carries only the currently selected game names into the invitation preview after you press the button. It does not include other saved plans or send anything.</Body>
     <SectionHeader title="Tournament readiness" />
     <Card title="Monthly date and start time" description="To be confirmed. PTown has not published a tournament date, arrival window, start time, or closing time." />
     <Card title="Entry and competition format" description="To be confirmed. Player eligibility, game assignments, table or bracket structure, advancement, tie-breakers, and capacity have not been published." />

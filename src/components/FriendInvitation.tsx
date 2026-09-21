@@ -8,11 +8,14 @@ import { isPastDate, programDay } from '../utils/programDay';
 import { ActionButton, Feedback, Field, formStyles } from './forms';
 import { FriendSavedPrograms } from './FriendSavedPrograms';
 import { Body, Button, SectionHeader, styles } from './ui';
+import { tournamentGames } from '../data/tournament';
 
 export function FriendInvitation() {
-  const { program } = useLocalSearchParams<{ program?: string }>();
+  const { program, games } = useLocalSearchParams<{ program?: string; games?: string | string[] }>();
   const router = useRouter();
   const routeProgram = events.find(event => event.id === program)?.id ?? featuredEvent.id;
+  const requestedGames = typeof games === 'string' ? games.split(',') : [];
+  const invitationGames = tournamentGames.filter(game => requestedGames.includes(game.id));
   const [selected, setSelected] = useState(featuredEvent.id);
   useEffect(() => { setSelected(routeProgram); }, [routeProgram]);
   const [note, setNote] = useState('');
@@ -25,6 +28,7 @@ export function FriendInvitation() {
   const [message, setMessage] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const event = events.find(item => item.id === selected)!;
+  const activeGames = event.id === 'monday-jazz' ? invitationGames : [];
   const dateDay = programDay(date.trim());
   const dateError = !date.trim() ? undefined : !dateDay ? 'Enter a real date in YYYY-MM-DD format.'
     : isPastDate(date.trim()) ? 'Choose today or a future date.'
@@ -39,6 +43,7 @@ export function FriendInvitation() {
     '',
     `Let’s explore ${event.day} · ${event.title} together.`,
     `Proposed admission: ${event.admission}. Confirmed dates, prices, and entry details will be announced.`,
+    ...(activeGames.length ? [`Tournament games: ${activeGames.map(game => game.title).join(', ')} (planning interests only; not registration or reserved entry).`] : []),
     ...(date.trim() ? [`Preferred date: ${date.trim()} (planning only; not confirmed).`] : []),
     ...(guests.trim() ? [`Estimated group: ${Number(guests)} ${Number(guests) === 1 ? 'person' : 'people'}, including me (not RSVPs or a capacity confirmation).`] : []),
     ...(note.trim() ? ['', `Personal note: ${note.trim()}`] : []),
@@ -90,18 +95,30 @@ export function FriendInvitation() {
     } finally { operationPending.current = false; setWorking(false); }
   }
 
+  function chooseProgram(id: string) {
+    setSelected(id);
+    router.setParams({ program: id, games: id === 'monday-jazz' && invitationGames.length ? invitationGames.map(game => game.id).join(',') : undefined });
+  }
+
   return <>
     <SectionHeader title="Join me at PTown" />
-    <Body>Choose a proposed program and preview an invitation. The page link keeps only your program choice, not your date, guest count, or personal note. No guest is contacted automatically and no attendance is recorded.</Body>
-    <FriendSavedPrograms disabled={working} onChoose={id => { setSelected(id); router.setParams({ program: id }); }} />
-    <View accessibilityRole="radiogroup" accessibilityLabel="Invitation program" style={styles.grid}>{events.map(item => <Pressable key={item.id} accessibilityRole="radio" accessibilityLabel={`${item.day}: ${item.title}`} accessibilityState={{ checked: selected === item.id, disabled: working }} aria-checked={selected === item.id} disabled={working} onPress={() => { setSelected(item.id); router.setParams({ program: item.id }); }} style={{ flexBasis: 240, flexGrow: 1, flexShrink: 1, minWidth: 0, minHeight: 64, padding: 16, gap: 6, borderRadius: 14, borderWidth: 1, borderColor: selected === item.id ? theme.colors.gold : theme.colors.border, backgroundColor: selected === item.id ? theme.colors.elevated : theme.colors.surface }}>
+    <Body>Choose a proposed program and preview an invitation. The page link keeps only your program choice and any tournament game names you explicitly bring from the Tournament Hub—not your date, guest count, personal note, or other saved plans. No guest is contacted automatically and no attendance is recorded.</Body>
+    <FriendSavedPrograms disabled={working} onChoose={chooseProgram} />
+    <View accessibilityRole="radiogroup" accessibilityLabel="Invitation program" style={styles.grid}>{events.map(item => <Pressable key={item.id} accessibilityRole="radio" accessibilityLabel={`${item.day}: ${item.title}`} accessibilityState={{ checked: selected === item.id, disabled: working }} aria-checked={selected === item.id} disabled={working} onPress={() => chooseProgram(item.id)} style={{ flexBasis: 240, flexGrow: 1, flexShrink: 1, minWidth: 0, minHeight: 64, padding: 16, gap: 6, borderRadius: 14, borderWidth: 1, borderColor: selected === item.id ? theme.colors.gold : theme.colors.border, backgroundColor: selected === item.id ? theme.colors.elevated : theme.colors.surface }}>
       <Text style={styles.eyebrow}>{item.day}</Text><Text style={styles.cardTitle}>{item.title}</Text><Text style={styles.smallBody}>{item.admission} · Proposed program</Text>
     </Pressable>)}</View>
+    {activeGames.length > 0 && <View style={styles.card}>
+      <SectionHeader title="Tournament games in this invitation" />
+      <Body>{activeGames.map(game => game.title).join(' · ')}</Body>
+      <Body>Only these game names came from the Tournament Hub. They are planning interests—not registration, reserved entry, an RSVP, or a check-in record.</Body>
+      <ActionButton label="Remove tournament games from invitation" secondary disabled={working} onPress={() => router.setParams({ games: undefined })} />
+      <Button label="Change tournament games" href="/tournament" secondary />
+    </View>}
     <View style={styles.card}>
       <SectionHeader title="Plan the group (optional)" />
       <Body>These details are not saved. A matching weekday is only a planning check—not confirmation that an event will run on that date.</Body>
       <Field label="Preferred invitation date (optional)" placeholder="YYYY-MM-DD" value={date} maxLength={10} editable={!working} onChangeText={setDate} autoCapitalize="none" hint="Use YYYY-MM-DD. Choose today or a future date matching the proposed program’s weekday." error={dateError} />
-      {dateError && matchingEvent && dateDay !== event.day && !isPastDate(date.trim()) && <ActionButton label={`Use the ${dateDay} program`} secondary disabled={working} onPress={() => { setSelected(matchingEvent.id); router.setParams({ program: matchingEvent.id }); }} />}
+      {dateError && matchingEvent && dateDay !== event.day && !isPastDate(date.trim()) && <ActionButton label={`Use the ${dateDay} program`} secondary disabled={working} onPress={() => chooseProgram(matchingEvent.id)} />}
       <Field label="Estimated invitation group (optional)" placeholder="Number of people" value={guests} maxLength={12} editable={!working} onChangeText={setGuests} keyboardType="number-pad" hint="1–999 people, including yourself. An estimate, not RSVPs or a reservation." error={guestError} />
       <ActionButton label="Clear group details" secondary disabled={working || (!date && !guests)} onPress={() => { setDate(''); setGuests(''); }} />
       <Field label="Personal invitation note (optional)" placeholder="Let’s make an evening of it…" value={note} maxLength={160} editable={!working} onChangeText={value => setNote(value.slice(0, 160))} multiline hint={`${note.length}/160 characters. This note is not saved; it is included only in the invitation text you choose to copy or share. Avoid private or sensitive details.`} style={{ minHeight: 100, textAlignVertical: 'top' }} />
