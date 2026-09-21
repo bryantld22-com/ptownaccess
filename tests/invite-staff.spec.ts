@@ -1,0 +1,1 @@
+import{expect,test}from'@playwright/test';test('staff invitations are blocked before backend connection',async({page})=>{await page.goto('/operations/invite-staff');await expect(page.getByText('DEVELOPMENT PROJECT NOT CONNECTED')).toBeVisible();await expect(page.getByText('OWNER-ONLY SERVER CHECK')).toBeVisible();});
