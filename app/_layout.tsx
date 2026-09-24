@@ -24,6 +24,7 @@ export default function RootLayout() {
     <Stack.Screen name="audition-path" options={{ title: 'Auditions for PTown Path' }} />
     <Stack.Screen name="showcase-prep" options={{ title: 'Wednesday Showcase Preparation' }} />
     <Stack.Screen name="showcase-review" options={{ title: 'Wednesday Showcase Review' }} />
+    <Stack.Screen name="dj-review" options={{ title: 'After-Party DJ Review' }} />
     <Stack.Screen name="championship-path" options={{ title: 'Championship Path' }} />
     <Stack.Screen name="artist-prospects" options={{ title: 'Private artist prospects' }} />
     <Stack.Screen name="artist-prospects/[id]" options={{ title: 'Private prospect review' }} />

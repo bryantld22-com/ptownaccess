@@ -694,3 +694,7 @@ Coverage includes every division, combined words and filters, reloads, detail
 history, reset, independent-device contexts, invalid inputs, unreadable storage,
 and responsive layouts. Phone query and saved-filter pages were visually reviewed.
 Expo’s bundled offline dependency check reported dependencies up to date.
+
+## Build 76 · After-party DJ review
+
+An internal, copyable DJ/producer evaluation draft covers room reading, transitions, genre range, crowd control, presentation, mic discipline, and bridging generations. PTown leadership makes any rotation or booking decision; the form does not save, send, or make an offer.
