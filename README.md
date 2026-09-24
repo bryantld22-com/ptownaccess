@@ -513,6 +513,13 @@ Dinner-note tests verify persistence, editing/removal, summary and backup conten
 independent-device transfers, older drafts, maximum length, invalid-note rejection,
 failed writes, and phone layouts.
 
+## Build 70 completion
+
+The marketing budget worksheet accepts a planning ceiling and seven category
+allocations, calculates cents precisely, and exposes unallocated or over-ceiling
+amounts. Invalid amounts are rejected. A selectable internal summary may be
+copied; entries do not persist or authorize spending.
+
 ## Build 69 completion
 
 A temporary campaign brief worksheet captures six essentials and produces a

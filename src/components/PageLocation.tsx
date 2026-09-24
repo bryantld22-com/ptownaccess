@@ -34,6 +34,7 @@ const pages: Record<string, Location> = {
   '/marketing-calendar': { label: 'Marketing Campaign Calendar', parents: [{ label: 'Marketing & Brand', href: '/marketing' }, ptown] },
   '/marketing-operations': { label: 'Marketing Department Guide', parents: [{ label: 'Marketing & Brand', href: '/marketing' }, ptown] },
   '/marketing-brief': { label: 'Marketing Campaign Brief', parents: [{ label: 'Marketing & Brand', href: '/marketing' }, ptown] },
+  '/marketing-budget': { label: 'Marketing Budget Worksheet', parents: [{ label: 'Marketing & Brand', href: '/marketing' }, ptown] },
 };
 const divisions: Record<CreativeDivision, Parent> = {
   'Save the Arts': { label: 'Save the Arts', href: '/save-the-arts' },

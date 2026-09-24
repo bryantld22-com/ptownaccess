@@ -21,6 +21,7 @@ export default function Marketing() {
     <Card title="Working plans awaiting approval" description="The department guide, twelve-month campaign sequence, staffing roles, budget categories, and PTown Access funnel are available as drafts. Named owners, calendar dates, spending amounts, consent tools, and final approvals remain to be established." />
     <Button label="Open the Marketing Department Guide" href="/marketing-operations" secondary />
     <Button label="Draft a campaign brief" href="/marketing-brief" secondary />
+    <Button label="Open the marketing budget worksheet" href="/marketing-budget" secondary />
     <Button label="Explore PTown Media Group" href="/media-group" secondary />
     <Button label="Review the weekly program" href="/events" secondary />
     <Button label="Return to PTown" href="/ptown" />

@@ -21,6 +21,7 @@ export default function MarketingOperations() {
     <Card title="Launch gate" description="Never advertise an unconfirmed opening, performer, price, prize, sponsor, affiliation, or feature as active. Confirm the guest path works before paid promotion." />
     <Button label="Open the campaign calendar" href="/marketing-calendar" secondary />
     <Button label="Draft a campaign brief" href="/marketing-brief" secondary />
+    <Button label="Open the marketing budget worksheet" href="/marketing-budget" secondary />
     <Button label="Return to Marketing & Brand" href="/marketing" />
     <Footer />
   </Screen>;
