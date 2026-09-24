@@ -698,3 +698,7 @@ Expo’s bundled offline dependency check reported dependencies up to date.
 ## Build 76 · After-party DJ review
 
 An internal, copyable DJ/producer evaluation draft covers room reading, transitions, genre range, crowd control, presentation, mic discipline, and bridging generations. PTown leadership makes any rotation or booking decision; the form does not save, send, or make an offer.
+
+## Build 77 · Artist showcase handoff
+
+A copyable owner worksheet records the proposed post-showcase discussion path, room evidence, and explicit review of materials, capacity, conversation, and terms. Unchecked confirmations stay visible. Nothing is saved, sent, or approved by the worksheet.

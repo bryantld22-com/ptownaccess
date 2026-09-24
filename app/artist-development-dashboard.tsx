@@ -499,6 +499,7 @@ export default function ArtistDevelopmentDashboard() {
           )}
         </>
       )}
+      <Button label="Prepare post-showcase owner handoff" href="/artist-handoff" secondary />
       <Button label="Manage private prospects" href="/artist-prospects" />
       <Button
         label="Open private prospect follow-ups"

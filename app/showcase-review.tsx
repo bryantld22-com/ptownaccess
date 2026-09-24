@@ -59,6 +59,7 @@ export default function ShowcaseReview() {
     <Feedback message={message} />
     {error && <Text accessibilityRole="alert" style={formStyles.error}>{error}</Text>}
     <Button label="Return to Wednesday at PTown" href="/events/ptown-flow" secondary />
+    <Button label="Prepare post-showcase owner handoff" href="/artist-handoff" secondary />
     <Button label="Explore Artist Development" href="/artist-development" secondary />
     <Footer />
   </Screen>;
