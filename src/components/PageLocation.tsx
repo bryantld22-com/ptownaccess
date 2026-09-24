@@ -30,6 +30,7 @@ const pages: Record<string, Location> = {
   '/tournament': { label: 'Quarterly Tournament Hub', parents: [{ label: 'Auditions for PTown', href: '/events/monday-jazz' }, ptown] },
   '/championship-path': { label: 'Championship Path', parents: [{ label: 'Quarterly Tournament Hub', href: '/tournament' }, ptown] },
   '/media-group': { label: 'PTown Media Group', parents: [ptown] },
+  '/sta-grant-brief': { label: 'Save the Arts Grant Brief', parents: [{ label: 'Leadership Briefing', href: '/save-the-arts-leadership' }, { label: 'Save the Arts', href: '/save-the-arts' }] },
   '/save-the-arts-leadership': { label: 'Save the Arts Leadership Briefing', parents: [{ label: 'Save the Arts', href: '/save-the-arts' }, ptown] },
   '/marketing': { label: 'Marketing & Brand', parents: [ptown] },
   '/marketing-calendar': { label: 'Marketing Campaign Calendar', parents: [{ label: 'Marketing & Brand', href: '/marketing' }, ptown] },

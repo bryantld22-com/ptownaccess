@@ -23,6 +23,7 @@ export default function SaveTheArtsLeadership() {
     <SectionHeader title="Prepare for a grants conversation" />
     <Body>Grant fit and eligibility depend on the applicant entity, program design, funder rules, timing, and required documentation. Bring specific questions and verify each opportunity before applying.</Body>
     {staGrantMeetingPrep.map((item, index) => <Card key={item} title={`${index + 1}. Meeting preparation`} description={item} />)}
+    <Button label="Prepare a grant-meeting discussion brief" href="/sta-grant-brief" secondary />
     <Button label="Explore Save the Arts programs" href="/save-the-arts" secondary />
     <Button label="Explore Artist Development" href="/artist-development" secondary />
     <Footer />

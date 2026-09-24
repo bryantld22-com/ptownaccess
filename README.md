@@ -750,3 +750,7 @@ Media Skills Passport merge now pauses when an incoming draft has a different ID
 ## Build 89 · Save the Arts leadership briefing
 
 A planning page explains Save the Arts’ mission, audiences, educational programs, proposed leadership responsibilities, the approximately 36,000 SF Phase 1 facility context, and questions for a grant meeting. Roles are explicitly pending invitation and acceptance, and grant eligibility is not asserted.
+
+## Build 90 · Save the Arts grant meeting brief
+
+A copyable internal worksheet gathers the proposed program, audience, applicant structure to verify, working request, uses, outcomes, partners, and selected questions for a grants conversation. It does not claim eligibility, schedule a meeting, submit an application, or store the draft.
