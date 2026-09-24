@@ -742,3 +742,7 @@ A saved Skills Passport can be removed from this device after a separate confirm
 ## Build 87 · Reviewed Skills Passport merge
 
 The Media Skills Passport transfer screen can merge incoming and current drafts. Identical IDs are skipped, new IDs are added, and changed records sharing an ID require an explicit current/incoming choice. Possible duplicate names and the 50-draft limit are surfaced before a merge; current records are re-read before saving. Full replacement remains a separate, explicit option.
+
+## Build 88 · Possible duplicate review
+
+Media Skills Passport merge now pauses when an incoming draft has a different ID but the same participant name and division as a current or earlier incoming draft. The owner explicitly keeps both or skips that incoming copy after comparing evidence. Same-ID version choices and the 50-draft limit remain enforced.

@@ -16,17 +16,25 @@ export function readMediaPassportTransfer(value: string): MediaPassportDraft[] {
 }
 
 export type MediaPassportMergeChoice = 'current' | 'incoming';
-export function planMediaPassportMerge(current: MediaPassportDraft[], incoming: MediaPassportDraft[], choices: Record<string, MediaPassportMergeChoice>) {
+export type MediaPassportDuplicateChoice = 'keep-both' | 'skip-incoming';
+export function planMediaPassportMerge(current: MediaPassportDraft[], incoming: MediaPassportDraft[], choices: Record<string, MediaPassportMergeChoice>, duplicateChoices: Record<string, MediaPassportDuplicateChoice> = {}) {
   const merged = [...current];
   const conflicts: MediaPassportDraft[] = [];
-  let added = 0, identical = 0;
+  const duplicateCandidates: { incoming: MediaPassportDraft; existing: MediaPassportDraft[] }[] = [];
+  let added = 0, identical = 0, skipped = 0;
   for (const item of incoming) {
     const index = merged.findIndex(value => value.id === item.id);
-    if (index < 0) { merged.push(item); added++; continue; }
+    if (index < 0) {
+      const sameName = merged.filter(value => value.participant.trim().toLowerCase() === item.participant.trim().toLowerCase() && value.divisionId === item.divisionId);
+      if (sameName.length) {
+        duplicateCandidates.push({ incoming: item, existing: sameName });
+        if (duplicateChoices[item.id] === 'skip-incoming') { skipped++; continue; }
+      }
+      merged.push(item); added++; continue;
+    }
     if (JSON.stringify(merged[index]) === JSON.stringify(item)) { identical++; continue; }
     conflicts.push(item);
     if (choices[item.id] === 'incoming') merged[index] = item;
   }
-  const duplicates = merged.filter((item, index) => merged.findIndex(other => other.participant.trim().toLowerCase() === item.participant.trim().toLowerCase() && other.divisionId === item.divisionId) !== index);
-  return { merged, conflicts, unresolved: conflicts.filter(item => !choices[item.id]), added, identical, duplicates, overLimit: merged.length > 50 };
+  return { merged, conflicts, unresolved: conflicts.filter(item => !choices[item.id]), duplicateCandidates, unresolvedDuplicates: duplicateCandidates.filter(item => !duplicateChoices[item.incoming.id]), added, identical, skipped, overLimit: merged.length > 50 };
 }
