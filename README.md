@@ -782,3 +782,7 @@ A combined read-only sheet displays the saved preparation statuses and notes bes
 ## Build 97 · Save the Arts assignment transfer
 
 A separate versioned code backs up proposed owners and target dates. Incoming assignments are strictly validated and shown alongside the current proposal before explicit replacement, with a fresh storage check at write time. It never changes the preparation status tracker or contacts anyone.
+
+## Build 98 · Saved marketing campaign brief
+
+The six-field marketing campaign brief now saves a working draft on this device. Saved data is strictly validated and protected from silent overwrites when another tab changes it. The brief remains unapproved and does not publish or hand off a campaign.
