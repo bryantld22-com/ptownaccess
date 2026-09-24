@@ -79,6 +79,7 @@ export default function StaReadiness() {
     </>}
     <Feedback message={message} />{error && <Text accessibilityRole="alert" style={formStyles.error}>{error}</Text>}
     <Button label="Draft proposed owners and target dates" href="/sta-assignments" secondary />
+    <Button label="Review the combined preparation sheet" href="/sta-review-sheet" secondary />
     <Button label="Back up or transfer preparation status" href="/sta-readiness-backup" secondary />
     <Button label="Prepare the grant-meeting brief" href="/sta-grant-brief" secondary /><Button label="Review the working program budget" href="/sta-budget" secondary /><Footer />
   </Screen>;

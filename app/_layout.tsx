@@ -48,6 +48,7 @@ export default function RootLayout() {
     <Stack.Screen name="sta-budget" options={{ title: 'Save the Arts Working Budget' }} />
     <Stack.Screen name="sta-readiness" options={{ title: 'Save the Arts Preparation Status' }} />
     <Stack.Screen name="sta-assignments" options={{ title: 'Save the Arts Proposed Assignments' }} />
+    <Stack.Screen name="sta-review-sheet" options={{ title: 'Save the Arts Internal Review Sheet' }} />
     <Stack.Screen name="sta-readiness-backup" options={{ title: 'Save the Arts Preparation Transfer' }} />
     <Stack.Screen name="media-passport-backup" options={{ title: 'Skills Passport Transfer' }} />
     <Stack.Screen name="media-academy-dashboard" options={{ title: 'Media Academy Overview' }} />

@@ -774,3 +774,7 @@ The preparation tracker derives a live, copyable meeting follow-up draft from in
 ## Build 95 · Save the Arts proposed assignments
 
 A device-local assignment draft lets the owner propose a person and target date for each of seven preparation areas. Calendar dates are validated, existing saved data is checked before writes, and a copyable discussion draft clearly labels names as proposals. No invitation or appointment is sent.
+
+## Build 96 · Save the Arts internal review sheet
+
+A combined read-only sheet displays the saved preparation statuses and notes beside proposed owners and dates. It can be reloaded after edits to either source and rechecks both saved records before copying the private discussion draft. Invalid saved data stops the sheet instead of substituting guessed values.

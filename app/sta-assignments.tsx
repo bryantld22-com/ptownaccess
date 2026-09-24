@@ -47,7 +47,7 @@ export default function StaAssignmentsPage() {
   }
   return <Screen>
     <Stack.Screen options={{ title: 'Save the Arts Proposed Assignments' }} />
-    <PageHeader eyebrow="SAVE THE ARTS · BUILD 95" title="Put names and dates beside the work." description="Draft a proposed owner and target date for each of the seven preparation areas." />
+    <PageHeader eyebrow="SAVE THE ARTS · BUILD 96" title="Put names and dates beside the work." description="Draft a proposed owner and target date for each of the seven preparation areas." />
     <PreviewNotice />
     <Card title="Proposals until accepted" description="A name here does not appoint anyone or send an invitation. Confirm participation before sharing responsibilities. These assignments are stored only on this device." />
     {!loaded ? <Body>Loading assignment plan…</Body> : storageError ? <Card title="Assignment plan unavailable" description="Saved device data could not be read. Editing is disabled to protect it." /> : <>
@@ -64,6 +64,6 @@ export default function StaAssignmentsPage() {
       <ActionButton label="Copy proposed assignments" disabled={busy || invalidDate} secondary onPress={() => { void copy(); }} />
     </>}
     <Feedback message={message} />{error && <Text accessibilityRole="alert" style={formStyles.error}>{error}</Text>}
-    <Button label="Return to preparation status" href="/sta-readiness" secondary /><Footer />
+    <Button label="Review the combined preparation sheet" href="/sta-review-sheet" secondary /><Button label="Return to preparation status" href="/sta-readiness" secondary /><Footer />
   </Screen>;
 }
