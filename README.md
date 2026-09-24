@@ -513,6 +513,14 @@ Dinner-note tests verify persistence, editing/removal, summary and backup conten
 independent-device transfers, older drafts, maximum length, invalid-note rejection,
 failed writes, and phone layouts.
 
+## Build 72 completion
+
+The artist audition path explains Monday evaluation, optional EPK preparation,
+the invitation-only Wednesday showcase nine days later, and the later Artist
+Development review. A device-only draft validates an actual Monday date,
+calculates the following Wednesday, and accepts only optional HTTPS links. It
+does not register, submit, invite, or book an act.
+
 ## Build 71 completion
 
 A temporary campaign scorecard calculates visit, opt-in, attendance, and
