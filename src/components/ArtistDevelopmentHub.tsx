@@ -20,6 +20,7 @@ export function ArtistDevelopmentHub() {
   return <>
     <Card title="Build your craft from Day One." description="Explore a planned track, imagine your first project, and see how PTown’s departments work together. Save a creative interest on a pathway page to keep it in your device’s plans." />
     <Button label="Explore Monday auditions and Wednesday showcase preparation" href="/audition-path" secondary />
+    <Button label="Review a Wednesday showcase" href="/showcase-review" secondary />
     <SectionHeader title="Explore planned tracks" />
     <View accessibilityRole="tablist" accessibilityLabel="Artist Development tracks" style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 10 }}>
       {[{ id: 'all', label: 'All tracks' }, ...developmentTracks].map(track => <Pressable key={track.id} accessibilityRole="tab" aria-selected={selected === track.id} accessibilityState={{ selected: selected === track.id }} onPress={() => choose(track.id)} style={{ minHeight: 48, paddingHorizontal: 18, paddingVertical: 14, borderRadius: 25, backgroundColor: selected === track.id ? theme.colors.gold : theme.colors.surface, borderWidth: 1, borderColor: theme.colors.border }}><Text style={{ color: selected === track.id ? theme.colors.background : theme.colors.cream, fontWeight: '600' }}>{track.label}</Text></Pressable>)}

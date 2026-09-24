@@ -513,6 +513,14 @@ Dinner-note tests verify persistence, editing/removal, summary and backup conten
 independent-device transfers, older drafts, maximum length, invalid-note rejection,
 failed writes, and phone layouts.
 
+## Build 75 completion
+
+A Wednesday showcase review rubric captures five observed criteria, specific
+evidence, and a proposed discussion path. Reviewers may mark a criterion not
+observed; no score automatically selects or rejects an act. The temporary
+draft can be copied for human review and does not store or communicate a
+decision.
+
 ## Build 74 completion
 
 A nine-day showcase preparation page turns a proposed Monday date into dated
