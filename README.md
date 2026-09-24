@@ -722,3 +722,7 @@ A copyable internal set sheet carries the validated Monday date into the nine-da
 ## Build 82 · Media Academy Skills Passport
 
 A copyable division-specific Skills Passport draft records evidence for skills drawn from PTown Media Group’s six divisions. Mentor verification, permissions, and actual enrollment remain separate; this draft does not save data or award a credential.
+
+## Build 83 · Saved Media Skills Passports
+
+Skills Passport drafts can be saved, reopened, and updated on the current device (up to 50). Storage parsing validates division-specific skills and field sizes. Copying provides a separate text record; clearing device data may remove saved drafts. Saving does not verify a skill or notify a mentor.

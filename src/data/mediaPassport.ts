@@ -11,6 +11,6 @@ export function formatMediaPassport(participant: string, divisionId: string, ski
     ...division.passport.map(skill => `${skills.has(skill) ? '[Evidence noted]' : '[Practice needed]'} ${skill}`),
     `Portfolio evidence and contribution: ${evidence.trim()}`,
     'A mentor must review artifacts, verify the participant’s contribution and permissions, and document feedback before treating a skill as demonstrated.',
-    'This draft is not enrollment, a credential, internship placement, employment, or a completed assessment. Nothing was submitted or saved.',
+    'This draft is not enrollment, a credential, internship placement, employment, or a completed assessment. Copying does not submit or save this assessment.',
   ].join('\n');
 }
