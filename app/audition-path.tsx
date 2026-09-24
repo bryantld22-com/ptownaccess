@@ -46,6 +46,7 @@ export default function AuditionPath() {
     <Feedback message={message} />
     {error && <Text accessibilityRole="alert" style={formStyles.error}>{error}</Text>}
     <Button label="Explore Artist Development" href="/artist-development" secondary />
+    <Button label="Explore Wednesday's Artist Discovery showcase" href="/events/ptown-flow" secondary />
     <Button label="View Monday auditions" href="/events/monday-jazz" secondary />
     <Footer />
   </Screen>;

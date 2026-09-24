@@ -513,6 +513,14 @@ Dinner-note tests verify persistence, editing/removal, summary and backup conten
 independent-device transfers, older drafts, maximum length, invalid-note rejection,
 failed writes, and phone layouts.
 
+## Build 73 completion
+
+Wednesday's existing PTown Flow program now clearly includes an invitation-only
+Artist Discovery showcase for acts selected at Monday auditions. The existing
+program ID and seven-day lineup remain stable for saved links and plans. Its
+detail page and the audition path link to each other, with music-director
+preparation and the later Artist Development review explained.
+
 ## Build 72 completion
 
 The artist audition path explains Monday evaluation, optional EPK preparation,
