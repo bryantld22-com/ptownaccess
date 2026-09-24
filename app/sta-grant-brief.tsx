@@ -45,6 +45,7 @@ export default function StaGrantBriefPage() {
     <SectionHeader title="Internal meeting draft" />{report ? <Text selectable style={styles.card}>{report}</Text> : <Body>Complete the program details and questions to preview the draft.</Body>}
     <ActionButton label="Copy Save the Arts meeting brief" onPress={() => { void copy(); }} /><Feedback message={message} />{error && <Text accessibilityRole="alert" style={formStyles.error}>{error}</Text>}
     <Button label="Estimate a working program budget" href="/sta-budget" secondary />
+    <Button label="Track Save the Arts grant preparation" href="/sta-readiness" secondary />
     <Button label="Review Save the Arts leadership briefing" href="/save-the-arts-leadership" secondary /><Footer />
   </Screen>;
 }

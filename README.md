@@ -758,3 +758,7 @@ A copyable internal worksheet gathers the proposed program, audience, applicant 
 ## Build 91 · Save the Arts working budget
 
 A copyable program budget calculates category-level proposed grant requests, other planned support, and total costs in integer cents. It validates amounts and explicitly distinguishes planning support from confirmed match or allowable grant costs. No data is saved or submitted.
+
+## Build 92 · Save the Arts preparation status
+
+A device-local tracker records Not started, In progress, or Ready for review for seven preparation areas, with short notes and a copyable status report. “Ready for review” is an internal status, not funder eligibility. Invalid saved data disables writes instead of replacing it.
