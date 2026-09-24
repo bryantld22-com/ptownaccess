@@ -1,6 +1,6 @@
 import * as Clipboard from 'expo-clipboard';
-import { Stack } from 'expo-router';
-import { useState } from 'react';
+import { Stack, useLocalSearchParams } from 'expo-router';
+import { useEffect, useState } from 'react';
 import { Platform, Pressable, StyleSheet, Text, View } from 'react-native';
 import { ActionButton, Feedback, Field, formStyles } from '../src/components/forms';
 import { Body, Button, Card, Footer, PageHeader, PreviewNotice, Screen, SectionHeader, styles } from '../src/components/ui';
@@ -11,6 +11,7 @@ const ratings: ReviewRating[] = ['Not observed', '1', '2', '3', '4', '5'];
 const nextSteps = ['Further development discussion', 'Support slot consideration', 'More evidence needed', 'No current fit'] as const;
 
 export default function ShowcaseReview() {
+  const { date: routeDate } = useLocalSearchParams<{ date?: string | string[] }>();
   const [act, setAct] = useState('');
   const [date, setDate] = useState('');
   const [scores, setScores] = useState<Partial<Record<ReviewCriterion, ReviewRating>>>({});
@@ -18,6 +19,7 @@ export default function ShowcaseReview() {
   const [nextStep, setNextStep] = useState<string>('');
   const [message, setMessage] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  useEffect(() => { const value = Array.isArray(routeDate) ? routeDate[0] : routeDate; if (value && validShowcaseWednesday(value)) setDate(value); }, [routeDate]);
   const complete = Boolean(act.trim() && validShowcaseWednesday(date) && reviewCriteria.every(item => scores[item.id]) && evidence.trim().length >= 20 && nextStep);
   const report = complete ? formatShowcaseReview(act, date, scores as Record<ReviewCriterion, ReviewRating>, evidence, nextStep) : null;
   async function copy() {

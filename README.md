@@ -710,3 +710,7 @@ The artist handoff can now load an existing private prospect and save a linked d
 ## Build 79 · Monday audition review
 
 A copyable internal rubric records audience capture, craft, stage control, nine-day readiness, and professionalism, with a proposed human discussion path and the calculated following Wednesday. It never selects an act or sends an invitation.
+
+## Build 80 · Audition-to-showcase date handoff
+
+The audition preparation and Monday review pass a validated Monday date to the nine-day preparation view. Preparation passes its calculated Wednesday date to the showcase review. Dates remain editable, are not saved in URLs with artist names or evidence, and do not confirm an invitation or event.

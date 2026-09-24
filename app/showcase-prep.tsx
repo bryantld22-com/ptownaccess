@@ -1,16 +1,18 @@
 import * as Clipboard from 'expo-clipboard';
-import { Stack } from 'expo-router';
-import { useState } from 'react';
+import { Stack, useLocalSearchParams } from 'expo-router';
+import { useEffect, useState } from 'react';
 import { Platform, Text } from 'react-native';
 import { ActionButton, Feedback, Field, formStyles } from '../src/components/forms';
 import { Body, Button, Card, Footer, PageHeader, PreviewNotice, Screen, SectionHeader, styles } from '../src/components/ui';
 import { showcaseMilestones, showcaseSchedule } from '../src/data/auditionPath';
 
 export default function ShowcasePrep() {
+  const { monday: routeMonday } = useLocalSearchParams<{ monday?: string | string[] }>();
   const [monday, setMonday] = useState('');
   const [act, setAct] = useState('');
   const [message, setMessage] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  useEffect(() => { const value = Array.isArray(routeMonday) ? routeMonday[0] : routeMonday; if (value && showcaseSchedule(value)) setMonday(value); }, [routeMonday]);
   const schedule = showcaseSchedule(monday);
   const report = schedule ? [
     'PTOWN · INVITATION-DEPENDENT SHOWCASE PREPARATION',
@@ -32,7 +34,7 @@ export default function ShowcasePrep() {
   }
   return <Screen>
     <Stack.Screen options={{ title: 'Wednesday Showcase Preparation' }} />
-    <PageHeader eyebrow="ARTIST DEVELOPMENT · BUILD 74" title="Nine days to prepare the room and the artist." description="A working handoff for the act, music director, dancers, production team, and stage manager after a Monday selection." />
+    <PageHeader eyebrow="ARTIST DEVELOPMENT · BUILD 80" title="Nine days to prepare the room and the artist." description="A working handoff for the act, music director, dancers, production team, and stage manager after a Monday selection." />
     <PreviewNotice calendar />
     <Card title="Invitation comes first" description="These are suggested preparation checkpoints. PTown must review the Monday audition, invite the act, receive acceptance, and confirm the Wednesday program before assigning a stage slot or rehearsals." />
     <Field label="Proposed Monday audition date" value={monday} onChangeText={value => { setMonday(value); setMessage(null); }} placeholder="YYYY-MM-DD" maxLength={10} hint="Enter a real Monday to calculate the nine-day timeline." error={monday.trim() && !schedule ? 'Enter a real Monday date in YYYY-MM-DD format.' : undefined} />
@@ -46,6 +48,7 @@ export default function ShowcasePrep() {
     <Feedback message={message} />
     {error && <Text accessibilityRole="alert" style={formStyles.error}>{error}</Text>}
     <Button label="Return to the audition path" href="/audition-path" secondary />
+    <Button label="Review the Wednesday showcase" href={schedule ? { pathname: '/showcase-review', params: { date: schedule.at(-1)!.date } } : '/showcase-review'} secondary />
     <Button label="View Wednesday at PTown" href="/events/ptown-flow" secondary />
     <Footer />
   </Screen>;

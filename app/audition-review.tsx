@@ -1,6 +1,6 @@
 import * as Clipboard from 'expo-clipboard';
-import { Stack } from 'expo-router';
-import { useState } from 'react';
+import { Stack, useLocalSearchParams } from 'expo-router';
+import { useEffect, useState } from 'react';
 import { Platform, Pressable, StyleSheet, Text, View } from 'react-native';
 import { ActionButton, Feedback, Field, formStyles } from '../src/components/forms';
 import { Body, Button, Card, Footer, PageHeader, PreviewNotice, Screen, SectionHeader, styles } from '../src/components/ui';
@@ -10,6 +10,7 @@ import { theme } from '../src/theme';
 
 const ratings: AuditionRating[] = ['Not observed', '1', '2', '3', '4', '5'];
 export default function AuditionReview() {
+  const { monday: routeMonday } = useLocalSearchParams<{ monday?: string | string[] }>();
   const [name, setName] = useState('');
   const [monday, setMonday] = useState('');
   const [scores, setScores] = useState<Partial<Record<AuditionCriterion, AuditionRating>>>({});
@@ -17,6 +18,7 @@ export default function AuditionReview() {
   const [path, setPath] = useState<string>('');
   const [message, setMessage] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  useEffect(() => { const value = Array.isArray(routeMonday) ? routeMonday[0] : routeMonday; if (value && followingWednesday(value)) setMonday(value); }, [routeMonday]);
   const wednesday = followingWednesday(monday);
   const complete = Boolean(name.trim() && wednesday && auditionCriteria.every(item => scores[item.id]) && evidence.trim().length >= 20 && path);
   const report = complete ? formatAuditionReview(name, monday, scores as Record<AuditionCriterion, AuditionRating>, evidence, path) : null;
@@ -45,7 +47,7 @@ export default function AuditionReview() {
     <SectionHeader title="Proposed discussion path" /><View accessibilityRole="radiogroup" accessibilityLabel="Proposed discussion path" style={local.options}>{auditionPaths.map(value => <Pressable key={value} accessibilityRole="radio" accessibilityState={{ checked: path === value }} onPress={() => setPath(value)} style={[local.option, path === value && local.selected]}><Text style={[local.optionText, path === value && local.selectedText]}>{value}</Text></Pressable>)}</View>
     <SectionHeader title="Internal Monday review" />{report ? <Text selectable style={styles.card}>{report}</Text> : <Body>Complete the observations to preview the draft.</Body>}
     <ActionButton label="Copy Monday audition review" onPress={() => { void copy(); }} /><Feedback message={message} />{error && <Text accessibilityRole="alert" style={formStyles.error}>{error}</Text>}
-    <Button label="Plan the nine-day showcase handoff" href="/showcase-prep" secondary /><Button label="Explore the audition path" href="/audition-path" secondary /><Footer />
+    <Button label="Plan the nine-day showcase handoff" href={wednesday ? { pathname: '/showcase-prep', params: { monday } } : '/showcase-prep'} secondary /><Button label="Explore the audition path" href="/audition-path" secondary /><Footer />
   </Screen>;
 }
 const local = StyleSheet.create({
