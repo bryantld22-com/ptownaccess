@@ -702,3 +702,7 @@ An internal, copyable DJ/producer evaluation draft covers room reading, transiti
 ## Build 77 · Artist showcase handoff
 
 A copyable owner worksheet records the proposed post-showcase discussion path, room evidence, and explicit review of materials, capacity, conversation, and terms. Unchecked confirmations stay visible. Nothing is saved, sent, or approved by the worksheet.
+
+## Build 78 · Linked showcase follow-up
+
+The artist handoff can now load an existing private prospect and save a linked device-local follow-up with the proposed discussion path and owner role. The full review evidence stays in the unsaved copyable draft. Existing matching open follow-ups are not duplicated.
