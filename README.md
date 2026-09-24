@@ -778,3 +778,7 @@ A device-local assignment draft lets the owner propose a person and target date 
 ## Build 96 · Save the Arts internal review sheet
 
 A combined read-only sheet displays the saved preparation statuses and notes beside proposed owners and dates. It can be reloaded after edits to either source and rechecks both saved records before copying the private discussion draft. Invalid saved data stops the sheet instead of substituting guessed values.
+
+## Build 97 · Save the Arts assignment transfer
+
+A separate versioned code backs up proposed owners and target dates. Incoming assignments are strictly validated and shown alongside the current proposal before explicit replacement, with a fresh storage check at write time. It never changes the preparation status tracker or contacts anyone.

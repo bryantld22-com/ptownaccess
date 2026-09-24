@@ -64,6 +64,6 @@ export default function StaAssignmentsPage() {
       <ActionButton label="Copy proposed assignments" disabled={busy || invalidDate} secondary onPress={() => { void copy(); }} />
     </>}
     <Feedback message={message} />{error && <Text accessibilityRole="alert" style={formStyles.error}>{error}</Text>}
-    <Button label="Review the combined preparation sheet" href="/sta-review-sheet" secondary /><Button label="Return to preparation status" href="/sta-readiness" secondary /><Footer />
+    <Button label="Back up or transfer proposed assignments" href="/sta-assignment-backup" secondary /><Button label="Review the combined preparation sheet" href="/sta-review-sheet" secondary /><Button label="Return to preparation status" href="/sta-readiness" secondary /><Footer />
   </Screen>;
 }
