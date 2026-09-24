@@ -706,3 +706,7 @@ A copyable owner worksheet records the proposed post-showcase discussion path, r
 ## Build 78 · Linked showcase follow-up
 
 The artist handoff can now load an existing private prospect and save a linked device-local follow-up with the proposed discussion path and owner role. The full review evidence stays in the unsaved copyable draft. Existing matching open follow-ups are not duplicated.
+
+## Build 79 · Monday audition review
+
+A copyable internal rubric records audience capture, craft, stage control, nine-day readiness, and professionalism, with a proposed human discussion path and the calculated following Wednesday. It never selects an act or sends an invitation.

@@ -38,6 +38,7 @@ const pages: Record<string, Location> = {
   '/marketing-scorecard': { label: 'Marketing Campaign Scorecard', parents: [{ label: 'Marketing & Brand', href: '/marketing' }, ptown] },
   '/audition-path': { label: 'Audition to Wednesday Path', parents: [{ label: 'Monday auditions', href: '/events/monday-jazz' }, { label: 'Artist Development', href: '/artist-development' }] },
   '/showcase-prep': { label: 'Showcase Preparation', parents: [{ label: 'Audition path', href: '/audition-path' }, { label: 'Artist Development', href: '/artist-development' }] },
+  '/audition-review': { label: 'Monday Audition Review', parents: [{ label: 'Audition path', href: '/audition-path' }, { label: 'Artist Development', href: '/artist-development' }] },
   '/artist-handoff': { label: 'Artist Showcase Handoff', parents: [{ label: 'Showcase Review', href: '/showcase-review' }, { label: 'Artist Development', href: '/artist-development' }] },
   '/dj-review': { label: 'DJ Review', parents: [{ label: 'Wednesday program', href: '/events/ptown-flow' }, { label: 'Artist Development', href: '/artist-development' }] },
   '/showcase-review': { label: 'Showcase Review', parents: [{ label: 'Wednesday program', href: '/events/ptown-flow' }, { label: 'Artist Development', href: '/artist-development' }] },
