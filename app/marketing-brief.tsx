@@ -64,6 +64,7 @@ export default function MarketingBrief() {
     </>}
     <Feedback message={message} />
     {error && <Text accessibilityRole="alert" style={formStyles.error}>{error}</Text>}
+    <Button label="Back up or transfer this campaign draft" href="/marketing-brief-backup" secondary />
     <Button label="Return to Marketing & Brand" href="/marketing" secondary />
     <Footer />
   </Screen>;

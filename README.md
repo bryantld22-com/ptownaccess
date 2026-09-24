@@ -786,3 +786,7 @@ A separate versioned code backs up proposed owners and target dates. Incoming as
 ## Build 98 · Saved marketing campaign brief
 
 The six-field marketing campaign brief now saves a working draft on this device. Saved data is strictly validated and protected from silent overwrites when another tab changes it. The brief remains unapproved and does not publish or hand off a campaign.
+
+## Build 99 · Marketing campaign brief transfer
+
+A versioned, copyable transfer code carries the six campaign brief fields to another device. Incoming drafts are validated, reviewed beside the current fields, and explicitly accepted before replacement. The current stored record is rechecked at write time; no campaign is published or sent.
