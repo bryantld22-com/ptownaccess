@@ -754,3 +754,7 @@ A planning page explains Save the Arts’ mission, audiences, educational progra
 ## Build 90 · Save the Arts grant meeting brief
 
 A copyable internal worksheet gathers the proposed program, audience, applicant structure to verify, working request, uses, outcomes, partners, and selected questions for a grants conversation. It does not claim eligibility, schedule a meeting, submit an application, or store the draft.
+
+## Build 91 · Save the Arts working budget
+
+A copyable program budget calculates category-level proposed grant requests, other planned support, and total costs in integer cents. It validates amounts and explicitly distinguishes planning support from confirmed match or allowable grant costs. No data is saved or submitted.
