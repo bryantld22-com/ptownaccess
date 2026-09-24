@@ -714,3 +714,7 @@ A copyable internal rubric records audience capture, craft, stage control, nine-
 ## Build 80 · Audition-to-showcase date handoff
 
 The audition preparation and Monday review pass a validated Monday date to the nine-day preparation view. Preparation passes its calculated Wednesday date to the showcase review. Dates remain editable, are not saved in URLs with artist names or evidence, and do not confirm an invitation or event.
+
+## Build 81 · Wednesday set sheet
+
+A copyable internal set sheet carries the validated Monday date into the nine-day music director handoff. It collects set order, format, band, dancers, stage and video cues, rehearsal, call time, and recording permissions; incomplete coordination remains marked “To confirm.” It does not book or send anything.

@@ -21,6 +21,7 @@ export function ArtistDevelopmentHub() {
     <Card title="Build your craft from Day One." description="Explore a planned track, imagine your first project, and see how PTown’s departments work together. Save a creative interest on a pathway page to keep it in your device’s plans." />
     <Button label="Explore Monday auditions and Wednesday showcase preparation" href="/audition-path" secondary />
     <Button label="Review a Monday audition" href="/audition-review" secondary />
+    <Button label="Prepare a Wednesday set sheet" href="/showcase-set-sheet" secondary />
     <Button label="Review a Wednesday showcase" href="/showcase-review" secondary />
     <Button label="Evaluate a DJ or producer set" href="/dj-review" secondary />
     <Button label="Prepare the post-showcase owner handoff" href="/artist-handoff" secondary />

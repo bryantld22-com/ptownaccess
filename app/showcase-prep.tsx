@@ -47,6 +47,7 @@ export default function ShowcasePrep() {
     <ActionButton label="Copy preparation schedule" onPress={() => { void copy(); }} />
     <Feedback message={message} />
     {error && <Text accessibilityRole="alert" style={formStyles.error}>{error}</Text>}
+    <Button label="Prepare the music director set sheet" href={schedule ? { pathname: '/showcase-set-sheet', params: { monday } } : '/showcase-set-sheet'} secondary />
     <Button label="Return to the audition path" href="/audition-path" secondary />
     <Button label="Review the Wednesday showcase" href={schedule ? { pathname: '/showcase-review', params: { date: schedule.at(-1)!.date } } : '/showcase-review'} secondary />
     <Button label="View Wednesday at PTown" href="/events/ptown-flow" secondary />

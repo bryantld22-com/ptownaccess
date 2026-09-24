@@ -23,6 +23,7 @@ export default function RootLayout() {
     <Stack.Screen name="marketing-scorecard" options={{ title: 'Marketing Campaign Scorecard' }} />
     <Stack.Screen name="audition-path" options={{ title: 'Auditions for PTown Path' }} />
     <Stack.Screen name="showcase-prep" options={{ title: 'Wednesday Showcase Preparation' }} />
+    <Stack.Screen name="showcase-set-sheet" options={{ title: 'Wednesday Showcase Set Sheet' }} />
     <Stack.Screen name="showcase-review" options={{ title: 'Wednesday Showcase Review' }} />
     <Stack.Screen name="dj-review" options={{ title: 'After-Party DJ Review' }} />
     <Stack.Screen name="artist-handoff" options={{ title: 'Artist Showcase Handoff' }} />
