@@ -32,6 +32,7 @@ const pages: Record<string, Location> = {
   '/media-group': { label: 'PTown Media Group', parents: [ptown] },
   '/sta-readiness-backup': { label: 'Save the Arts Transfer', parents: [{ label: 'Preparation Status', href: '/sta-readiness' }, { label: 'Save the Arts', href: '/save-the-arts' }] },
   '/sta-readiness': { label: 'Save the Arts Preparation', parents: [{ label: 'Grant Brief', href: '/sta-grant-brief' }, { label: 'Save the Arts', href: '/save-the-arts' }] },
+  '/sta-assignments': { label: 'Proposed Assignments', parents: [{ label: 'Preparation Status', href: '/sta-readiness' }, { label: 'Save the Arts', href: '/save-the-arts' }] },
   '/sta-budget': { label: 'Save the Arts Budget', parents: [{ label: 'Grant Brief', href: '/sta-grant-brief' }, { label: 'Save the Arts', href: '/save-the-arts' }] },
   '/sta-grant-brief': { label: 'Save the Arts Grant Brief', parents: [{ label: 'Leadership Briefing', href: '/save-the-arts-leadership' }, { label: 'Save the Arts', href: '/save-the-arts' }] },
   '/save-the-arts-leadership': { label: 'Save the Arts Leadership Briefing', parents: [{ label: 'Save the Arts', href: '/save-the-arts' }, ptown] },

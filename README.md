@@ -770,3 +770,7 @@ A versioned copyable code carries the device-local readiness tracker and its not
 ## Build 94 · Save the Arts preparation follow-up
 
 The preparation tracker derives a live, copyable meeting follow-up draft from incomplete areas and review statuses without a supporting note. Each entry includes the current working note and a concrete next verification step. Owners and dates are assigned separately with the team; the draft does not certify grant eligibility or schedule a meeting.
+
+## Build 95 · Save the Arts proposed assignments
+
+A device-local assignment draft lets the owner propose a person and target date for each of seven preparation areas. Calendar dates are validated, existing saved data is checked before writes, and a copyable discussion draft clearly labels names as proposals. No invitation or appointment is sent.

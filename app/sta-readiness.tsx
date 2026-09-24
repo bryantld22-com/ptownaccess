@@ -70,7 +70,7 @@ export default function StaReadiness() {
       </View>)}
       <ActionButton label="Save preparation status on this device" disabled={busy} onPress={() => { void save(); }} />
       <SectionHeader title={`Meeting follow-up · ${actions.length} areas`} />
-      <Card title="Prepare the next conversation" description="The list updates as you edit. Ready for review still needs a note pointing to the material and reviewer. Assign an owner and date with the team; this draft does not schedule a meeting." />
+      <Card title="Prepare the next conversation" description="The list updates as you edit. Ready for review still needs a note pointing to the material and reviewer. Propose an owner and date for each area in the assignment plan; this draft does not schedule a meeting." />
       {actions.length ? actions.map(entry => <Card key={entry.id} title={`${entry.title} · ${entry.status}`} description={`Next step: ${entry.action}\nWorking note: ${entry.note || 'No note entered'}`} />) : <Card title="All areas have a review note" description="Check the underlying records and confirm any funder-specific rules before using this draft." />}
       <Text selectable style={styles.card}>{formatStaReadinessActions(record)}</Text>
       <ActionButton label="Copy preparation follow-up draft" disabled={busy} secondary onPress={() => { void copyActions(); }} />
@@ -78,6 +78,7 @@ export default function StaReadiness() {
       <ActionButton label="Copy Save the Arts preparation status" disabled={busy} secondary onPress={() => { void copy(); }} />
     </>}
     <Feedback message={message} />{error && <Text accessibilityRole="alert" style={formStyles.error}>{error}</Text>}
+    <Button label="Draft proposed owners and target dates" href="/sta-assignments" secondary />
     <Button label="Back up or transfer preparation status" href="/sta-readiness-backup" secondary />
     <Button label="Prepare the grant-meeting brief" href="/sta-grant-brief" secondary /><Button label="Review the working program budget" href="/sta-budget" secondary /><Footer />
   </Screen>;
