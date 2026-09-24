@@ -762,3 +762,7 @@ A copyable program budget calculates category-level proposed grant requests, oth
 ## Build 92 · Save the Arts preparation status
 
 A device-local tracker records Not started, In progress, or Ready for review for seven preparation areas, with short notes and a copyable status report. “Ready for review” is an internal status, not funder eligibility. Invalid saved data disables writes instead of replacing it.
+
+## Build 93 · Save the Arts preparation transfer
+
+A versioned copyable code carries the device-local readiness tracker and its notes. Incoming records are strictly validated and displayed beside current statuses before explicit replacement. The current storage value is re-read before writing; codes are plain text and should be kept private.

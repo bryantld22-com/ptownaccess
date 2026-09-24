@@ -45,7 +45,7 @@ export default function StaReadiness() {
   }
   return <Screen>
     <Stack.Screen options={{ title: 'Save the Arts Preparation Status' }} />
-    <PageHeader eyebrow="SAVE THE ARTS · BUILD 92" title="Know what still needs work." description="Track supporting documents and decisions for a Save the Arts grant conversation on this device." />
+    <PageHeader eyebrow="SAVE THE ARTS · BUILD 93" title="Know what still needs work." description="Track supporting documents and decisions for a Save the Arts grant conversation on this device." />
     <PreviewNotice />
     <Card title={`${count} of ${staReadinessItems.length} areas ready for team review`} description="This is an internal work status. It does not determine funder eligibility, nonprofit status, grant approval, or whether a meeting has been scheduled." />
     {!loaded ? <Body>Loading preparation status…</Body> : storageError ? <Card title="Saved status unavailable" description="Existing device data could not be read. Saving is disabled to avoid overwriting it." /> : <>
@@ -60,6 +60,7 @@ export default function StaReadiness() {
       <ActionButton label="Copy Save the Arts preparation status" disabled={busy} secondary onPress={() => { void copy(); }} />
     </>}
     <Feedback message={message} />{error && <Text accessibilityRole="alert" style={formStyles.error}>{error}</Text>}
+    <Button label="Back up or transfer preparation status" href="/sta-readiness-backup" secondary />
     <Button label="Prepare the grant-meeting brief" href="/sta-grant-brief" secondary /><Button label="Review the working program budget" href="/sta-budget" secondary /><Footer />
   </Screen>;
 }
