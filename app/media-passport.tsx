@@ -64,7 +64,7 @@ export default function MediaPassport() {
   }
   return <Screen>
     <Stack.Screen options={{ title: 'Media Academy Skills Passport' }} />
-    <PageHeader eyebrow="PTOWN MEDIA ACADEMY · BUILD 83" title="Turn real productions into portfolio evidence." description="Draft a division-specific Skills Passport for mentor review across PTown Media Group." />
+    <PageHeader eyebrow="PTOWN MEDIA ACADEMY · BUILD 84" title="Turn real productions into portfolio evidence." description="Draft a division-specific Skills Passport for mentor review across PTown Media Group." />
     <PreviewNotice />
     <Card title="Private drafts on this device" description="Saved passports stay in this browser or app storage. Clearing this device’s data can remove them. Use the copy button for a separate record; do not enter sensitive personal details." />
     <SectionHeader title="Saved Skills Passports" />
@@ -80,6 +80,7 @@ export default function MediaPassport() {
     <SectionHeader title="Internal passport draft" />{report ? <Text selectable style={styles.card}>{report}</Text> : <Body>Choose a division and describe portfolio evidence to preview the passport.</Body>}
     <ActionButton label={currentId ? "Update saved Skills Passport" : "Save Skills Passport on this device"} disabled={!loaded || storageError || busy || !report} onPress={() => { void save(); }} />
     <ActionButton label="Copy Skills Passport draft" onPress={() => { void copy(); }} /><Feedback message={message} />{error && <Text accessibilityRole="alert" style={formStyles.error}>{error}</Text>}
+    <Button label="Back up or transfer saved Skills Passports" href="/media-passport-backup" secondary />
     <Button label="Return to PTown Media Group" href="/media-group" secondary /><Footer />
   </Screen>;
 }

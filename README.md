@@ -726,3 +726,7 @@ A copyable division-specific Skills Passport draft records evidence for skills d
 ## Build 83 · Saved Media Skills Passports
 
 Skills Passport drafts can be saved, reopened, and updated on the current device (up to 50). Storage parsing validates division-specific skills and field sizes. Copying provides a separate text record; clearing device data may remove saved drafts. Saving does not verify a skill or notify a mentor.
+
+## Build 84 · Skills Passport transfer
+
+A versioned transfer code carries saved Media Skills Passport drafts between devices. Incoming records are validated and shown before explicit replacement; the current list is re-read before writing. The code can contain names and portfolio evidence and is not encrypted. Keep it private and copy the existing list before replacing it.

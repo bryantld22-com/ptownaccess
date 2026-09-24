@@ -43,6 +43,7 @@ export default function RootLayout() {
     <Stack.Screen name="media-group/[id]" options={{ title: 'Media Group division' }} />
     <Stack.Screen name="media-group/operations-guide" options={{ title: 'Media Director Guide' }} />
     <Stack.Screen name="media-passport" options={{ title: 'Media Academy Skills Passport' }} />
+    <Stack.Screen name="media-passport-backup" options={{ title: 'Skills Passport Transfer' }} />
     <Stack.Screen name="media-templates" options={{ title: 'Media production templates' }} />
     <Stack.Screen name="media-templates/[id]" options={{ title: 'Media production template' }} />
     <Stack.Screen name="media-dashboard" options={{ title: 'Media production dashboard' }} />
