@@ -20,6 +20,7 @@ export default function MarketingOperations() {
     <Card title="Monthly performance review" description="Compare results to each brief, reconcile spend, document corrections, review consent and opt-outs, confirm sponsor delivery, and decide what to stop, change, or repeat." />
     <Card title="Launch gate" description="Never advertise an unconfirmed opening, performer, price, prize, sponsor, affiliation, or feature as active. Confirm the guest path works before paid promotion." />
     <Button label="Open the campaign calendar" href="/marketing-calendar" secondary />
+    <Button label="Draft a campaign brief" href="/marketing-brief" secondary />
     <Button label="Return to Marketing & Brand" href="/marketing" />
     <Footer />
   </Screen>;

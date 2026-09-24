@@ -513,6 +513,12 @@ Dinner-note tests verify persistence, editing/removal, summary and backup conten
 independent-device transfers, older drafts, maximum length, invalid-note rejection,
 failed writes, and phone layouts.
 
+## Build 69 completion
+
+A temporary campaign brief worksheet captures six essentials and produces a
+selectable, copyable internal draft with a publication review gate. It rejects
+incomplete copies, does not store the form, and never submits or publishes it.
+
 ## Build 68 completion
 
 The Marketing Department Guide supplies proposed staffing responsibilities,
