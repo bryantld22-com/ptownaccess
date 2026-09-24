@@ -30,6 +30,9 @@ const pages: Record<string, Location> = {
   '/tournament': { label: 'Quarterly Tournament Hub', parents: [{ label: 'Auditions for PTown', href: '/events/monday-jazz' }, ptown] },
   '/championship-path': { label: 'Championship Path', parents: [{ label: 'Quarterly Tournament Hub', href: '/tournament' }, ptown] },
   '/media-group': { label: 'PTown Media Group', parents: [ptown] },
+  '/marketing': { label: 'Marketing & Brand', parents: [ptown] },
+  '/marketing-calendar': { label: 'Marketing Campaign Calendar', parents: [{ label: 'Marketing & Brand', href: '/marketing' }, ptown] },
+  '/marketing-operations': { label: 'Marketing Department Guide', parents: [{ label: 'Marketing & Brand', href: '/marketing' }, ptown] },
 };
 const divisions: Record<CreativeDivision, Parent> = {
   'Save the Arts': { label: 'Save the Arts', href: '/save-the-arts' },

@@ -5,6 +5,7 @@ import { sections } from '../../src/data/sections';
 import type { SectionIconName } from '../../src/components/SectionIcon';
 const planningTools: { title: string; subtitle: string; href: Href; icon: SectionIconName }[] = [
   { title: 'PTown Media Group', subtitle: 'Explore the newsroom, production, distribution, and career vision', href: '/media-group', icon: 'radio-outline' },
+  { title: 'Marketing & Brand', subtitle: 'Plan audience growth, campaigns, community outreach, and launch', href: '/marketing', icon: 'megaphone-outline' },
   { title: 'Investor Access', subtitle: 'Map secure tiers for the Executive Investors Edition', href: '/investor-access', icon: 'briefcase-outline' },
   { title: 'Championship Path', subtitle: 'Build the quarterly season, chess hub, travel award, and broadcast plan', href: '/championship-path', icon: 'trophy-outline' },
   { title: 'Access roles', subtitle: 'Map guest, member, talent, staff, media, and leadership boundaries', href: '/access-roles', icon: 'shield-checkmark-outline' },

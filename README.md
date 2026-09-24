@@ -513,6 +513,52 @@ Dinner-note tests verify persistence, editing/removal, summary and backup conten
 independent-device transfers, older drafts, maximum length, invalid-note rejection,
 failed writes, and phone layouts.
 
+## Build 68 completion
+
+The Marketing Department Guide supplies proposed staffing responsibilities,
+six campaign approval steps, controlled budget line categories, and a weekly
+and monthly operating cadence. All amounts and named assignments remain
+subject to an approved venue schedule and operating budget.
+
+## Build 67 completion
+
+The marketing campaign calendar maps twelve relative months to a campaign
+owner function, action, and measurable outcome. Shareable quarter links show
+three-month windows and recover invalid periods. A five-stage PTown Access
+funnel defines signals without claiming live subscriptions or transactions.
+
+## Build 66 completion
+
+PTown Marketing & Brand has a dedicated app section and directory entry. Its
+foundation describes five department functions, the PTown Access audience path,
+a twelve-month planning rhythm, staffing and measurement controls, and the
+working relationship with PTown Media Group. No live opt-in or purchase flow
+is implied. The manual, budget, and campaign calendar are still operating
+documents to complete.
+
+## Build 65 completion
+
+The Championship Path generates an internal owner handoff from outstanding
+evidence items. The selectable text and copy action include suggested roles,
+specific evidence to collect, a remaining count, and explicit limits on what
+the temporary checklist establishes. No player data is included or sent.
+
+## Build 64 completion
+
+The tournament readiness worksheet identifies a suggested accountable role for
+each evidence item. An outstanding-only filter turns the session checklist into
+an owner follow-up view, while a visible completion message allows all marked
+items to be restored and reviewed. Assignment to named staff and formal signoff
+remain outside this temporary planning view.
+
+## Build 63 completion
+
+The Championship Path now includes a session-only launch readiness worksheet
+with eight evidence checks across competition, entry, funding, chess, media,
+and venue operations. The counter resets on reload; marks never certify
+approval or alter saved plans. PTown must review the underlying evidence and
+sign off before announcing tournament terms.
+
 ## Build 62 completion
 
 The app foundation, Media Group divisions and initial director guide, event and
