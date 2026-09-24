@@ -734,3 +734,7 @@ A versioned transfer code carries saved Media Skills Passport drafts between dev
 ## Build 85 · Media Academy overview
 
 A device-local overview counts Skills Passport drafts, skills with evidence noted, missing proposed mentors, and division coverage. Filter drafts by division and open a specific saved passport for editing. Counts do not verify achievements or imply enrollment or placement.
+
+## Build 86 · Skills Passport removal and undo
+
+A saved Skills Passport can be removed from this device after a separate confirmation. The app re-reads the record to avoid deleting a changed draft and offers an undo while the page remains open. Transfer remains available for an independent backup.

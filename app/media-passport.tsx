@@ -24,14 +24,43 @@ export default function MediaPassport() {
   const [loaded, setLoaded] = useState(false);
   const [storageError, setStorageError] = useState(false);
   const [busy, setBusy] = useState(false);
+  const [confirmRemove, setConfirmRemove] = useState(false);
+  const [removed, setRemoved] = useState<MediaPassportDraft | null>(null);
   useEffect(() => { void AsyncStorage.getItem(MEDIA_PASSPORTS_KEY).then(value => setSaved(readMediaPassports(value))).catch(() => setStorageError(true)).finally(() => setLoaded(true)); }, []);
   useEffect(() => { const value = Array.isArray(routeDivision) ? routeDivision[0] : routeDivision; if (value && mediaGroupDivisions.some(item => item.id === value)) setDivisionId(value); }, [routeDivision]);
   useEffect(() => { if (!loaded || storageError) return; const value = Array.isArray(routeDraft) ? routeDraft[0] : routeDraft; if (!value) return; const item = saved.find(entry => entry.id === value); if (item) openDraft(item); else setError('The requested draft is not saved on this device.'); }, [loaded, routeDraft]);
   const division = mediaGroupDivisions.find(item => item.id === divisionId);
   const complete = Boolean(participant.trim() && division && evidence.trim().length >= 20 && skills.size);
   const report = complete ? formatMediaPassport(participant, divisionId, skills, evidence, mentor) : null;
-  function openDraft(item: MediaPassportDraft) { setCurrentId(item.id); setParticipant(item.participant); setDivisionId(item.divisionId); setSkills(new Set(item.skills)); setEvidence(item.evidence); setMentor(item.mentor); setMessage('Saved draft opened. Changes are not stored until you save again.'); setError(null); }
-  function newDraft() { setCurrentId(null); setParticipant(''); setDivisionId(''); setSkills(new Set()); setEvidence(''); setMentor(''); setMessage('New draft started.'); setError(null); }
+  function openDraft(item: MediaPassportDraft) { setConfirmRemove(false); setCurrentId(item.id); setParticipant(item.participant); setDivisionId(item.divisionId); setSkills(new Set(item.skills)); setEvidence(item.evidence); setMentor(item.mentor); setMessage('Saved draft opened. Changes are not stored until you save again.'); setError(null); }
+  function newDraft() { setConfirmRemove(false); setCurrentId(null); setParticipant(''); setDivisionId(''); setSkills(new Set()); setEvidence(''); setMentor(''); setMessage('New draft started.'); setError(null); }
+  async function remove() {
+    if (!confirmRemove || !currentId || !loaded || storageError) return;
+    setBusy(true); setError(null); setMessage(null);
+    try {
+      const latest = readMediaPassports(await AsyncStorage.getItem(MEDIA_PASSPORTS_KEY));
+      const item = saved.find(value => value.id === currentId);
+      const stored = latest.find(value => value.id === currentId);
+      if (!item || !stored || JSON.stringify(item) !== JSON.stringify(stored)) throw new Error('Draft changed');
+      const next = latest.filter(value => value.id !== currentId);
+      await AsyncStorage.setItem(MEDIA_PASSPORTS_KEY, JSON.stringify(next));
+      setSaved(next); setRemoved(item); newDraft();
+      setMessage(`${item.participant} was removed from this device. You can undo while this page remains open.`);
+    } catch { setError('Removal failed or the draft changed. Reload to review current device data.'); }
+    finally { setBusy(false); setConfirmRemove(false); }
+  }
+  async function undoRemove() {
+    if (!removed || busy || storageError) return;
+    setBusy(true); setError(null); setMessage(null);
+    try {
+      const latest = readMediaPassports(await AsyncStorage.getItem(MEDIA_PASSPORTS_KEY));
+      if (latest.length >= 50 || latest.some(item => item.id === removed.id)) throw new Error('Restore conflict');
+      const next = [{ ...removed, updatedAt: new Date().toISOString() }, ...latest];
+      await AsyncStorage.setItem(MEDIA_PASSPORTS_KEY, JSON.stringify(next));
+      setSaved(next); setRemoved(null); setMessage('The Skills Passport draft was restored on this device.');
+    } catch { setError('Undo could not restore the draft. Use a transfer code if you have one.'); }
+    finally { setBusy(false); }
+  }
   async function save() {
     setMessage(null); setError(null);
     if (!report || !division) { setError('Complete a passport draft before saving it.'); return; }
@@ -65,7 +94,7 @@ export default function MediaPassport() {
   }
   return <Screen>
     <Stack.Screen options={{ title: 'Media Academy Skills Passport' }} />
-    <PageHeader eyebrow="PTOWN MEDIA ACADEMY · BUILD 85" title="Turn real productions into portfolio evidence." description="Draft a division-specific Skills Passport for mentor review across PTown Media Group." />
+    <PageHeader eyebrow="PTOWN MEDIA ACADEMY · BUILD 86" title="Turn real productions into portfolio evidence." description="Draft a division-specific Skills Passport for mentor review across PTown Media Group." />
     <PreviewNotice />
     <Card title="Private drafts on this device" description="Saved passports stay in this browser or app storage. Clearing this device’s data can remove them. Use the copy button for a separate record; do not enter sensitive personal details." />
     <SectionHeader title="Saved Skills Passports" />
@@ -80,7 +109,10 @@ export default function MediaPassport() {
     <Field label="Proposed mentor or reviewer (optional)" value={mentor} onChangeText={setMentor} maxLength={120} placeholder="Role or name for a future review" />
     <SectionHeader title="Internal passport draft" />{report ? <Text selectable style={styles.card}>{report}</Text> : <Body>Choose a division and describe portfolio evidence to preview the passport.</Body>}
     <ActionButton label={currentId ? "Update saved Skills Passport" : "Save Skills Passport on this device"} disabled={!loaded || storageError || busy || !report} onPress={() => { void save(); }} />
-    <ActionButton label="Copy Skills Passport draft" onPress={() => { void copy(); }} /><Feedback message={message} />{error && <Text accessibilityRole="alert" style={formStyles.error}>{error}</Text>}
+    <ActionButton label="Copy Skills Passport draft" onPress={() => { void copy(); }} />
+    {currentId && <><SectionHeader title="Remove this saved draft" /><Body>Back up your passports before removing a draft you may need later. Removal affects this device only.</Body><ActionButton label={confirmRemove ? 'Cancel removal' : 'Review removal of this Skills Passport'} secondary disabled={busy} onPress={() => setConfirmRemove(value => !value)} />{confirmRemove && <><Card title={`Remove ${saved.find(item => item.id === currentId)?.participant ?? 'this draft'}?`} description="The saved portfolio evidence and skill selections will be removed from this device. You can undo while this page stays open." /><ActionButton label="Confirm removal from this device" disabled={busy} onPress={() => { void remove(); }} /></>}</>}
+    {removed && <ActionButton label={`Undo removal of ${removed.participant}`} secondary disabled={busy} onPress={() => { void undoRemove(); }} />}
+    <Feedback message={message} />{error && <Text accessibilityRole="alert" style={formStyles.error}>{error}</Text>}
     <Button label="Open Skills Passport overview" href="/media-academy-dashboard" secondary />
     <Button label="Back up or transfer saved Skills Passports" href="/media-passport-backup" secondary />
     <Button label="Return to PTown Media Group" href="/media-group" secondary /><Footer />
