@@ -38,6 +38,7 @@ export function SaveTheArtsHub() {
     <Body>Open a program to explore its focus and save a creative interest on this device. Copy this page’s link to keep the selected program.</Body>
     {visible.map(program => <PathwayCard key={program.id} pathway={program} />)}
     <Card title="Before participation opens" description="Tour dates, destinations, Saturday session times, eligibility, accessibility information, mentors, and participation terms will be announced. This preview does not accept registrations." />
+    <Button label="Review the Save the Arts leadership briefing" href="/save-the-arts-leadership" secondary />
     <SectionHeader title="A creative community" />
     <Card title="From the stage to the work behind it" description="PTown’s development vision connects performance with audio, cameras, lighting, editing, and stage coordination. Participants can explore their strengths and build a record of their contributions." />
     <Button label="Explore Artist Development" href="/artist-development" secondary />

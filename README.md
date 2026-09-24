@@ -746,3 +746,7 @@ The Media Skills Passport transfer screen can merge incoming and current drafts.
 ## Build 88 · Possible duplicate review
 
 Media Skills Passport merge now pauses when an incoming draft has a different ID but the same participant name and division as a current or earlier incoming draft. The owner explicitly keeps both or skips that incoming copy after comparing evidence. Same-ID version choices and the 50-draft limit remain enforced.
+
+## Build 89 · Save the Arts leadership briefing
+
+A planning page explains Save the Arts’ mission, audiences, educational programs, proposed leadership responsibilities, the approximately 36,000 SF Phase 1 facility context, and questions for a grant meeting. Roles are explicitly pending invitation and acceptance, and grant eligibility is not asserted.
