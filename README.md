@@ -513,6 +513,14 @@ Dinner-note tests verify persistence, editing/removal, summary and backup conten
 independent-device transfers, older drafts, maximum length, invalid-note rejection,
 failed writes, and phone layouts.
 
+## Build 71 completion
+
+A temporary campaign scorecard calculates visit, opt-in, attendance, and
+returning-attendee rates from entered counts, plus spend per attendee when
+spend is provided. Inconsistent totals are flagged, zero denominators display
+N/A, and the copyable report clearly distinguishes comparison from causation.
+Nothing is stored or submitted.
+
 ## Build 70 completion
 
 The marketing budget worksheet accepts a planning ceiling and seven category

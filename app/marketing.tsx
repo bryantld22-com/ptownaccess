@@ -22,6 +22,7 @@ export default function Marketing() {
     <Button label="Open the Marketing Department Guide" href="/marketing-operations" secondary />
     <Button label="Draft a campaign brief" href="/marketing-brief" secondary />
     <Button label="Open the marketing budget worksheet" href="/marketing-budget" secondary />
+    <Button label="Open the campaign scorecard" href="/marketing-scorecard" secondary />
     <Button label="Explore PTown Media Group" href="/media-group" secondary />
     <Button label="Review the weekly program" href="/events" secondary />
     <Button label="Return to PTown" href="/ptown" />
