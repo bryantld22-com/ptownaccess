@@ -730,3 +730,7 @@ Skills Passport drafts can be saved, reopened, and updated on the current device
 ## Build 84 · Skills Passport transfer
 
 A versioned transfer code carries saved Media Skills Passport drafts between devices. Incoming records are validated and shown before explicit replacement; the current list is re-read before writing. The code can contain names and portfolio evidence and is not encrypted. Keep it private and copy the existing list before replacing it.
+
+## Build 85 · Media Academy overview
+
+A device-local overview counts Skills Passport drafts, skills with evidence noted, missing proposed mentors, and division coverage. Filter drafts by division and open a specific saved passport for editing. Counts do not verify achievements or imply enrollment or placement.

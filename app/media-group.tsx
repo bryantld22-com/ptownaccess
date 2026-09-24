@@ -23,6 +23,7 @@ export default function MediaGroup() {
     </View>
 
     <Button label="Draft a Media Academy Skills Passport" href="/media-passport" secondary />
+    <Button label="View saved Media Academy passports" href="/media-academy-dashboard" secondary />
     <SectionHeader title="Leadership and operating team" />
     <View style={styles.card}>{mediaLeadership.map(role => <Text key={role} style={{ color: theme.colors.muted, fontSize: 16, lineHeight: 25 }}>• {role}</Text>)}</View>
 

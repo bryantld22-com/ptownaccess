@@ -54,6 +54,7 @@ function locate(pathname: string): Location | undefined {
   if (pathname === '/') return undefined;
   const friend = sampleFriends.find(item => pathname === `/friends/${item.id}`);
   if (friend) return { label: `${friend.name} · Sample profile`, parents: [{ label: 'Friend 2 Friend', href: '/friends' }] };
+  if (pathname === '/media-academy-dashboard') return { label: 'Media Academy Overview', parents: [{ label: 'Skills Passport', href: '/media-passport' }, { label: 'PTown Media Group', href: '/media-group' }] };
   if (pathname === '/media-passport-backup') return { label: 'Skills Passport Transfer', parents: [{ label: 'Skills Passport', href: '/media-passport' }, { label: 'PTown Media Group', href: '/media-group' }] };
   if (pathname === '/media-passport') return { label: 'Media Skills Passport', parents: [{ label: 'PTown Media Group', href: '/media-group' }] };
   if (pathname === '/media-group/operations-guide') return { label: 'Media Director Guide', parents: [{ label: 'PTown Media Group', href: '/media-group' }] };

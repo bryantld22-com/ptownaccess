@@ -11,7 +11,7 @@ import { theme } from '../src/theme';
 import { MEDIA_PASSPORTS_KEY, readMediaPassports, type MediaPassportDraft } from '../src/utils/mediaPassports';
 
 export default function MediaPassport() {
-  const { division: routeDivision } = useLocalSearchParams<{ division?: string | string[] }>();
+  const { division: routeDivision, draft: routeDraft } = useLocalSearchParams<{ division?: string | string[]; draft?: string | string[] }>();
   const [participant, setParticipant] = useState('');
   const [divisionId, setDivisionId] = useState('');
   const [skills, setSkills] = useState<ReadonlySet<string>>(new Set());
@@ -26,6 +26,7 @@ export default function MediaPassport() {
   const [busy, setBusy] = useState(false);
   useEffect(() => { void AsyncStorage.getItem(MEDIA_PASSPORTS_KEY).then(value => setSaved(readMediaPassports(value))).catch(() => setStorageError(true)).finally(() => setLoaded(true)); }, []);
   useEffect(() => { const value = Array.isArray(routeDivision) ? routeDivision[0] : routeDivision; if (value && mediaGroupDivisions.some(item => item.id === value)) setDivisionId(value); }, [routeDivision]);
+  useEffect(() => { if (!loaded || storageError) return; const value = Array.isArray(routeDraft) ? routeDraft[0] : routeDraft; if (!value) return; const item = saved.find(entry => entry.id === value); if (item) openDraft(item); else setError('The requested draft is not saved on this device.'); }, [loaded, routeDraft]);
   const division = mediaGroupDivisions.find(item => item.id === divisionId);
   const complete = Boolean(participant.trim() && division && evidence.trim().length >= 20 && skills.size);
   const report = complete ? formatMediaPassport(participant, divisionId, skills, evidence, mentor) : null;
@@ -64,7 +65,7 @@ export default function MediaPassport() {
   }
   return <Screen>
     <Stack.Screen options={{ title: 'Media Academy Skills Passport' }} />
-    <PageHeader eyebrow="PTOWN MEDIA ACADEMY · BUILD 84" title="Turn real productions into portfolio evidence." description="Draft a division-specific Skills Passport for mentor review across PTown Media Group." />
+    <PageHeader eyebrow="PTOWN MEDIA ACADEMY · BUILD 85" title="Turn real productions into portfolio evidence." description="Draft a division-specific Skills Passport for mentor review across PTown Media Group." />
     <PreviewNotice />
     <Card title="Private drafts on this device" description="Saved passports stay in this browser or app storage. Clearing this device’s data can remove them. Use the copy button for a separate record; do not enter sensitive personal details." />
     <SectionHeader title="Saved Skills Passports" />
@@ -80,6 +81,7 @@ export default function MediaPassport() {
     <SectionHeader title="Internal passport draft" />{report ? <Text selectable style={styles.card}>{report}</Text> : <Body>Choose a division and describe portfolio evidence to preview the passport.</Body>}
     <ActionButton label={currentId ? "Update saved Skills Passport" : "Save Skills Passport on this device"} disabled={!loaded || storageError || busy || !report} onPress={() => { void save(); }} />
     <ActionButton label="Copy Skills Passport draft" onPress={() => { void copy(); }} /><Feedback message={message} />{error && <Text accessibilityRole="alert" style={formStyles.error}>{error}</Text>}
+    <Button label="Open Skills Passport overview" href="/media-academy-dashboard" secondary />
     <Button label="Back up or transfer saved Skills Passports" href="/media-passport-backup" secondary />
     <Button label="Return to PTown Media Group" href="/media-group" secondary /><Footer />
   </Screen>;
