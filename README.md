@@ -513,6 +513,14 @@ Dinner-note tests verify persistence, editing/removal, summary and backup conten
 independent-device transfers, older drafts, maximum length, invalid-note rejection,
 failed writes, and phone layouts.
 
+## Build 74 completion
+
+A nine-day showcase preparation page turns a proposed Monday date into dated
+selection, material exchange, rehearsal, readiness, and Wednesday review
+checkpoints. It names the responsible team for each step and produces a
+copyable internal schedule. It does not assign staff, contact an act, or book
+a stage slot.
+
 ## Build 73 completion
 
 Wednesday's existing PTown Flow program now clearly includes an invitation-only

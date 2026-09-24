@@ -28,3 +28,20 @@ export function auditionDraft(name: string, discipline: string, monday: string, 
     'This draft is not registration, a submission, an invitation, or a confirmed event date.',
   ].join('\n');
 }
+
+export const showcaseMilestones = [
+  { offset: 1, owner: 'Artist Development lead', title: 'Confirm selection and invitation', detail: 'Contact the act, confirm interest and availability, identify performance format, and record a response. The act is not booked until PTown confirms it.' },
+  { offset: 3, owner: 'Artist + music director', title: 'Exchange the set and materials', detail: 'Agree on songs or comedy set, key, tempo, clean versions, backing tracks, band needs, dancers, and any EPK or performance reference.' },
+  { offset: 6, owner: 'Music director + production lead', title: 'Resolve rehearsal and stage needs', detail: 'Confirm musician and dancer preparation, stage plot, inputs, cues, changeovers, and rehearsal or sound-check arrangements.' },
+  { offset: 8, owner: 'Stage manager + artist', title: 'Final readiness check', detail: 'Confirm call time, set duration, introductions, equipment, accessibility, recording choices, and a contingency if the act cannot perform.' },
+  { offset: 9, owner: 'PTown show team', title: 'Wednesday showcase and review', detail: 'Run the invited performance, observe audience response and professionalism, document feedback, then consider development or future support roles.' },
+] as const;
+
+export function showcaseSchedule(monday: string) {
+  if (!followingWednesday(monday)) return null;
+  return showcaseMilestones.map(item => {
+    const date = new Date(`${monday}T00:00:00Z`);
+    date.setUTCDate(date.getUTCDate() + item.offset);
+    return { ...item, date: date.toISOString().slice(0, 10) };
+  });
+}
