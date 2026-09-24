@@ -766,3 +766,7 @@ A device-local tracker records Not started, In progress, or Ready for review for
 ## Build 93 · Save the Arts preparation transfer
 
 A versioned copyable code carries the device-local readiness tracker and its notes. Incoming records are strictly validated and displayed beside current statuses before explicit replacement. The current storage value is re-read before writing; codes are plain text and should be kept private.
+
+## Build 94 · Save the Arts preparation follow-up
+
+The preparation tracker derives a live, copyable meeting follow-up draft from incomplete areas and review statuses without a supporting note. Each entry includes the current working note and a concrete next verification step. Owners and dates are assigned separately with the team; the draft does not certify grant eligibility or schedule a meeting.

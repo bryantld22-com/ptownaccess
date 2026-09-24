@@ -7,6 +7,7 @@ import { ActionButton, Feedback, Field, formStyles } from '../src/components/for
 import { Body, Button, Card, Footer, PageHeader, PreviewNotice, Screen, SectionHeader, styles } from '../src/components/ui';
 import { formatStaReadiness, initialStaReadiness, staReadinessItems, staReadinessStatuses, type StaReadinessId, type StaReadinessRecord, type StaReadinessStatus } from '../src/data/staReadiness';
 import { readStaReadiness, STA_READINESS_KEY } from '../src/utils/staReadiness';
+import { formatStaReadinessActions, staReadinessActions } from '../src/utils/staReadinessActions';
 import { theme } from '../src/theme';
 
 export default function StaReadiness() {
@@ -19,6 +20,7 @@ export default function StaReadiness() {
   const [error, setError] = useState<string | null>(null);
   useEffect(() => { void AsyncStorage.getItem(STA_READINESS_KEY).then(value => { setRecord(readStaReadiness(value)); setBaseline(value); }).catch(() => setStorageError(true)).finally(() => setLoaded(true)); }, []);
   const count = staReadinessItems.filter(item => record[item.id].status === 'Ready for review').length;
+  const actions = staReadinessActions(record);
   function update(id: StaReadinessId, value: Partial<StaReadinessRecord[StaReadinessId]>) { setRecord(current => ({ ...current, [id]: { ...current[id], ...value } })); setMessage(null); }
   async function save() {
     if (!loaded || storageError) return;
@@ -43,9 +45,20 @@ export default function StaReadiness() {
       setMessage('Preparation status copied. No application or meeting request was sent.');
     } catch { setError('Copy is unavailable. Select the status below and copy it manually.'); }
   }
+  async function copyActions() {
+    setMessage(null); setError(null);
+    try {
+      const report = formatStaReadinessActions(record);
+      if (Platform.OS === 'web') {
+        if (typeof navigator.clipboard?.writeText !== 'function') throw new Error('Clipboard unavailable');
+        await navigator.clipboard.writeText(report);
+      } else if (!await Clipboard.setStringAsync(report)) throw new Error('Clipboard unavailable');
+      setMessage('Preparation follow-up draft copied for internal review.');
+    } catch { setError('Copy is unavailable. Select the follow-up draft and copy it manually.'); }
+  }
   return <Screen>
     <Stack.Screen options={{ title: 'Save the Arts Preparation Status' }} />
-    <PageHeader eyebrow="SAVE THE ARTS · BUILD 93" title="Know what still needs work." description="Track supporting documents and decisions for a Save the Arts grant conversation on this device." />
+    <PageHeader eyebrow="SAVE THE ARTS · BUILD 94" title="Know what still needs work." description="Track supporting documents and decisions for a Save the Arts grant conversation on this device." />
     <PreviewNotice />
     <Card title={`${count} of ${staReadinessItems.length} areas ready for team review`} description="This is an internal work status. It does not determine funder eligibility, nonprofit status, grant approval, or whether a meeting has been scheduled." />
     {!loaded ? <Body>Loading preparation status…</Body> : storageError ? <Card title="Saved status unavailable" description="Existing device data could not be read. Saving is disabled to avoid overwriting it." /> : <>
@@ -56,6 +69,11 @@ export default function StaReadiness() {
         <Field label={`${item.title} · working note`} value={record[item.id].note} onChangeText={value => update(item.id, { note: value })} maxLength={400} multiline placeholder="What exists, what is missing, and who will verify it?" />
       </View>)}
       <ActionButton label="Save preparation status on this device" disabled={busy} onPress={() => { void save(); }} />
+      <SectionHeader title={`Meeting follow-up · ${actions.length} areas`} />
+      <Card title="Prepare the next conversation" description="The list updates as you edit. Ready for review still needs a note pointing to the material and reviewer. Assign an owner and date with the team; this draft does not schedule a meeting." />
+      {actions.length ? actions.map(entry => <Card key={entry.id} title={`${entry.title} · ${entry.status}`} description={`Next step: ${entry.action}\nWorking note: ${entry.note || 'No note entered'}`} />) : <Card title="All areas have a review note" description="Check the underlying records and confirm any funder-specific rules before using this draft." />}
+      <Text selectable style={styles.card}>{formatStaReadinessActions(record)}</Text>
+      <ActionButton label="Copy preparation follow-up draft" disabled={busy} secondary onPress={() => { void copyActions(); }} />
       <SectionHeader title="Copy status for internal review" /><Text selectable style={styles.card}>{formatStaReadiness(record)}</Text>
       <ActionButton label="Copy Save the Arts preparation status" disabled={busy} secondary onPress={() => { void copy(); }} />
     </>}
