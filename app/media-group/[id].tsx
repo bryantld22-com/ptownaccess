@@ -17,6 +17,7 @@ export default function MediaGroupDivisionPage() {
     <SectionHeader title="Core responsibilities" /><List items={division.roles} />
     <SectionHeader title="Skills Passport evidence" /><List items={division.passport} />
     <Card title="Portfolio before placement" description="Every participant will document real supervised work. Completion does not guarantee employment; placement depends on readiness, available opportunities, partner requirements, and final program terms." />
+    <Button label="Draft this division’s Skills Passport" href={{ pathname: '/media-passport', params: { division: division.id } }} secondary />
     <Button label="Open the Media Director Operations Guide" href="/media-group/operations-guide" secondary /><Button label="Return to PTown Media Group" href="/media-group" secondary /><Footer />
   </Screen>;
 }

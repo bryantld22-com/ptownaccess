@@ -22,6 +22,7 @@ export default function MediaGroup() {
       <Body>Each participant will use a Skills Passport, complete real PTown productions, build portfolio evidence, and connect training to internships, apprenticeships, employment, or entrepreneurship. Details and enrollment are not open yet.</Body>
     </View>
 
+    <Button label="Draft a Media Academy Skills Passport" href="/media-passport" secondary />
     <SectionHeader title="Leadership and operating team" />
     <View style={styles.card}>{mediaLeadership.map(role => <Text key={role} style={{ color: theme.colors.muted, fontSize: 16, lineHeight: 25 }}>• {role}</Text>)}</View>
 

@@ -718,3 +718,7 @@ The audition preparation and Monday review pass a validated Monday date to the n
 ## Build 81 · Wednesday set sheet
 
 A copyable internal set sheet carries the validated Monday date into the nine-day music director handoff. It collects set order, format, band, dancers, stage and video cues, rehearsal, call time, and recording permissions; incomplete coordination remains marked “To confirm.” It does not book or send anything.
+
+## Build 82 · Media Academy Skills Passport
+
+A copyable division-specific Skills Passport draft records evidence for skills drawn from PTown Media Group’s six divisions. Mentor verification, permissions, and actual enrollment remain separate; this draft does not save data or award a credential.
