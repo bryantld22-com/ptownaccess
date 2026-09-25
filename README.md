@@ -798,3 +798,7 @@ A campaign-specific device-local verification draft tracks seven checks for prog
 ## Build 101 · Marketing launch review transfer
 
 A private versioned code carries the seven launch verification statuses and notes. The incoming code is strictly validated and compared with the current review; replacement requires the receiving device to have the exact matching saved campaign brief and rechecks both records before writing.
+
+## Build 102 · Dated marketing planning calendar
+
+The twelve relative campaign months can be anchored to a proposed work-plan start date saved on this device. Calendar-valid dates generate rolling month ranges and unsaved edits are identified. These are planning assumptions, not confirmed event or opening dates; storage reads and writes protect existing data.
