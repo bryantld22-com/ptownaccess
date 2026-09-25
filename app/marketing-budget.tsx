@@ -55,11 +55,11 @@ export default function MarketingBudget() {
 
   return <Screen>
     <Stack.Screen options={{ title: 'Marketing Budget Worksheet' }} />
-    <PageHeader eyebrow="PTOWN MARKETING & BRAND · BUILD 107" title="Give every marketing dollar an owner." description="Allocate a planning ceiling across the department’s budget lines and spot a gap before approval." />
+    <PageHeader eyebrow="PTOWN MARKETING & BRAND · BUILD 110" title="Give every marketing dollar an owner." description="Allocate a planning ceiling across the department’s budget lines and spot a gap before approval." />
     <PreviewNotice />
     <Card title="Device-local planning worksheet" description="You can save draft amounts on this device. This page does not authorize purchases, commit funds, or confirm available funding. Finance still needs to verify and approve the figures." />
     {!loaded ? <Body>Loading budget worksheet…</Body> : storageError ? <Card title="Saved budget unavailable" description="Existing device data could not be read. Editing is disabled to protect it." /> : <>
-    <Field label="Planning ceiling in dollars" value={ceiling} onChangeText={value => { setCeiling(value); setMessage(null); setCopyError(null); }} keyboardType="decimal-pad" maxLength={14} placeholder="For example: 25000.00" hint="Enter an approved planning limit. No default amount is assumed." error={ceiling.trim() && (total === null || total === 0) ? 'Enter a positive amount with no more than two decimal places.' : undefined} />
+    <Field label="Planning ceiling in dollars" value={ceiling} onChangeText={value => { setCeiling(value); setMessage(null); setCopyError(null); }} keyboardType="decimal-pad" maxLength={14} placeholder="For example: 25000.00" hint="Enter a proposed planning ceiling. No default amount or funding approval is assumed." error={ceiling.trim() && (total === null || total === 0) ? 'Enter a positive amount with no more than two decimal places.' : undefined} />
     <SectionHeader title="Allocate by budget line" />
     {budgetLines.map((line, index) => <Field key={line} label={line} value={amounts[index]} onChangeText={value => editLine(index, value)} keyboardType="decimal-pad" maxLength={14} placeholder="0.00" error={amounts[index].trim() && parsed[index] === null ? 'Enter zero or a positive amount with no more than two decimal places.' : undefined} />)}
     <SectionHeader title="Live balance" />
@@ -72,6 +72,7 @@ export default function MarketingBudget() {
     </>}
     <Feedback message={message} />
     {copyError && <Text accessibilityRole="alert" style={formStyles.error}>{copyError}</Text>}
+    <Button label="Back up or restore planning budget" href="/marketing-budget-backup" secondary />
     <Button label="Return to Marketing & Brand" href="/marketing" secondary />
     <Footer />
   </Screen>;

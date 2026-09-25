@@ -828,3 +828,6 @@ The campaign scorecard now retains one draft reporting period and its reported m
 
 ### Build 109 — Marketing scorecard transfer
 A saved draft campaign scorecard can now be copied as a private transfer code and reviewed before replacement on another device. Transfers contain figures in plain text; they are not a sync or verification service.
+
+### Build 110 — Marketing budget transfer
+The draft budget worksheet can be copied as a private transfer code and reviewed before replacing the saved budget on another device. The review displays the incoming ceiling, allocations, and overage. Transfer does not approve funds or sync data.

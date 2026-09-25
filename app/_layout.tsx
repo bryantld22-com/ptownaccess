@@ -26,6 +26,7 @@ export default function RootLayout() {
     <Stack.Screen name="marketing-launch-review" options={{ title: 'Marketing Launch Verification' }} />
     <Stack.Screen name="marketing-launch-backup" options={{ title: 'Marketing Launch Review Transfer' }} />
     <Stack.Screen name="marketing-budget" options={{ title: 'Marketing Budget Worksheet' }} />
+    <Stack.Screen name="marketing-budget-backup" options={{ title: 'Marketing Budget Transfer' }} />
     <Stack.Screen name="marketing-scorecard" options={{ title: 'Marketing Campaign Scorecard' }} />
     <Stack.Screen name="marketing-scorecard-backup" options={{ title: 'Marketing Scorecard Transfer' }} />
     <Stack.Screen name="audition-path" options={{ title: 'Auditions for PTown Path' }} />
