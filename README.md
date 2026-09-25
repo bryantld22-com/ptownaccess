@@ -864,3 +864,6 @@ An instrument or voice pilot outline moves from observing the learner to a found
 
 ### Build 121 — mentor pilot preparation
 A device-local Save the Arts checklist tracks eight areas: mentor screening, supervision, consent, accessible space, equipment, voice care, lesson planning, and operations. Statuses record materials for leadership review, never authorization to run sessions. Notes avoid student identity and sensitive records.
+
+### Build 122 — personal Friend 2 Friend circle
+People you already know can be added by first name or nickname to a device-local list of up to 25, with an interest and optional evening idea. The list supports reviewed removal and can personalize a copyable/shareable invitation draft. It is not a live friend network; no account, request, message, or RSVP is created or delivered by PTown Access.

@@ -10,7 +10,7 @@ import { FriendSavedPrograms } from './FriendSavedPrograms';
 import { Body, Button, SectionHeader, styles } from './ui';
 import { tournamentGames, type TournamentGameId } from '../data/tournament';
 
-export function FriendInvitation() {
+export function FriendInvitation({ recipientName }: { recipientName?: string }) {
   const { program, games } = useLocalSearchParams<{ program?: string; games?: string | string[] }>();
   const router = useRouter();
   const routeProgram = events.find(event => event.id === program)?.id ?? featuredEvent.id;
@@ -41,6 +41,7 @@ export function FriendInvitation() {
   const invitation = !valid ? 'Invitation preview paused. Correct the group details above before copying.' : [
     'JOIN ME AT PTOWN — INVITATION PREVIEW',
     'PTown Dinner Club · Paducah, Kentucky',
+    ...(recipientName ? ['', `Hi ${recipientName},`] : ['']),
     '',
     `Let’s explore ${event.day} · ${event.title} together.`,
     `Proposed admission: ${event.admission}. Confirmed dates, prices, and entry details will be announced.`,
@@ -114,7 +115,7 @@ export function FriendInvitation() {
 
   return <>
     <SectionHeader title="Join me at PTown" />
-    <Body>Choose a proposed program and preview an invitation. The page link keeps only your program choice and any tournament game names you explicitly bring from the Tournament Hub—not your date, guest count, personal note, or other saved plans. No guest is contacted automatically and no attendance is recorded.</Body>
+    <Body>Choose a proposed program and preview an invitation. The page link keeps only your program choice and any tournament game names you explicitly bring from the Tournament Hub—not your date, guest count, personal note, or other saved plans. A saved nickname can personalize the draft on this device. No guest is contacted automatically and no attendance is recorded.</Body>
     <FriendSavedPrograms disabled={working} onChoose={chooseProgram} />
     <View accessibilityRole="radiogroup" accessibilityLabel="Invitation program" style={styles.grid}>{events.map(item => <Pressable key={item.id} accessibilityRole="radio" accessibilityLabel={`${item.day}: ${item.title}`} accessibilityState={{ checked: selected === item.id, disabled: working }} aria-checked={selected === item.id} disabled={working} onPress={() => chooseProgram(item.id)} style={{ flexBasis: 240, flexGrow: 1, flexShrink: 1, minWidth: 0, minHeight: 64, padding: 16, gap: 6, borderRadius: 14, borderWidth: 1, borderColor: selected === item.id ? theme.colors.gold : theme.colors.border, backgroundColor: selected === item.id ? theme.colors.elevated : theme.colors.surface }}>
       <Text style={styles.eyebrow}>{item.day}</Text><Text style={styles.cardTitle}>{item.title}</Text><Text style={styles.smallBody}>{item.admission} · Proposed program</Text>
