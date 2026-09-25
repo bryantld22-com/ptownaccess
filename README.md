@@ -852,3 +852,6 @@ Removed the illustrative group photo and its asset from the Heritage Tour pathwa
 
 ### Build 117 — image preference correction
 Restored the illustrative Heritage Tour image after Bryant clarified that the disliked dark visual was the restaurant concept board. The PTown and Visit pages display that board over a white background with reduced image opacity for a lighter presentation.
+
+### Build 118 — Save the Arts hands-on mentorship
+The Save the Arts hub now describes an experienced musician guiding instrument hold and finger placement, and a seasoned blues vocalist coaching abdominal breath support face to face. Saturday Arts Sessions reflects the same demonstration, practice, and feedback approach. Mentors and sessions remain proposed.
