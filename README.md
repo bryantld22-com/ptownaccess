@@ -849,3 +849,6 @@ The Culinary Artist Development page calls out smoked oxtails, pit-master beef r
 
 ### Build 116 — Heritage Tour image correction
 Removed the illustrative group photo and its asset from the Heritage Tour pathway at Bryant's request. Replacement imagery will be selected from photos he explicitly shares for this use.
+
+### Build 117 — image preference correction
+Restored the illustrative Heritage Tour image after Bryant clarified that the disliked dark visual was the restaurant concept board. The PTown and Visit pages display that board over a white background with reduced image opacity for a lighter presentation.

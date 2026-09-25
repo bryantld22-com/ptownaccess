@@ -30,7 +30,9 @@ export default function Visit() {
     <PreviewNotice calendar />
     <SectionHeader title="A proposed look and feel" />
     <Card title="PTown restaurant and lounge concept" description="An illustrative design board, not a photo of an operating venue. Room layouts, finishes, and amenities are still subject to design and buildout." />
-    <Image source={require('../assets/ptown-restaurant-concept.jpg')} resizeMode="contain" accessibilityLabel="Illustrative PTown restaurant and lounge design board" style={{ width: '100%', aspectRatio: 1.5, backgroundColor: '#000' }} />
+    <View style={{ backgroundColor: '#fff' }}>
+    <Image source={require('../assets/ptown-restaurant-concept.jpg')} resizeMode="contain" accessibilityLabel="Illustrative PTown restaurant and lounge design board" style={{ width: '100%', aspectRatio: 1.5, backgroundColor: '#fff', opacity: 0.72 }} />
+    </View>
     <SectionHeader title="Choose a day" />
     <View style={styles.grid}>{weekDays.map(value => <Pressable key={value} accessibilityRole="button" accessibilityState={{ selected: value === selectedDay }} aria-pressed={value === selectedDay} onPress={() => selectDay(value)} style={[visit.day, value === selectedDay && visit.selectedDay]}><Text style={[visit.dayText, value === selectedDay && { color: theme.colors.background }]}>{value}</Text></Pressable>)}</View>
     {draftDay && reservationDraft && <View style={styles.card}>

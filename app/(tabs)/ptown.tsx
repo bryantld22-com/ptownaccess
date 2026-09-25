@@ -21,7 +21,9 @@ export default function PTown() {
   return <Screen>
     <PageHeader eyebrow="PTOWN DINNER CLUB · PADUCAH" title="Culture. Creativity. Community." description="Dinner and a show is only the beginning. PTown connects hospitality, live entertainment, and creative opportunity." />
     <Card title="A look at the PTown vision" description="This is an illustrative restaurant and lounge concept board you shared. It shows design inspiration, not the final venue, confirmed floor plan, or amenities." />
-    <Image source={require('../../assets/ptown-restaurant-concept.jpg')} resizeMode="contain" accessibilityLabel="PTown concept board showing proposed dining, bar, lounge, stage, and other design ideas" style={{ width: '100%', aspectRatio: 1.5, backgroundColor: '#000' }} />
+    <View style={{ backgroundColor: '#fff' }}>
+    <Image source={require('../../assets/ptown-restaurant-concept.jpg')} resizeMode="contain" accessibilityLabel="PTown concept board showing proposed dining, bar, lounge, stage, and other design ideas" style={{ width: '100%', aspectRatio: 1.5, backgroundColor: '#fff', opacity: 0.72 }} />
+    </View>
     <SectionHeader title="Plan and explore" /><View style={styles.grid}>{planningTools.map(tool => <SectionCard key={tool.title} {...tool} />)}</View>
     <Card title="Friend 2 Friend" description="Explore fictional sample profiles and preview an invitation to a proposed PTown evening. No live connections or messages are available yet." /><Button label="Explore Friend 2 Friend" href="/friends" secondary />
     <Card title="Excellence Earns Trust." description="Our standard is simple: serve with care, respect every person, and build experiences our community can be proud of." />
