@@ -53,6 +53,7 @@ export default function RootLayout() {
     <Stack.Screen name="media-group/operations-guide" options={{ title: 'Media Director Guide' }} />
     <Stack.Screen name="media-passport" options={{ title: 'Media Academy Skills Passport' }} />
     <Stack.Screen name="save-the-arts-leadership" options={{ title: 'Save the Arts Leadership Briefing' }} />
+    <Stack.Screen name="sta-mentor-pilot" options={{ title: 'Save the Arts Mentor Pilot' }} />
     <Stack.Screen name="sta-mentor-session" options={{ title: 'Save the Arts Mentor Session' }} />
     <Stack.Screen name="sta-grant-brief" options={{ title: 'Save the Arts Grant Meeting Brief' }} />
     <Stack.Screen name="sta-budget" options={{ title: 'Save the Arts Working Budget' }} />

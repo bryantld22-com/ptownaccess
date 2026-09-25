@@ -858,3 +858,6 @@ The Save the Arts hub now describes an experienced musician guiding instrument h
 
 ### Build 119 — Save the Arts mentor session guide
 A proposed instrument or voice session walks through show, try, notice, and try again. An optional anonymous goal, observation, and next practice can be copied as an internal draft. The screen does not save, enroll, assign, or collect student identities.
+
+### Build 120 — Save the Arts four-session mentor pilot
+An instrument or voice pilot outline moves from observing the learner to a foundation, application in a short passage, and reflection. It can be copied for internal planning. The outline has no enrollment, dates, named mentors, credentials, or stored learner information.

@@ -56,6 +56,7 @@ export default function MentorSession() {
     <ActionButton label="Copy mentor session draft" onPress={() => { void copy(); }} />
     <Feedback message={message} />{error && <Text accessibilityRole="alert" style={formStyles.error}>{error}</Text>}
     <Body>Before running a session with minors, establish mentor screening, supervision, safeguarding, appropriate touch and consent rules, accessibility, and qualified guidance. Vocal instruction should stop if a learner feels pain or strain.</Body>
+    <Button label="Explore four-session pilot" href="/sta-mentor-pilot" secondary />
     <Button label="Return to Save the Arts" href="/save-the-arts" secondary /><Footer />
   </Screen>;
 }
