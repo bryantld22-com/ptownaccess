@@ -822,3 +822,6 @@ A consolidated read-only view summarizes the saved proposed staffing, campaign b
 ## Build 107 · Saved Marketing planning budget
 
 The Marketing budget worksheet now saves a validated draft ceiling and seven allocations on this device, protecting existing data from silent overwrites. The command review shows its saved ceiling, allocation, and gap or overage while clearly separating a draft from authorized funds. Campaign scorecard values remain temporary.
+
+### Build 108 — saved Marketing campaign scorecard
+The campaign scorecard now retains one draft reporting period and its reported measures on this device. Marketing Command Review includes its presence and attendance summary. Saved figures remain unverified and do not establish campaign attribution.

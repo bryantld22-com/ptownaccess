@@ -3,9 +3,10 @@ import { formatBudgetCents } from '../data/marketingBudget';
 import { MARKETING_BUDGET_KEY, marketingBudgetTotals, readMarketingBudgetPlan } from './marketingBudgetPlan';
 import { MARKETING_CALENDAR_KEY, readMarketingStart } from './marketingCalendarPlan';
 import { MARKETING_LAUNCH_REVIEW_KEY, marketingLaunchChecks, readMarketingLaunchReview } from './marketingLaunchReview';
+import { MARKETING_SCORECARD_KEY, readMarketingScorecardPlan } from './marketingScorecardPlan';
 import { MARKETING_STAFF_KEY, marketingStaffRoles, readMarketingStaffPlan } from './marketingStaffPlan';
 
-export const marketingCommandKeys = [MARKETING_STAFF_KEY, MARKETING_BRIEF_KEY, MARKETING_LAUNCH_REVIEW_KEY, MARKETING_CALENDAR_KEY, MARKETING_BUDGET_KEY] as const;
+export const marketingCommandKeys = [MARKETING_STAFF_KEY, MARKETING_BRIEF_KEY, MARKETING_LAUNCH_REVIEW_KEY, MARKETING_CALENDAR_KEY, MARKETING_BUDGET_KEY, MARKETING_SCORECARD_KEY] as const;
 export type MarketingCommandSnapshot = Record<typeof marketingCommandKeys[number], string | null>;
 export type MarketingCommandStatus = { title: string; detail: string; href: string; blocked: boolean };
 export function marketingCommandStatuses(snapshot: MarketingCommandSnapshot): MarketingCommandStatus[] {
@@ -40,13 +41,17 @@ export function marketingCommandStatuses(snapshot: MarketingCommandSnapshot): Ma
       statuses.push({ title: 'Planning budget', detail: `Draft ceiling ${formatBudgetCents(ceiling)}; allocated ${formatBudgetCents(allocated)}. ${allocated > ceiling ? `Over the draft ceiling by ${formatBudgetCents(allocated - ceiling)}.` : `Unallocated ${formatBudgetCents(ceiling - allocated)}.`} Neither funding nor spend is approved here.`, href: '/marketing-budget', blocked: allocated > ceiling });
     }
   } catch { statuses.push({ title: 'Planning budget', detail: 'Saved budget could not be read. Check the worksheet before using figures.', href: '/marketing-budget', blocked: true }); }
+  try {
+    const scorecard = readMarketingScorecardPlan(snapshot[MARKETING_SCORECARD_KEY]);
+    statuses.push({ title: 'Campaign scorecard', detail: scorecard ? `Saved draft: ${scorecard.label.trim()}. Reported attendance ${scorecard.counts.attendance.toLocaleString('en-US')}; returning attendees ${scorecard.counts.repeatAttendance.toLocaleString('en-US')}. Verify source records and attribution before reporting.` : 'No campaign scorecard has been saved. Campaign outcomes remain unreported.', href: '/marketing-scorecard', blocked: !scorecard });
+  } catch { statuses.push({ title: 'Campaign scorecard', detail: 'Saved scorecard could not be read. Review its source record.', href: '/marketing-scorecard', blocked: true }); }
   return statuses;
 }
 export function formatMarketingCommand(snapshot: MarketingCommandSnapshot): string {
   return [
     'PTOWN MARKETING & BRAND · INTERNAL COMMAND REVIEW',
     ...marketingCommandStatuses(snapshot).flatMap(item => [`${item.title}: ${item.blocked ? 'Follow-up needed' : 'Draft material present'}`, item.detail]),
-    'The campaign scorecard remains a temporary worksheet and is not included in this saved-record summary. Review its copied draft separately.',
+    'Campaign results are a saved draft only; source records and attribution require separate verification.',
     'This summary does not approve spending, staffing, campaign claims, or publication.',
   ].join('\n');
 }

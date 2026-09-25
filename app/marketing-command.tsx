@@ -41,9 +41,9 @@ export default function MarketingCommand() {
   }
   return <Screen>
     <Stack.Screen options={{ title: 'Marketing Command Review' }} />
-    <PageHeader eyebrow="PTOWN MARKETING & BRAND · BUILD 107" title="See the next Marketing decisions." description="A device-local view of staffing, campaign brief, launch checks, planning date, and draft budget." />
+    <PageHeader eyebrow="PTOWN MARKETING & BRAND · BUILD 108" title="See the next Marketing decisions." description="A device-local view of staffing, campaign brief, launch checks, planning date, draft budget, and reported campaign outcomes." />
     <PreviewNotice />
-    <Card title="Saved planning records" description="This view reads five saved records on this device. It does not show live staffing, bookings, campaign results, available funds, or publication approval. Reload after editing another worksheet." />
+    <Card title="Saved planning records" description="This view reads six saved records on this device. It does not show live staffing, bookings, campaign results, available funds, or publication approval. Campaign figures are unverified. Reload after editing another worksheet." />
     <ActionButton label="Reload saved Marketing records" disabled={busy || loading} secondary onPress={() => { void load(); }} />
     {loading ? <Body>Loading Marketing records…</Body> : snapshot && <>
       <SectionHeader title={`${followUps} of ${statuses.length} areas need follow-up`} />
@@ -52,6 +52,6 @@ export default function MarketingCommand() {
       <ActionButton label="Copy internal Marketing command summary" disabled={busy} onPress={() => { void copy(); }} />
     </>}
     <Feedback message={message} />{error && <Text accessibilityRole="alert" style={formStyles.error}>{error}</Text>}
-    <Button label="Edit proposed staffing" href="/marketing-staff" secondary /><Button label="Edit campaign brief" href="/marketing-brief" secondary /><Button label="Review launch verification" href="/marketing-launch-review" secondary /><Button label="Open twelve-month calendar" href="/marketing-calendar" secondary /><Button label="Edit planning budget" href="/marketing-budget" secondary /><Button label="Open temporary campaign scorecard" href="/marketing-scorecard" secondary /><Footer />
+    <Button label="Edit proposed staffing" href="/marketing-staff" secondary /><Button label="Edit campaign brief" href="/marketing-brief" secondary /><Button label="Review launch verification" href="/marketing-launch-review" secondary /><Button label="Open twelve-month calendar" href="/marketing-calendar" secondary /><Button label="Edit planning budget" href="/marketing-budget" secondary /><Button label="Edit draft campaign scorecard" href="/marketing-scorecard" secondary /><Footer />
   </Screen>;
 }
