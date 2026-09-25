@@ -16,6 +16,10 @@ export default function ProgramDetails() {
   return <Screen>
     <Stack.Screen options={{ title: `${pathway.division} pathway` }} />
     <PageHeader eyebrow={pathway.division.toUpperCase()} title={pathway.title} description={pathway.description} /><PreviewNotice />
+    {pathway.id === 'culinary-development' && <>
+      <Card title="PTown culinary concept board" description="Illustrative dishes and drinks from PTown’s planning. This is not a final menu; ingredients, prices, recipes, availability, sourcing, and service require confirmation." />
+      <Image source={require('../../assets/ptown-culinary-concept.png')} resizeMode="contain" accessibilityLabel="Illustrative PTown food and drink concept board with Southern, Caribbean, island, bakery, and plant-forward ideas" style={{ width: '100%', aspectRatio: 1.3, backgroundColor: '#000' }} />
+    </>}
     {pathway.id === 'heritage-tour' && <>
       <Card title="Heritage Tour concept image" description="Illustrative scene created for PTown’s proposed tour. It does not depict an actual PTown trip, participants, charter booking, festival attendance, or confirmed itinerary." />
       <Image source={require('../../assets/heritage-tour-concept.png')} resizeMode="contain" accessibilityLabel="Illustrative PTown Heritage Tour group and branded bus near a music district" style={{ width: '100%', aspectRatio: 1.42, backgroundColor: '#000' }} />

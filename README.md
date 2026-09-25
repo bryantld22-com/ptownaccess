@@ -840,3 +840,6 @@ The restaurant and lounge concept board supplied by Bryant is shown on PTown and
 
 ### Build 113 — Heritage Tour concept image
 One previously created Heritage Tour image appears on the tour pathway. The page labels it as illustrative and does not imply that a trip, bus, participants, festival attendance, or itinerary are confirmed.
+
+### Build 114 — PTown culinary concept imagery
+The previously shared Taste of the World board appears on the Culinary Artist Development pathway. Its food and drink imagery is explicitly labeled as illustrative; dishes, recipes, sourcing, pricing, and availability remain unconfirmed.
