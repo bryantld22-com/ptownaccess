@@ -21,6 +21,7 @@ export default function ProgramDetails() {
     <SectionHeader title="What you could explore" /><View style={styles.card}>{pathway.focus.map((focus, index) => <Text key={focus} style={styles.cardTitle}>{`${String(index + 1).padStart(2, '0')} · ${focus}`}</Text>)}</View>
     <SectionHeader title="A project to imagine" /><Body>{pathway.project}</Body>
     <Card title="Before participation opens" description="Dates, instructors, eligibility, prices, locations, and application requirements will be announced. Saving an interest does not create an enrollment." />
+    {pathway.id === 'culinary-development' && <Button label="Explore Farm To Table agriculture" href="/farm-to-table" secondary />}
     <Button label="View your saved interests" href="/profile" secondary /><Button label="Explore creative pathways" href="/creative" secondary /><Footer />
   </Screen>;
 }

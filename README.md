@@ -831,3 +831,6 @@ A saved draft campaign scorecard can now be copied as a private transfer code an
 
 ### Build 110 — Marketing budget transfer
 The draft budget worksheet can be copied as a private transfer code and reviewed before replacing the saved budget on another device. The review displays the incoming ceiling, allocations, and overage. Transfer does not approve funds or sync data.
+
+### Build 111 — Farm To Table agriculture
+A visible Farm To Table page connects local growers, meat and specialty suppliers, chefs, students, and PTown storytelling. It links from the PTown hub and Culinary Artist Development. All sourcing relationships, training, and events remain proposed until confirmed.

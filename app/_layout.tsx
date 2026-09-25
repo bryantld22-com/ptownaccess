@@ -15,6 +15,7 @@ export default function RootLayout() {
     <Stack.Screen name="access-roles" options={{ title: 'PTown Access roles' }} />
     <Stack.Screen name="access-request" options={{ title: 'Role request worksheet' }} />
     <Stack.Screen name="investor-access" options={{ title: 'Investor Access' }} />
+    <Stack.Screen name="farm-to-table" options={{ title: 'PTown Farm To Table' }} />
     <Stack.Screen name="marketing" options={{ title: 'PTown Marketing & Brand' }} />
     <Stack.Screen name="marketing-command" options={{ title: 'Marketing Command Review' }} />
     <Stack.Screen name="marketing-calendar" options={{ title: 'Marketing Campaign Calendar' }} />
