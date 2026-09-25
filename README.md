@@ -806,3 +806,7 @@ The twelve relative campaign months can be anchored to a proposed work-plan star
 ## Build 103 · Copyable twelve-month marketing plan
 
 The campaign calendar produces a full-year internal planning draft with twelve owner functions, actions, measures, and proposed date ranges when a start is saved. The draft uses the saved date and rechecks device storage before copying, so unsaved edits or another tab do not silently change the shared version.
+
+## Build 104 · Proposed Marketing staffing
+
+A device-local worksheet covers six department functions with proposed people, open seats, and interim coverage notes. The saved record is strictly validated and protected from silent overwrites. A copyable draft labels every name as a proposal and makes no appointment or contact.

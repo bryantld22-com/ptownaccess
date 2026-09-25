@@ -20,6 +20,7 @@ export default function Marketing() {
     <Body>Assign a marketing director, brand lead, digital and analytics lead, event campaign lead, community lead, and sponsorship lead as staffing permits. Approve a budget by campaign, name an owner and deadline for each asset, and review reach, qualified interest, attendance, cost, repeat visits, and sponsor fulfillment monthly. Publish confirmed program details only.</Body>
     <Card title="Working plans awaiting approval" description="The department guide, twelve-month campaign sequence, staffing roles, budget categories, and PTown Access funnel are available as drafts. Named owners, calendar dates, spending amounts, consent tools, and final approvals remain to be established." />
     <Button label="Open the Marketing Department Guide" href="/marketing-operations" secondary />
+    <Button label="Draft proposed Marketing staffing" href="/marketing-staff" secondary />
     <Button label="Draft a campaign brief" href="/marketing-brief" secondary />
     <Button label="Review campaign launch checks" href="/marketing-launch-review" secondary />
     <Button label="Open the marketing budget worksheet" href="/marketing-budget" secondary />

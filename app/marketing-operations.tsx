@@ -10,6 +10,7 @@ export default function MarketingOperations() {
     <Card title="Accountability" description="Marketing owns the campaign and audience promise. Program owners verify details. Media Group keeps its own production and editorial authority. A person may cover several roles during startup, but every campaign still needs named decisions and an approval record." />
     <SectionHeader title="Staffing structure" />
     {marketingRoles.map(item => <Card key={item.role} title={item.role} description={item.accountable} />)}
+    <Button label="Draft proposed staffing and open seats" href="/marketing-staff" secondary />
     <SectionHeader title="Campaign operating sequence" />
     {campaignSteps.map(item => <Card key={item.title} title={item.title} description={item.detail} />)}
     <SectionHeader title="Budget worksheet categories" />

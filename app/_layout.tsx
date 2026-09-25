@@ -18,6 +18,7 @@ export default function RootLayout() {
     <Stack.Screen name="marketing" options={{ title: 'PTown Marketing & Brand' }} />
     <Stack.Screen name="marketing-calendar" options={{ title: 'Marketing Campaign Calendar' }} />
     <Stack.Screen name="marketing-operations" options={{ title: 'Marketing Department Guide' }} />
+    <Stack.Screen name="marketing-staff" options={{ title: 'Marketing Proposed Staffing' }} />
     <Stack.Screen name="marketing-brief" options={{ title: 'Marketing Campaign Brief' }} />
     <Stack.Screen name="marketing-brief-backup" options={{ title: 'Marketing Campaign Brief Transfer' }} />
     <Stack.Screen name="marketing-launch-review" options={{ title: 'Marketing Launch Verification' }} />

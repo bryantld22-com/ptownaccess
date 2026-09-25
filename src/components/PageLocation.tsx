@@ -37,6 +37,7 @@ const pages: Record<string, Location> = {
   '/marketing-brief-backup': { label: 'Campaign Brief Transfer', parents: [{ label: 'Campaign Brief', href: '/marketing-brief' }, { label: 'Marketing & Brand', href: '/marketing' }] },
   '/marketing-launch-review': { label: 'Launch Verification', parents: [{ label: 'Campaign Brief', href: '/marketing-brief' }, { label: 'Marketing & Brand', href: '/marketing' }] },
   '/marketing-launch-backup': { label: 'Launch Review Transfer', parents: [{ label: 'Launch Verification', href: '/marketing-launch-review' }, { label: 'Marketing & Brand', href: '/marketing' }] },
+  '/marketing-staff': { label: 'Proposed Marketing Staffing', parents: [{ label: 'Department Guide', href: '/marketing-operations' }, { label: 'Marketing & Brand', href: '/marketing' }] },
   '/sta-review-sheet': { label: 'Internal Review Sheet', parents: [{ label: 'Preparation Status', href: '/sta-readiness' }, { label: 'Save the Arts', href: '/save-the-arts' }] },
   '/sta-budget': { label: 'Save the Arts Budget', parents: [{ label: 'Grant Brief', href: '/sta-grant-brief' }, { label: 'Save the Arts', href: '/save-the-arts' }] },
   '/sta-grant-brief': { label: 'Save the Arts Grant Brief', parents: [{ label: 'Leadership Briefing', href: '/save-the-arts-leadership' }, { label: 'Save the Arts', href: '/save-the-arts' }] },

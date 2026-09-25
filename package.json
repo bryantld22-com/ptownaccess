@@ -1,6 +1,6 @@
 {
   "name": "ptownaccess",
-  "version": "0.103.0",
+  "version": "0.104.0",
   "main": "expo-router/entry",
   "dependencies": {
     "@expo/vector-icons": "^15.0.2",
