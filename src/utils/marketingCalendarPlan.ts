@@ -26,3 +26,20 @@ export function marketingMonthRange(start: string, month: number): string {
   through.setUTCDate(through.getUTCDate() - 1);
   return `${from.toISOString().slice(0, 10)} through ${through.toISOString().slice(0, 10)}`;
 }
+
+export function formatMarketingCalendarPlan(start: string): string {
+  if (start && !validMarketingStart(start)) throw new Error('Invalid planning date');
+  return [
+    'PTOWN MARKETING & BRAND · TWELVE-MONTH PLANNING DRAFT',
+    start ? `Proposed work-plan start: ${start}` : 'Work-plan start: not set; months remain relative.',
+    ...marketingCampaigns.flatMap(item => [
+      `Month ${item.month}: ${item.title}${start ? ` (${marketingMonthRange(start, item.month)})` : ''}`,
+      `Owner function: ${item.channel}`,
+      `Action: ${item.action}`,
+      `Measure: ${item.measure}`,
+    ]),
+    'PTown Access funnel: ' + marketingFunnel.map(item => item.stage).join(' → '),
+    'All ranges are planning assumptions. Confirm venue readiness, event dates, program details, costs, permissions, consent, and guest paths before publication.',
+  ].join('\n');
+}
+import { marketingCampaigns, marketingFunnel } from '../data/marketing';

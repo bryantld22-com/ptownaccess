@@ -802,3 +802,7 @@ A private versioned code carries the seven launch verification statuses and note
 ## Build 102 · Dated marketing planning calendar
 
 The twelve relative campaign months can be anchored to a proposed work-plan start date saved on this device. Calendar-valid dates generate rolling month ranges and unsaved edits are identified. These are planning assumptions, not confirmed event or opening dates; storage reads and writes protect existing data.
+
+## Build 103 · Copyable twelve-month marketing plan
+
+The campaign calendar produces a full-year internal planning draft with twelve owner functions, actions, measures, and proposed date ranges when a start is saved. The draft uses the saved date and rechecks device storage before copying, so unsaved edits or another tab do not silently change the shared version.
