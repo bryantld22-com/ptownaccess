@@ -837,3 +837,6 @@ A visible Farm To Table page connects local growers, meat and specialty supplier
 
 ### Build 112 — PTown concept imagery
 The restaurant and lounge concept board supplied by Bryant is shown on PTown and Visit pages as illustrative design inspiration. It is not presented as an operating venue or final floor plan. The original PTown logo remains in use; the duplicate upload was not added again.
+
+### Build 113 — Heritage Tour concept image
+One previously created Heritage Tour image appears on the tour pathway. The page labels it as illustrative and does not imply that a trip, bus, participants, festival attendance, or itinerary are confirmed.
