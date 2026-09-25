@@ -846,3 +846,6 @@ The previously shared Taste of the World board appears on the Culinary Artist De
 
 ### Build 115 — signature dish priorities
 The Culinary Artist Development page calls out smoked oxtails, pit-master beef ribs, burnt ends, and catfish in readable text alongside Jamaican, island seafood, bakery, and plant-forward ideas. The dishes remain menu concepts pending testing and approval.
+
+### Build 116 — Heritage Tour image correction
+Removed the illustrative group photo and its asset from the Heritage Tour pathway at Bryant's request. Replacement imagery will be selected from photos he explicitly shares for this use.

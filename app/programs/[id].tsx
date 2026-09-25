@@ -25,10 +25,6 @@ export default function ProgramDetails() {
       <Card title="Smokehouse and Southern" description="Smoked oxtails, pit-master beef ribs, burnt ends, and catfish belong in the culinary concept. The board pictures oxtails and ribs; catfish is listed here so it is not overlooked." />
       <Card title="Broader table" description="Keep the Jamaican, island seafood, bakery, and plant-forward tracks visible alongside the smokehouse dishes. Specific preparations, menus, pricing, and availability require kitchen testing and approval." />
     </>}
-    {pathway.id === 'heritage-tour' && <>
-      <Card title="Heritage Tour concept image" description="Illustrative scene created for PTown’s proposed tour. It does not depict an actual PTown trip, participants, charter booking, festival attendance, or confirmed itinerary." />
-      <Image source={require('../../assets/heritage-tour-concept.png')} resizeMode="contain" accessibilityLabel="Illustrative PTown Heritage Tour group and branded bus near a music district" style={{ width: '100%', aspectRatio: 1.42, backgroundColor: '#000' }} />
-    </>}
     <ActionButton label={saved ? 'Remove saved interest' : 'Save this creative interest'} disabled={!ready || busy} onPress={() => { void togglePathway(pathway.id); }} />
     <Card title={saved ? 'Creative interest saved on this device' : 'Keep this pathway in mind'} description="Saving is a personal preference on this device. It does not submit an application, enroll you, or notify PTown." />
     <SectionHeader title="What you could explore" /><View style={styles.card}>{pathway.focus.map((focus, index) => <Text key={focus} style={styles.cardTitle}>{`${String(index + 1).padStart(2, '0')} · ${focus}`}</Text>)}</View>
