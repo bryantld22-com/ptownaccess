@@ -794,3 +794,7 @@ A versioned, copyable transfer code carries the six campaign brief fields to ano
 ## Build 100 · Marketing launch verification
 
 A campaign-specific device-local verification draft tracks seven checks for program facts, guest path, creative rights, spend, consent, partners, and final release review. It is tied to the exact saved campaign brief so edits or transfers require a fresh review. Evidence gathered remains an internal status, never publication approval.
+
+## Build 101 · Marketing launch review transfer
+
+A private versioned code carries the seven launch verification statuses and notes. The incoming code is strictly validated and compared with the current review; replacement requires the receiving device to have the exact matching saved campaign brief and rechecks both records before writing.

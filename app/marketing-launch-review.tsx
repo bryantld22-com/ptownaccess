@@ -85,7 +85,7 @@ export default function MarketingLaunchReviewPage() {
       <ActionButton label="Copy launch verification draft" disabled={busy} secondary onPress={() => { void copy(); }} />
     </>}
     <Feedback message={message} />{error && <Text accessibilityRole="alert" style={formStyles.error}>{error}</Text>}
-    <Button label="Return to campaign brief" href="/marketing-brief" secondary /><Footer />
+    <Button label="Back up or transfer launch verification" href="/marketing-launch-backup" secondary /><Button label="Return to campaign brief" href="/marketing-brief" secondary /><Footer />
   </Screen>;
 }
 const local = StyleSheet.create({
