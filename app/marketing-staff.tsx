@@ -60,6 +60,6 @@ export default function MarketingStaff() {
       <ActionButton label="Copy proposed staffing draft" disabled={busy} secondary onPress={() => { void copy(); }} />
     </>}
     <Feedback message={message} />{error && <Text accessibilityRole="alert" style={formStyles.error}>{error}</Text>}
-    <Button label="Return to Marketing Department Guide" href="/marketing-operations" secondary /><Footer />
+    <Button label="Back up or transfer proposed staffing" href="/marketing-staff-backup" secondary /><Button label="Return to Marketing Department Guide" href="/marketing-operations" secondary /><Footer />
   </Screen>;
 }

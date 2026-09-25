@@ -810,3 +810,7 @@ The campaign calendar produces a full-year internal planning draft with twelve o
 ## Build 104 · Proposed Marketing staffing
 
 A device-local worksheet covers six department functions with proposed people, open seats, and interim coverage notes. The saved record is strictly validated and protected from silent overwrites. A copyable draft labels every name as a proposal and makes no appointment or contact.
+
+## Build 105 · Marketing staffing transfer
+
+A versioned private code carries six proposed staffing entries. An incoming plan is validated, displayed beside the current roles and coverage notes, and explicitly accepted before replacement. The current device value is checked again at write time; the transfer makes no appointment or invitation.
