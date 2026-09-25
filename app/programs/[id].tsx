@@ -20,6 +20,11 @@ export default function ProgramDetails() {
       <Card title="PTown culinary concept board" description="Illustrative dishes and drinks from PTown’s planning. This is not a final menu; ingredients, prices, recipes, availability, sourcing, and service require confirmation." />
       <Image source={require('../../assets/ptown-culinary-concept.png')} resizeMode="contain" accessibilityLabel="Illustrative PTown food and drink concept board with Southern, Caribbean, island, bakery, and plant-forward ideas" style={{ width: '100%', aspectRatio: 1.3, backgroundColor: '#000' }} />
     </>}
+    {pathway.id === 'culinary-development' && <>
+      <SectionHeader title="Signature dish priorities" />
+      <Card title="Smokehouse and Southern" description="Smoked oxtails, pit-master beef ribs, burnt ends, and catfish belong in the culinary concept. The board pictures oxtails and ribs; catfish is listed here so it is not overlooked." />
+      <Card title="Broader table" description="Keep the Jamaican, island seafood, bakery, and plant-forward tracks visible alongside the smokehouse dishes. Specific preparations, menus, pricing, and availability require kitchen testing and approval." />
+    </>}
     {pathway.id === 'heritage-tour' && <>
       <Card title="Heritage Tour concept image" description="Illustrative scene created for PTown’s proposed tour. It does not depict an actual PTown trip, participants, charter booking, festival attendance, or confirmed itinerary." />
       <Image source={require('../../assets/heritage-tour-concept.png')} resizeMode="contain" accessibilityLabel="Illustrative PTown Heritage Tour group and branded bus near a music district" style={{ width: '100%', aspectRatio: 1.42, backgroundColor: '#000' }} />

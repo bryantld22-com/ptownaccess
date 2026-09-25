@@ -843,3 +843,6 @@ One previously created Heritage Tour image appears on the tour pathway. The page
 
 ### Build 114 — PTown culinary concept imagery
 The previously shared Taste of the World board appears on the Culinary Artist Development pathway. Its food and drink imagery is explicitly labeled as illustrative; dishes, recipes, sourcing, pricing, and availability remain unconfirmed.
+
+### Build 115 — signature dish priorities
+The Culinary Artist Development page calls out smoked oxtails, pit-master beef ribs, burnt ends, and catfish in readable text alongside Jamaican, island seafood, bakery, and plant-forward ideas. The dishes remain menu concepts pending testing and approval.
