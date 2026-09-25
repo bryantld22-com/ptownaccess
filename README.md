@@ -817,4 +817,8 @@ A versioned private code carries six proposed staffing entries. An incoming plan
 
 ## Build 106 · Marketing command review
 
-A consolidated read-only view summarizes the saved proposed staffing, campaign brief, launch verification, and twelve-month planning date. Invalid individual records are flagged without fabricating data. The copyable internal summary rechecks all four storage values before copying, and links to the temporary budget and scorecard worksheets without claiming they were saved.
+A consolidated read-only view summarizes the saved proposed staffing, campaign brief, launch verification, and twelve-month planning date. Invalid individual records are flagged without fabricating data. The copyable internal summary rechecks saved values before copying. Build 107 adds the saved planning budget to this view; the scorecard remains temporary.
+
+## Build 107 · Saved Marketing planning budget
+
+The Marketing budget worksheet now saves a validated draft ceiling and seven allocations on this device, protecting existing data from silent overwrites. The command review shows its saved ceiling, allocation, and gap or overage while clearly separating a draft from authorized funds. Campaign scorecard values remain temporary.
