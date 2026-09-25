@@ -855,3 +855,6 @@ Restored the illustrative Heritage Tour image after Bryant clarified that the di
 
 ### Build 118 — Save the Arts hands-on mentorship
 The Save the Arts hub now describes an experienced musician guiding instrument hold and finger placement, and a seasoned blues vocalist coaching abdominal breath support face to face. Saturday Arts Sessions reflects the same demonstration, practice, and feedback approach. Mentors and sessions remain proposed.
+
+### Build 119 — Save the Arts mentor session guide
+A proposed instrument or voice session walks through show, try, notice, and try again. An optional anonymous goal, observation, and next practice can be copied as an internal draft. The screen does not save, enroll, assign, or collect student identities.
