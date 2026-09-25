@@ -16,6 +16,7 @@ export default function Marketing() {
     <SectionHeader title="12-month planning rhythm" />
     {marketingPhases.map(item => <Card key={item.title} title={item.title} description={item.description} />)}
     <Button label="Open the 12-month campaign calendar" href="/marketing-calendar" secondary />
+    <Button label="Open the Marketing command review" href="/marketing-command" secondary />
     <SectionHeader title="Management controls" />
     <Body>Assign a marketing director, brand lead, digital and analytics lead, event campaign lead, community lead, and sponsorship lead as staffing permits. Approve a budget by campaign, name an owner and deadline for each asset, and review reach, qualified interest, attendance, cost, repeat visits, and sponsor fulfillment monthly. Publish confirmed program details only.</Body>
     <Card title="Working plans awaiting approval" description="The department guide, twelve-month campaign sequence, staffing roles, budget categories, and PTown Access funnel are available as drafts. Named owners, calendar dates, spending amounts, consent tools, and final approvals remain to be established." />

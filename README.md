@@ -814,3 +814,7 @@ A device-local worksheet covers six department functions with proposed people, o
 ## Build 105 · Marketing staffing transfer
 
 A versioned private code carries six proposed staffing entries. An incoming plan is validated, displayed beside the current roles and coverage notes, and explicitly accepted before replacement. The current device value is checked again at write time; the transfer makes no appointment or invitation.
+
+## Build 106 · Marketing command review
+
+A consolidated read-only view summarizes the saved proposed staffing, campaign brief, launch verification, and twelve-month planning date. Invalid individual records are flagged without fabricating data. The copyable internal summary rechecks all four storage values before copying, and links to the temporary budget and scorecard worksheets without claiming they were saved.
