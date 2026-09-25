@@ -790,3 +790,7 @@ The six-field marketing campaign brief now saves a working draft on this device.
 ## Build 99 · Marketing campaign brief transfer
 
 A versioned, copyable transfer code carries the six campaign brief fields to another device. Incoming drafts are validated, reviewed beside the current fields, and explicitly accepted before replacement. The current stored record is rechecked at write time; no campaign is published or sent.
+
+## Build 100 · Marketing launch verification
+
+A campaign-specific device-local verification draft tracks seven checks for program facts, guest path, creative rights, spend, consent, partners, and final release review. It is tied to the exact saved campaign brief so edits or transfers require a fresh review. Evidence gathered remains an internal status, never publication approval.
