@@ -861,3 +861,6 @@ A proposed instrument or voice session walks through show, try, notice, and try 
 
 ### Build 120 — Save the Arts four-session mentor pilot
 An instrument or voice pilot outline moves from observing the learner to a foundation, application in a short passage, and reflection. It can be copied for internal planning. The outline has no enrollment, dates, named mentors, credentials, or stored learner information.
+
+### Build 121 — mentor pilot preparation
+A device-local Save the Arts checklist tracks eight areas: mentor screening, supervision, consent, accessible space, equipment, voice care, lesson planning, and operations. Statuses record materials for leadership review, never authorization to run sessions. Notes avoid student identity and sensitive records.

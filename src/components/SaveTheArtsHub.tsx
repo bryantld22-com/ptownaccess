@@ -36,6 +36,7 @@ export function SaveTheArtsHub() {
     <Card title="An experienced musician beside a student" description="Picture an older musician seated across from a young learner, showing how to hold the instrument, position the hands, and place each finger. The student tries it, hears the difference, and receives patient correction in the moment." />
     <Card title="A blues vocalist teaching breath" description="A seasoned female blues singer can help a young vocalist feel how breathing from the abdomen supports a phrase, then listen as the student tries again. Technique is taught face to face, with care for the student's comfort and vocal health." />
     <Card title="Practice, listen, try again" description="Build a proposed session around demonstration, the student's attempt, specific feedback, and another try. Pair learners with suitable mentors; confirm supervision, safeguarding, accessibility, instructor qualifications, and consent before sessions begin." />
+    <Button label="Track mentor pilot preparation" href="/sta-mentor-readiness" secondary />
     <Button label="Explore a four-session mentor pilot" href="/sta-mentor-pilot" secondary />
     <Button label="Plan a one-to-one mentor session" href="/sta-mentor-session" secondary />
     <SectionHeader title="Explore planned programs" />

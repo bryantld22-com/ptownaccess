@@ -49,6 +49,7 @@ export default function MentorPilot() {
     <ActionButton label="Copy four-session pilot outline" onPress={() => { void copy(); }} />
     <Feedback message={message} />{error && <Text accessibilityRole="alert" style={formStyles.error}>{error}</Text>}
     <Body>This page stores no learner data. A copied outline should remain an internal planning draft until PTown approves a pilot.</Body>
+    <Button label="Track mentor pilot preparation" href="/sta-mentor-readiness" secondary />
     <Button label="Open one mentor session" href="/sta-mentor-session" secondary />
     <Button label="Return to Save the Arts" href="/save-the-arts" secondary /><Footer />
   </Screen>;
