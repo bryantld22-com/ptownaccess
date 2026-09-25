@@ -834,3 +834,6 @@ The draft budget worksheet can be copied as a private transfer code and reviewed
 
 ### Build 111 — Farm To Table agriculture
 A visible Farm To Table page connects local growers, meat and specialty suppliers, chefs, students, and PTown storytelling. It links from the PTown hub and Culinary Artist Development. All sourcing relationships, training, and events remain proposed until confirmed.
+
+### Build 112 — PTown concept imagery
+The restaurant and lounge concept board supplied by Bryant is shown on PTown and Visit pages as illustrative design inspiration. It is not presented as an operating venue or final floor plan. The original PTown logo remains in use; the duplicate upload was not added again.

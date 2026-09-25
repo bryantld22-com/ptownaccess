@@ -1,6 +1,6 @@
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useEffect, useState } from 'react';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
 import { ActionButton } from '../src/components/forms';
 import { FriendInvitationLinks } from '../src/components/FriendInvitationLinks';
 import { Body, Button, Card, DraftDateNotice, EventCard, Footer, PageHeader, PreviewNotice, Screen, SectionHeader, styles } from '../src/components/ui';
@@ -28,6 +28,9 @@ export default function Visit() {
   return <Screen>
     <PageHeader eyebrow="YOUR EVENING AT PTOWN" title="Plan your visit." description="Start with a day, explore the proposed experience, and keep your dinner and membership ideas together." />
     <PreviewNotice calendar />
+    <SectionHeader title="A proposed look and feel" />
+    <Card title="PTown restaurant and lounge concept" description="An illustrative design board, not a photo of an operating venue. Room layouts, finishes, and amenities are still subject to design and buildout." />
+    <Image source={require('../assets/ptown-restaurant-concept.jpg')} resizeMode="contain" accessibilityLabel="Illustrative PTown restaurant and lounge design board" style={{ width: '100%', aspectRatio: 1.5, backgroundColor: '#000' }} />
     <SectionHeader title="Choose a day" />
     <View style={styles.grid}>{weekDays.map(value => <Pressable key={value} accessibilityRole="button" accessibilityState={{ selected: value === selectedDay }} aria-pressed={value === selectedDay} onPress={() => selectDay(value)} style={[visit.day, value === selectedDay && visit.selectedDay]}><Text style={[visit.dayText, value === selectedDay && { color: theme.colors.background }]}>{value}</Text></Pressable>)}</View>
     {draftDay && reservationDraft && <View style={styles.card}>
