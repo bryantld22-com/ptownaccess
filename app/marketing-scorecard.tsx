@@ -67,7 +67,7 @@ export default function MarketingScorecard() {
 
   return <Screen>
     <Stack.Screen options={{ title: 'Marketing Campaign Scorecard' }} />
-    <PageHeader eyebrow="PTOWN MARKETING & BRAND · BUILD 108" title="See what a campaign actually produced." description="Compare reported reach, interest, attendance, repeat visits, and spend before deciding what to repeat." />
+    <PageHeader eyebrow="PTOWN MARKETING & BRAND · BUILD 109" title="See what a campaign actually produced." description="Compare reported reach, interest, attendance, repeat visits, and spend before deciding what to repeat." />
     <PreviewNotice />
     <Card title="Device-local draft scorecard" description="No metrics are connected yet. Enter verified counts for one period. Save a draft on this device; saving does not verify the numbers or attribute attendance to marketing." />
     {!loaded ? <Body>Loading scorecard…</Body> : storageError ? <Card title="Saved scorecard unavailable" description="Existing device data could not be read. Editing is disabled to protect it." /> : <>
@@ -86,6 +86,7 @@ export default function MarketingScorecard() {
     </>}
     <Feedback message={message} />
     {error && <Text accessibilityRole="alert" style={formStyles.error}>{error}</Text>}
+    <Button label="Back up or restore scorecard" href="/marketing-scorecard-backup" secondary />
     <Button label="Return to Marketing & Brand" href="/marketing" secondary />
     <Footer />
   </Screen>;

@@ -825,3 +825,6 @@ The Marketing budget worksheet now saves a validated draft ceiling and seven all
 
 ### Build 108 — saved Marketing campaign scorecard
 The campaign scorecard now retains one draft reporting period and its reported measures on this device. Marketing Command Review includes its presence and attendance summary. Saved figures remain unverified and do not establish campaign attribution.
+
+### Build 109 — Marketing scorecard transfer
+A saved draft campaign scorecard can now be copied as a private transfer code and reviewed before replacement on another device. Transfers contain figures in plain text; they are not a sync or verification service.
